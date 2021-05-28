@@ -7,12 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		871957C82660EAA800AA06CC /* SchedulerLearningTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871957C72660EAA800AA06CC /* SchedulerLearningTest.swift */; };
+		871957CD2660EF0B00AA06CC /* SchedulerReviewingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871957CC2660EF0B00AA06CC /* SchedulerReviewingTest.swift */; };
+		871957CF2660EF2200AA06CC /* SchedulerLapsingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871957CE2660EF2200AA06CC /* SchedulerLapsingTest.swift */; };
+		871957D12660F43E00AA06CC /* SchedulerFunctionalityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871957D02660F43E00AA06CC /* SchedulerFunctionalityTest.swift */; };
 		87541C57265CDF03009E805D /* SRLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C56265CDF03009E805D /* SRLApp.swift */; };
 		87541C59265CDF03009E805D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C58265CDF03009E805D /* ContentView.swift */; };
 		87541C5B265CDF04009E805D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5A265CDF04009E805D /* Assets.xcassets */; };
 		87541C5E265CDF04009E805D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5D265CDF04009E805D /* Preview Assets.xcassets */; };
 		87541C69265CDF04009E805D /* SRLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C68265CDF04009E805D /* SRLTests.swift */; };
 		87541C74265CDF04009E805D /* SRLUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C73265CDF04009E805D /* SRLUITests.swift */; };
+		87541C8B265CE2AD009E805D /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C8A265CE2AD009E805D /* Deck.swift */; };
+		87541C8D265CE2BC009E805D /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C8C265CE2BC009E805D /* Card.swift */; };
+		87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C8E265CE2C8009E805D /* Scheduler.swift */; };
+		87541C91265CE2D0009E805D /* ReviewQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C90265CE2D0009E805D /* ReviewQueue.swift */; };
+		87541C93265CE383009E805D /* Schedulable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C92265CE383009E805D /* Schedulable.swift */; };
+		87541C95265CF1E4009E805D /* ReviewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C94265CF1E4009E805D /* ReviewAction.swift */; };
+		87541C97265CF369009E805D /* Cardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C96265CF369009E805D /* Cardable.swift */; };
+		87541C9A265CFA00009E805D /* DeckApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C99265CFA00009E805D /* DeckApiService.swift */; };
+		87541C9C265CFAA3009E805D /* SchedulableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C9B265CFAA3009E805D /* SchedulableItem.swift */; };
+		87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C9F265D5646009E805D /* DeckViewModel.swift */; };
+		87541CA2265D565F009E805D /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541CA1265D565F009E805D /* CardViewModel.swift */; };
+		875E21A5265E11FD00D973C2 /* IdentifiableUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875E21A4265E11FD00D973C2 /* IdentifiableUUID.swift */; };
+		87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110C9265ED23A00F0D4B6 /* LearningState.swift */; };
+		87A110D2265FDB6200F0D4B6 /* SchedulerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +51,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		871957C72660EAA800AA06CC /* SchedulerLearningTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerLearningTest.swift; sourceTree = "<group>"; };
+		871957CC2660EF0B00AA06CC /* SchedulerReviewingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerReviewingTest.swift; sourceTree = "<group>"; };
+		871957CE2660EF2200AA06CC /* SchedulerLapsingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerLapsingTest.swift; sourceTree = "<group>"; };
+		871957D02660F43E00AA06CC /* SchedulerFunctionalityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerFunctionalityTest.swift; sourceTree = "<group>"; };
 		87541C53265CDF03009E805D /* SRL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87541C56265CDF03009E805D /* SRLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRLApp.swift; sourceTree = "<group>"; };
 		87541C58265CDF03009E805D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +67,20 @@
 		87541C6F265CDF04009E805D /* SRLUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SRLUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		87541C73265CDF04009E805D /* SRLUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRLUITests.swift; sourceTree = "<group>"; };
 		87541C75265CDF04009E805D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87541C8A265CE2AD009E805D /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		87541C8C265CE2BC009E805D /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		87541C8E265CE2C8009E805D /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		87541C90265CE2D0009E805D /* ReviewQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQueue.swift; sourceTree = "<group>"; };
+		87541C92265CE383009E805D /* Schedulable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedulable.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		87541C94265CF1E4009E805D /* ReviewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAction.swift; sourceTree = "<group>"; };
+		87541C96265CF369009E805D /* Cardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardable.swift; sourceTree = "<group>"; };
+		87541C99265CFA00009E805D /* DeckApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckApiService.swift; sourceTree = "<group>"; };
+		87541C9B265CFAA3009E805D /* SchedulableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulableItem.swift; sourceTree = "<group>"; };
+		87541C9F265D5646009E805D /* DeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewModel.swift; sourceTree = "<group>"; };
+		87541CA1265D565F009E805D /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		875E21A4265E11FD00D973C2 /* IdentifiableUUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableUUID.swift; sourceTree = "<group>"; };
+		87A110C9265ED23A00F0D4B6 /* LearningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningState.swift; sourceTree = "<group>"; };
+		87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +131,10 @@
 		87541C55265CDF03009E805D /* SRL */ = {
 			isa = PBXGroup;
 			children = (
+				87541C98265CF9C1009E805D /* Services */,
+				87541C84265CE02B009E805D /* ViewModels */,
+				87541C83265CE020009E805D /* Views */,
+				87541C82265CE019009E805D /* Models */,
 				87541C56265CDF03009E805D /* SRLApp.swift */,
 				87541C58265CDF03009E805D /* ContentView.swift */,
 				87541C5A265CDF04009E805D /* Assets.xcassets */,
@@ -115,6 +155,8 @@
 		87541C67265CDF04009E805D /* SRLTests */ = {
 			isa = PBXGroup;
 			children = (
+				875E21A7265E273100D973C2 /* Service */,
+				875E21A6265E272B00D973C2 /* Model */,
 				87541C68265CDF04009E805D /* SRLTests.swift */,
 				87541C6A265CDF04009E805D /* Info.plist */,
 			);
@@ -128,6 +170,122 @@
 				87541C75265CDF04009E805D /* Info.plist */,
 			);
 			path = SRLUITests;
+			sourceTree = "<group>";
+		};
+		87541C82265CE019009E805D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				875E21A3265E11EA00D973C2 /* Core */,
+				87541C88265CE275009E805D /* Review */,
+				87541C87265CE265009E805D /* Schedules */,
+				87541C86265CE24C009E805D /* Decks */,
+				87541C85265CE245009E805D /* Cards */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		87541C83265CE020009E805D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		87541C84265CE02B009E805D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				87541C9F265D5646009E805D /* DeckViewModel.swift */,
+				87541CA1265D565F009E805D /* CardViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		87541C85265CE245009E805D /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				87541C8C265CE2BC009E805D /* Card.swift */,
+				87541C96265CF369009E805D /* Cardable.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		87541C86265CE24C009E805D /* Decks */ = {
+			isa = PBXGroup;
+			children = (
+				87541C8A265CE2AD009E805D /* Deck.swift */,
+			);
+			path = Decks;
+			sourceTree = "<group>";
+		};
+		87541C87265CE265009E805D /* Schedules */ = {
+			isa = PBXGroup;
+			children = (
+				87541C8E265CE2C8009E805D /* Scheduler.swift */,
+				87541C92265CE383009E805D /* Schedulable.swift */,
+				87541C9B265CFAA3009E805D /* SchedulableItem.swift */,
+				87A110C9265ED23A00F0D4B6 /* LearningState.swift */,
+				87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */,
+			);
+			path = Schedules;
+			sourceTree = "<group>";
+		};
+		87541C88265CE275009E805D /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				87541C94265CF1E4009E805D /* ReviewAction.swift */,
+				87541C90265CE2D0009E805D /* ReviewQueue.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		87541C98265CF9C1009E805D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				87541C99265CFA00009E805D /* DeckApiService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		875E21A3265E11EA00D973C2 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				875E21A4265E11FD00D973C2 /* IdentifiableUUID.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		875E21A6265E272B00D973C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				875E21A8265E273E00D973C2 /* Schedules */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		875E21A7265E273100D973C2 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		875E21A8265E273E00D973C2 /* Schedules */ = {
+			isa = PBXGroup;
+			children = (
+				875E21A9265E276300D973C2 /* Scheduler */,
+			);
+			path = Schedules;
+			sourceTree = "<group>";
+		};
+		875E21A9265E276300D973C2 /* Scheduler */ = {
+			isa = PBXGroup;
+			children = (
+				871957D02660F43E00AA06CC /* SchedulerFunctionalityTest.swift */,
+				871957C72660EAA800AA06CC /* SchedulerLearningTest.swift */,
+				871957CC2660EF0B00AA06CC /* SchedulerReviewingTest.swift */,
+				871957CE2660EF2200AA06CC /* SchedulerLapsingTest.swift */,
+			);
+			path = Scheduler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +417,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87541C97265CF369009E805D /* Cardable.swift in Sources */,
+				87541C9A265CFA00009E805D /* DeckApiService.swift in Sources */,
+				87541C9C265CFAA3009E805D /* SchedulableItem.swift in Sources */,
+				87541C8B265CE2AD009E805D /* Deck.swift in Sources */,
+				87A110D2265FDB6200F0D4B6 /* SchedulerSettings.swift in Sources */,
 				87541C59265CDF03009E805D /* ContentView.swift in Sources */,
+				87541CA2265D565F009E805D /* CardViewModel.swift in Sources */,
 				87541C57265CDF03009E805D /* SRLApp.swift in Sources */,
+				87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */,
+				87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */,
+				87541C8D265CE2BC009E805D /* Card.swift in Sources */,
+				875E21A5265E11FD00D973C2 /* IdentifiableUUID.swift in Sources */,
+				87541C95265CF1E4009E805D /* ReviewAction.swift in Sources */,
+				87541C93265CE383009E805D /* Schedulable.swift in Sources */,
+				87541C91265CE2D0009E805D /* ReviewQueue.swift in Sources */,
+				87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +441,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				87541C69265CDF04009E805D /* SRLTests.swift in Sources */,
+				871957CD2660EF0B00AA06CC /* SchedulerReviewingTest.swift in Sources */,
+				871957CF2660EF2200AA06CC /* SchedulerLapsingTest.swift in Sources */,
+				871957D12660F43E00AA06CC /* SchedulerFunctionalityTest.swift in Sources */,
+				871957C82660EAA800AA06CC /* SchedulerLearningTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
