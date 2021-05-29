@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Combine
 
-
-struct Deck: Identifiable {
+class Deck: IdentifiableUUID {
     private (set) var id: UUID
-    private (set) var cards: [UUID: Cardable]
     private (set) var name: String
+    @Published private (set) var cards: [UUID: Cardable]
+    
     
     init(name: String) {
         id = UUID()
@@ -19,29 +20,20 @@ struct Deck: Identifiable {
         self.name = name
     }
     
-    init(name: String, cards: [UUID: Cardable]) {
-        id = UUID()
-        self.cards = cards
-        self.name = name
+    
+    func addCard(card: Cardable) {
+        cards[card.id] = card
     }
     
-    mutating func addCard(newCard: Cardable) {
-        
+    func findCard(id: UUID) -> Cardable? {
+        cards[id]
     }
     
-    mutating func removeCard(card: Cardable) {
-        
+    func dropCard(id: UUID) -> Cardable? {
+        cards.removeValue(forKey: id)
     }
     
-    mutating func removeCard(cardID: UUID) {
-        
-    }
-    
-    func findCard (card: Cardable) -> Cardable? {
-        nil
-    }
-    
-    func findCard(cardID: UUID) -> Cardable? {
-        nil
+    func createReviewableQueue(f: ((Deck, Published<[UUID:Cardable]>.Publisher) -> Reviewable)) -> Reviewable {
+        f(self, $cards)
     }
 }

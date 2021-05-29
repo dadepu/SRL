@@ -23,11 +23,11 @@ struct Scheduler: Schedulable {
     private (set) var learningState: LearningState = LearningState.LEARNING
     private (set) var lastReviewDate: Date = Date()
     private (set) var nextReviewDate: Date = Date()
+    private (set) var currentReviewInterval: TimeInterval = 0
     private (set) var reviewCount: Int = 0
     private       var learningStepIndex: Int = 0
     private       var lapseStepIndex: Int = 0
     private       var lapseLastReviewInterval: TimeInterval = 0
-    private (set) var currentReviewInterval: TimeInterval = 0
     
     var remainingReviewInterval: TimeInterval {
         get {

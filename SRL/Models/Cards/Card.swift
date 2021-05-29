@@ -9,18 +9,17 @@ import Foundation
 
 struct Card: Cardable {
     private (set) var id: UUID
-                  var schedule: Schedulable
+    private (set) var dateCreated: Date
+    private (set) var dateLastModified: Date
     
-    private (set) var dateCreated: DateComponents
-    private (set) var dateLastModified: DateComponents
+    var schedule: Schedulable
+    // content ?
     
-    // front side
-    // back side
-
-    init(schedule: Schedulable) {
+    
+    init(scheduler: Schedulable) {
         id = UUID()
-        self.schedule = schedule
-        dateCreated = DateComponents(calendar: Calendar.current, timeZone: TimeZone.current)
-        dateLastModified = DateComponents(calendar: Calendar.current, timeZone: TimeZone.current)
+        dateCreated = Date()
+        dateLastModified = Date()
+        schedule = scheduler
     }
 }

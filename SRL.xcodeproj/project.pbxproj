@@ -29,8 +29,10 @@
 		87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C9F265D5646009E805D /* DeckViewModel.swift */; };
 		87541CA2265D565F009E805D /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541CA1265D565F009E805D /* CardViewModel.swift */; };
 		875E21A5265E11FD00D973C2 /* IdentifiableUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875E21A4265E11FD00D973C2 /* IdentifiableUUID.swift */; };
+		879044262662353000BD63BD /* BindingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879044252662353000BD63BD /* BindingTest.swift */; };
 		87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110C9265ED23A00F0D4B6 /* LearningState.swift */; };
 		87A110D2265FDB6200F0D4B6 /* SchedulerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */; };
+		87D6BF3B2662488700FBF2D9 /* Reviewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D6BF3A2662488700FBF2D9 /* Reviewable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,8 +81,10 @@
 		87541C9F265D5646009E805D /* DeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewModel.swift; sourceTree = "<group>"; };
 		87541CA1265D565F009E805D /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		875E21A4265E11FD00D973C2 /* IdentifiableUUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableUUID.swift; sourceTree = "<group>"; };
+		879044252662353000BD63BD /* BindingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingTest.swift; sourceTree = "<group>"; };
 		87A110C9265ED23A00F0D4B6 /* LearningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningState.swift; sourceTree = "<group>"; };
 		87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerSettings.swift; sourceTree = "<group>"; };
+		87D6BF3A2662488700FBF2D9 /* Reviewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviewable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,10 +180,10 @@
 			isa = PBXGroup;
 			children = (
 				875E21A3265E11EA00D973C2 /* Core */,
-				87541C88265CE275009E805D /* Review */,
-				87541C87265CE265009E805D /* Schedules */,
 				87541C86265CE24C009E805D /* Decks */,
+				87541C88265CE275009E805D /* Review */,
 				87541C85265CE245009E805D /* Cards */,
+				87541C87265CE265009E805D /* Schedules */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -220,11 +224,11 @@
 		87541C87265CE265009E805D /* Schedules */ = {
 			isa = PBXGroup;
 			children = (
-				87541C8E265CE2C8009E805D /* Scheduler.swift */,
 				87541C92265CE383009E805D /* Schedulable.swift */,
 				87541C9B265CFAA3009E805D /* SchedulableItem.swift */,
-				87A110C9265ED23A00F0D4B6 /* LearningState.swift */,
+				87541C8E265CE2C8009E805D /* Scheduler.swift */,
 				87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */,
+				87A110C9265ED23A00F0D4B6 /* LearningState.swift */,
 			);
 			path = Schedules;
 			sourceTree = "<group>";
@@ -232,8 +236,9 @@
 		87541C88265CE275009E805D /* Review */ = {
 			isa = PBXGroup;
 			children = (
-				87541C94265CF1E4009E805D /* ReviewAction.swift */,
+				87D6BF3A2662488700FBF2D9 /* Reviewable.swift */,
 				87541C90265CE2D0009E805D /* ReviewQueue.swift */,
+				87541C94265CF1E4009E805D /* ReviewAction.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -257,7 +262,8 @@
 		875E21A6265E272B00D973C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				875E21A8265E273E00D973C2 /* Schedules */,
+				875E21A9265E276300D973C2 /* Schedules */,
+				879044242662351D00BD63BD /* Temp */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -269,15 +275,7 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		875E21A8265E273E00D973C2 /* Schedules */ = {
-			isa = PBXGroup;
-			children = (
-				875E21A9265E276300D973C2 /* Scheduler */,
-			);
-			path = Schedules;
-			sourceTree = "<group>";
-		};
-		875E21A9265E276300D973C2 /* Scheduler */ = {
+		875E21A9265E276300D973C2 /* Schedules */ = {
 			isa = PBXGroup;
 			children = (
 				871957D02660F43E00AA06CC /* SchedulerFunctionalityTest.swift */,
@@ -285,7 +283,15 @@
 				871957CC2660EF0B00AA06CC /* SchedulerReviewingTest.swift */,
 				871957CE2660EF2200AA06CC /* SchedulerLapsingTest.swift */,
 			);
-			path = Scheduler;
+			path = Schedules;
+			sourceTree = "<group>";
+		};
+		879044242662351D00BD63BD /* Temp */ = {
+			isa = PBXGroup;
+			children = (
+				879044252662353000BD63BD /* BindingTest.swift */,
+			);
+			path = Temp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -427,6 +433,7 @@
 				87541C57265CDF03009E805D /* SRLApp.swift in Sources */,
 				87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */,
 				87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */,
+				87D6BF3B2662488700FBF2D9 /* Reviewable.swift in Sources */,
 				87541C8D265CE2BC009E805D /* Card.swift in Sources */,
 				875E21A5265E11FD00D973C2 /* IdentifiableUUID.swift in Sources */,
 				87541C95265CF1E4009E805D /* ReviewAction.swift in Sources */,
@@ -443,6 +450,7 @@
 				87541C69265CDF04009E805D /* SRLTests.swift in Sources */,
 				871957CD2660EF0B00AA06CC /* SchedulerReviewingTest.swift in Sources */,
 				871957CF2660EF2200AA06CC /* SchedulerLapsingTest.swift in Sources */,
+				879044262662353000BD63BD /* BindingTest.swift in Sources */,
 				871957D12660F43E00AA06CC /* SchedulerFunctionalityTest.swift in Sources */,
 				871957C82660EAA800AA06CC /* SchedulerLearningTest.swift in Sources */,
 			);

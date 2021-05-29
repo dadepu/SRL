@@ -15,18 +15,19 @@ final class DeckApiService {
     }
     
     func createDeck(deckName: String) {
-        
+        let deck = Deck(name: deckName)
+        decks[deck.id] = deck
     }
     
-    func findDeck(deckID: UUID) {
-        
+    func findDeck(deckID: UUID) -> Deck? {
+        decks[deckID]
     }
     
-    func findDeck(deck: Deck) {
-        
+    func removeDeck(deckID: UUID) -> Deck? {
+        decks.removeValue(forKey: deckID)
     }
     
-    func removeDeck(deckID: UUID) {
-        
+    func createReviewQueue(deck: Deck) -> Reviewable {
+        deck.createReviewableQueue(f: ReviewQueue.createInstance(deck:cards:))
     }
 }
