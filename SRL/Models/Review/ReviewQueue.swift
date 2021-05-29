@@ -14,7 +14,7 @@ class ReviewQueue: Reviewable {
     private var reviewQueue: Array<Cardable>
     private var refreshQueueCancellable: AnyCancellable?
     
-    var remainingCards: Int {
+    var reviewableCards: Int {
         get {
             reviewQueue.count
         }
@@ -35,8 +35,10 @@ class ReviewQueue: Reviewable {
     
     private func refreshReviewQueue(cards: [UUID: Cardable]) {
         reviewQueue = Array()
-        for _ in cards {
-            // if card -> add to blabla
+        for card in cards {
+            if card.value.schedule.isDueForReview {
+                reviewQueue.append(card.value)
+            }
         }
         reviewQueue.shuffle()
     }

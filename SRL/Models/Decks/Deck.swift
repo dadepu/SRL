@@ -25,6 +25,14 @@ class Deck: IdentifiableUUID {
         cards[card.id] = card
     }
     
+    func updateCard(card: Cardable) throws {
+        if let _ = cards[card.id] {
+            cards[card.id] = card
+        } else {
+            // throw err
+        }
+    }
+    
     func findCard(id: UUID) -> Cardable? {
         cards[id]
     }

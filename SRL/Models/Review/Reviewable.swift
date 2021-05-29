@@ -9,6 +9,6 @@ import Foundation
 
 protocol Reviewable: IdentifiableUUID {
     var deck: Deck { get }
-    var remainingCards: Int { get }
+    var reviewableCards: Int { get }
     var nextCard: Cardable? { get }
 }

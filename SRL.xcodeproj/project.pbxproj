@@ -33,6 +33,7 @@
 		87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110C9265ED23A00F0D4B6 /* LearningState.swift */; };
 		87A110D2265FDB6200F0D4B6 /* SchedulerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */; };
 		87D6BF3B2662488700FBF2D9 /* Reviewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D6BF3A2662488700FBF2D9 /* Reviewable.swift */; };
+		87D6BF3E26625F6100FBF2D9 /* ReviewQueueSynchronisationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D6BF3D26625F6100FBF2D9 /* ReviewQueueSynchronisationTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		87A110C9265ED23A00F0D4B6 /* LearningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningState.swift; sourceTree = "<group>"; };
 		87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerSettings.swift; sourceTree = "<group>"; };
 		87D6BF3A2662488700FBF2D9 /* Reviewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviewable.swift; sourceTree = "<group>"; };
+		87D6BF3D26625F6100FBF2D9 /* ReviewQueueSynchronisationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQueueSynchronisationTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,7 +264,8 @@
 		875E21A6265E272B00D973C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				875E21A9265E276300D973C2 /* Schedules */,
+				87D6BF3C26625F4800FBF2D9 /* ReviewQueue */,
+				875E21A9265E276300D973C2 /* Scheduler */,
 				879044242662351D00BD63BD /* Temp */,
 			);
 			path = Model;
@@ -275,7 +278,7 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
-		875E21A9265E276300D973C2 /* Schedules */ = {
+		875E21A9265E276300D973C2 /* Scheduler */ = {
 			isa = PBXGroup;
 			children = (
 				871957D02660F43E00AA06CC /* SchedulerFunctionalityTest.swift */,
@@ -283,7 +286,7 @@
 				871957CC2660EF0B00AA06CC /* SchedulerReviewingTest.swift */,
 				871957CE2660EF2200AA06CC /* SchedulerLapsingTest.swift */,
 			);
-			path = Schedules;
+			path = Scheduler;
 			sourceTree = "<group>";
 		};
 		879044242662351D00BD63BD /* Temp */ = {
@@ -292,6 +295,14 @@
 				879044252662353000BD63BD /* BindingTest.swift */,
 			);
 			path = Temp;
+			sourceTree = "<group>";
+		};
+		87D6BF3C26625F4800FBF2D9 /* ReviewQueue */ = {
+			isa = PBXGroup;
+			children = (
+				87D6BF3D26625F6100FBF2D9 /* ReviewQueueSynchronisationTest.swift */,
+			);
+			path = ReviewQueue;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,6 +460,7 @@
 			files = (
 				87541C69265CDF04009E805D /* SRLTests.swift in Sources */,
 				871957CD2660EF0B00AA06CC /* SchedulerReviewingTest.swift in Sources */,
+				87D6BF3E26625F6100FBF2D9 /* ReviewQueueSynchronisationTest.swift in Sources */,
 				871957CF2660EF2200AA06CC /* SchedulerLapsingTest.swift in Sources */,
 				879044262662353000BD63BD /* BindingTest.swift in Sources */,
 				871957D12660F43E00AA06CC /* SchedulerFunctionalityTest.swift in Sources */,
