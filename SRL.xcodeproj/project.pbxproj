@@ -12,7 +12,6 @@
 		871957CF2660EF2200AA06CC /* SchedulerLapsingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871957CE2660EF2200AA06CC /* SchedulerLapsingTest.swift */; };
 		871957D12660F43E00AA06CC /* SchedulerFunctionalityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871957D02660F43E00AA06CC /* SchedulerFunctionalityTest.swift */; };
 		87541C57265CDF03009E805D /* SRLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C56265CDF03009E805D /* SRLApp.swift */; };
-		87541C59265CDF03009E805D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C58265CDF03009E805D /* ContentView.swift */; };
 		87541C5B265CDF04009E805D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5A265CDF04009E805D /* Assets.xcassets */; };
 		87541C5E265CDF04009E805D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5D265CDF04009E805D /* Preview Assets.xcassets */; };
 		87541C69265CDF04009E805D /* SRLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C68265CDF04009E805D /* SRLTests.swift */; };
@@ -29,9 +28,11 @@
 		87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C9F265D5646009E805D /* DeckViewModel.swift */; };
 		87541CA2265D565F009E805D /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541CA1265D565F009E805D /* CardViewModel.swift */; };
 		875E21A5265E11FD00D973C2 /* IdentifiableUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875E21A4265E11FD00D973C2 /* IdentifiableUUID.swift */; };
-		879044262662353000BD63BD /* BindingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879044252662353000BD63BD /* BindingTest.swift */; };
+		8795D2132663E135007C99D9 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795D2122663E135007C99D9 /* StoreView.swift */; };
+		8795D2152663E175007C99D9 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795D2142663E175007C99D9 /* DeckView.swift */; };
 		87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110C9265ED23A00F0D4B6 /* LearningState.swift */; };
 		87A110D2265FDB6200F0D4B6 /* SchedulerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */; };
+		87C634312663E88F008194B6 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C634302663E88F008194B6 /* StoreViewModel.swift */; };
 		87D6BF3B2662488700FBF2D9 /* Reviewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D6BF3A2662488700FBF2D9 /* Reviewable.swift */; };
 		87D6BF3E26625F6100FBF2D9 /* ReviewQueueSynchronisationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D6BF3D26625F6100FBF2D9 /* ReviewQueueSynchronisationTest.swift */; };
 /* End PBXBuildFile section */
@@ -60,7 +61,6 @@
 		871957D02660F43E00AA06CC /* SchedulerFunctionalityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerFunctionalityTest.swift; sourceTree = "<group>"; };
 		87541C53265CDF03009E805D /* SRL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87541C56265CDF03009E805D /* SRLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRLApp.swift; sourceTree = "<group>"; };
-		87541C58265CDF03009E805D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		87541C5A265CDF04009E805D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87541C5D265CDF04009E805D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		87541C5F265CDF04009E805D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,9 +82,11 @@
 		87541C9F265D5646009E805D /* DeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewModel.swift; sourceTree = "<group>"; };
 		87541CA1265D565F009E805D /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		875E21A4265E11FD00D973C2 /* IdentifiableUUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableUUID.swift; sourceTree = "<group>"; };
-		879044252662353000BD63BD /* BindingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingTest.swift; sourceTree = "<group>"; };
+		8795D2122663E135007C99D9 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
+		8795D2142663E175007C99D9 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		87A110C9265ED23A00F0D4B6 /* LearningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningState.swift; sourceTree = "<group>"; };
 		87A110D1265FDB6200F0D4B6 /* SchedulerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerSettings.swift; sourceTree = "<group>"; };
+		87C634302663E88F008194B6 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		87D6BF3A2662488700FBF2D9 /* Reviewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviewable.swift; sourceTree = "<group>"; };
 		87D6BF3D26625F6100FBF2D9 /* ReviewQueueSynchronisationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQueueSynchronisationTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,11 +140,10 @@
 			isa = PBXGroup;
 			children = (
 				87541C98265CF9C1009E805D /* Services */,
-				87541C84265CE02B009E805D /* ViewModels */,
 				87541C83265CE020009E805D /* Views */,
+				87541C84265CE02B009E805D /* ViewModels */,
 				87541C82265CE019009E805D /* Models */,
 				87541C56265CDF03009E805D /* SRLApp.swift */,
-				87541C58265CDF03009E805D /* ContentView.swift */,
 				87541C5A265CDF04009E805D /* Assets.xcassets */,
 				87541C5F265CDF04009E805D /* Info.plist */,
 				87541C5C265CDF04009E805D /* Preview Content */,
@@ -193,6 +194,8 @@
 		87541C83265CE020009E805D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8795D2122663E135007C99D9 /* StoreView.swift */,
+				8795D2142663E175007C99D9 /* DeckView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 		87541C84265CE02B009E805D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				87C634302663E88F008194B6 /* StoreViewModel.swift */,
 				87541C9F265D5646009E805D /* DeckViewModel.swift */,
 				87541CA1265D565F009E805D /* CardViewModel.swift */,
 			);
@@ -266,7 +270,6 @@
 			children = (
 				87D6BF3C26625F4800FBF2D9 /* ReviewQueue */,
 				875E21A9265E276300D973C2 /* Scheduler */,
-				879044242662351D00BD63BD /* Temp */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -287,14 +290,6 @@
 				871957CE2660EF2200AA06CC /* SchedulerLapsingTest.swift */,
 			);
 			path = Scheduler;
-			sourceTree = "<group>";
-		};
-		879044242662351D00BD63BD /* Temp */ = {
-			isa = PBXGroup;
-			children = (
-				879044252662353000BD63BD /* BindingTest.swift */,
-			);
-			path = Temp;
 			sourceTree = "<group>";
 		};
 		87D6BF3C26625F4800FBF2D9 /* ReviewQueue */ = {
@@ -439,9 +434,10 @@
 				87541C9C265CFAA3009E805D /* SchedulableItem.swift in Sources */,
 				87541C8B265CE2AD009E805D /* Deck.swift in Sources */,
 				87A110D2265FDB6200F0D4B6 /* SchedulerSettings.swift in Sources */,
-				87541C59265CDF03009E805D /* ContentView.swift in Sources */,
+				87C634312663E88F008194B6 /* StoreViewModel.swift in Sources */,
 				87541CA2265D565F009E805D /* CardViewModel.swift in Sources */,
 				87541C57265CDF03009E805D /* SRLApp.swift in Sources */,
+				8795D2152663E175007C99D9 /* DeckView.swift in Sources */,
 				87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */,
 				87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */,
 				87D6BF3B2662488700FBF2D9 /* Reviewable.swift in Sources */,
@@ -450,6 +446,7 @@
 				87541C95265CF1E4009E805D /* ReviewAction.swift in Sources */,
 				87541C93265CE383009E805D /* Schedulable.swift in Sources */,
 				87541C91265CE2D0009E805D /* ReviewQueue.swift in Sources */,
+				8795D2132663E135007C99D9 /* StoreView.swift in Sources */,
 				87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,7 +459,6 @@
 				871957CD2660EF0B00AA06CC /* SchedulerReviewingTest.swift in Sources */,
 				87D6BF3E26625F6100FBF2D9 /* ReviewQueueSynchronisationTest.swift in Sources */,
 				871957CF2660EF2200AA06CC /* SchedulerLapsingTest.swift in Sources */,
-				879044262662353000BD63BD /* BindingTest.swift in Sources */,
 				871957D12660F43E00AA06CC /* SchedulerFunctionalityTest.swift in Sources */,
 				871957C82660EAA800AA06CC /* SchedulerLearningTest.swift in Sources */,
 			);

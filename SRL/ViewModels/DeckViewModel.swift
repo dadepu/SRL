@@ -7,4 +7,10 @@
 
 import Foundation
 
-
+class DeckViewModel: ObservableObject {
+    @Published private (set) var deck: Deck
+    
+    init(deck: Deck) {
+        self.deck = deck
+    }
+}

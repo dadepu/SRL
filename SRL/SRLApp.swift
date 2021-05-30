@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct SRLApp: App {
+    @State var deckApi: DeckApiService = DeckApiService()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StoreView(storeViewModel: StoreViewModel(deckService: DeckApiService()))
         }
     }
 }
