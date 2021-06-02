@@ -6,11 +6,33 @@
 //
 
 import Foundation
+import Combine
 
 class DeckViewModel: ObservableObject {
-    @Published private (set) var deck: Deck
+    private var deckServiceApi: DeckApiService
+    private (set) var deck: Deck
+    private (set) var reviewQueue: ReviewQueue
+    private var listeningToDeckServiceApiCancellable: AnyCancellable?
     
-    init(deck: Deck) {
+    
+    
+    init(_ deckApiService: DeckApiService, deck: Deck) {
+        self.deckServiceApi = deckApiService
         self.deck = deck
+        self.reviewQueue = ReviewQueue(deck: deck)
+        listeningToDeckServiceApiCancellable = deckServiceApi.$decks.sink(receiveValue: refreshModel)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    private func refreshModel(decks: [UUID: Deck]) {
+        self.deck = self.deckServiceApi.withDeck(forID: self.deck.id)!
+        self.reviewQueue = self.reviewQueue.refreshedReviewQueue(with: self.deck.cards)
+        self.objectWillChange.send()
     }
 }

@@ -12,7 +12,7 @@ final class DeckApiService {
     
     
     
-    func addDeck(withDeck deck: Deck) {
+    func setDeck(with deck: Deck) {
         decks[deck.id] = deck
     }
     
@@ -20,9 +20,8 @@ final class DeckApiService {
         decks[deckID]
     }
     
+    @discardableResult
     func dropDeck(forID deckID: UUID) -> Deck? {
-        let deck = decks[deckID]
         decks.removeValue(forKey: deckID)
-        return deck
     }
 }

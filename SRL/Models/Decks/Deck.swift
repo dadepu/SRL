@@ -33,4 +33,10 @@ struct Deck: Identifiable {
         deck.cards.removeValue(forKey: id)
         return deck
     }
+    
+    func renamedDeck(name: String) -> Deck {
+        var deck = self
+        deck.name = name
+        return deck
+    }
 }

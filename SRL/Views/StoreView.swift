@@ -12,11 +12,11 @@ struct StoreView: View {
     
     var body: some View {
         NavigationView {
-                Text("")
+            Text("Count: \(storeViewModel.deckServiceApi.decks.count)")
                 .navigationBarTitle("Decks", displayMode: .inline)
                 .navigationBarItems(
                     leading: Button(action: {
-                        //TODO
+                        storeViewModel.makeNewDeck(name: "Hund")
                     }, label: {
                         Image(systemName: "plus").imageScale(.large)
                     }),
@@ -31,7 +31,7 @@ struct StoreView: View {
 struct StoreView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            StoreView(storeViewModel: StoreViewModel(deckService: DeckApiService()))
+            StoreView(storeViewModel: StoreViewModel(DeckApiService()))
         }
     }
 }

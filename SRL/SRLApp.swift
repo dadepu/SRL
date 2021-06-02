@@ -13,7 +13,7 @@ struct SRLApp: App {
     
     var body: some Scene {
         WindowGroup {
-            StoreView(storeViewModel: StoreViewModel(deckService: DeckApiService()))
+            StoreView(storeViewModel: StoreViewModel(DeckApiService()))
         }
     }
 }
