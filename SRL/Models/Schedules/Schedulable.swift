@@ -19,5 +19,5 @@ protocol Schedulable {
     var isDueForReview: Bool { get }
     var cardIsNew: Bool { get }
     
-    mutating func processReviewAction(action: ReviewAction)
+    func processedReviewAction(as: ReviewAction) -> Scheduler
 }

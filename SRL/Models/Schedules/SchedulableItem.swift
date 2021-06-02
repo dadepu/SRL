@@ -8,5 +8,7 @@
 import Foundation
 
 protocol SchedulableItem {
-    var schedule: Schedulable { get set }
+    var schedule: Schedulable { get }
+    
+    func scheduled(with schedule: Schedulable) -> Card
 }

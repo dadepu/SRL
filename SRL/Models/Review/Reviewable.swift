@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Reviewable: IdentifiableUUID {
+protocol Reviewable {
     var deck: Deck { get }
     var reviewableCards: Int { get }
     var nextCard: Cardable? { get }

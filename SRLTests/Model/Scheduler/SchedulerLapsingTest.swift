@@ -35,17 +35,19 @@ class SchedulerLapsingTest: XCTestCase {
     }
 
     func testMoveThroughLapseSteps() throws {
-        scheduler.processReviewAction(action: .REPEAT)
-        XCTAssertEqual(scheduler.currentReviewInterval, scheduler.settings.lapseSteps[0])
-        XCTAssertEqual(scheduler.learningState, .LAPSE)
-        for i in 1...scheduler.settings.lapseSteps.count - 1 {
-            scheduler.processReviewAction(action: .GOOD)
-            XCTAssertEqual(scheduler.currentReviewInterval, scheduler.settings.lapseSteps[i])
-            XCTAssertEqual(scheduler.learningState, .LAPSE)
+        var updatedScheduler = scheduler
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .REPEAT)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.settings.lapseSteps[0])
+        XCTAssertEqual(updatedScheduler.learningState, .LAPSE)
+        for i in 1...updatedScheduler.settings.lapseSteps.count - 1 {
+            updatedScheduler = updatedScheduler.processedReviewAction(as: .GOOD)
+            XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.settings.lapseSteps[i])
+            XCTAssertEqual(updatedScheduler.learningState, .LAPSE)
         }
     }
     
     func testGraduateFromReviewToLapseToReview() throws {
+        var updatedScheduler = scheduler
         let assertedPostLapseInterval = scheduler.calculateInterval(
             baseInterval: scheduler.currentReviewInterval,
             factor: scheduler.settings.lapseSetBackFactor,
@@ -53,109 +55,112 @@ class SchedulerLapsingTest: XCTestCase {
             minimumInterval: scheduler.settings.minimumInterval
         )
         let assertedPostLapseEaseFactor = scheduler.calculateModifiedFactor(
-            baseFactor: scheduler.settings.easeFactor,
-            factorModifier: scheduler.settings.lapseFactorModifier
+            for: scheduler.settings.easeFactor,
+            with: scheduler.settings.lapseFactorModifier
         )
-        scheduler.processReviewAction(action: .REPEAT)
-        for _ in 1...scheduler.settings.lapseSteps.count - 1 {
-            scheduler.processReviewAction(action: .GOOD)
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .REPEAT)
+        for _ in 1...updatedScheduler.settings.lapseSteps.count - 1 {
+            updatedScheduler = updatedScheduler.processedReviewAction(as: .GOOD)
         }
-        scheduler.processReviewAction(action: .GOOD)
-        XCTAssertEqual(scheduler.settings.easeFactor, assertedPostLapseEaseFactor)
-        XCTAssertEqual(scheduler.currentReviewInterval, assertedPostLapseInterval)
-        XCTAssertEqual(scheduler.learningState, .REVIEW)
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .GOOD)
+        XCTAssertEqual(updatedScheduler.settings.easeFactor, assertedPostLapseEaseFactor)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, assertedPostLapseInterval)
+        XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
     }
     
     func testGraduateFromReviewToLapseToReviewWithoutLapses() throws {
-        scheduler.settings.lapseSteps = Array()
-        let assertedFactor = scheduler.calculateModifiedFactor(
-            baseFactor: scheduler.settings.easeFactor,
-            factorModifier: scheduler.settings.lapseFactorModifier
+        var updatedScheduler = scheduler
+        updatedScheduler.settings.lapseSteps = Array()
+        let assertedFactor = updatedScheduler.calculateModifiedFactor(
+            for: updatedScheduler.settings.easeFactor,
+            with: updatedScheduler.settings.lapseFactorModifier
         )
-        let assertedInterval = scheduler.calculateInterval(
-            baseInterval: scheduler.currentReviewInterval,
-            factor: scheduler.settings.lapseSetBackFactor,
+        let assertedInterval = updatedScheduler.calculateInterval(
+            baseInterval: updatedScheduler.currentReviewInterval,
+            factor: updatedScheduler.settings.lapseSetBackFactor,
             considerMinimumInterval: true,
-            minimumInterval: scheduler.settings.minimumInterval
+            minimumInterval: updatedScheduler.settings.minimumInterval
         )
-        scheduler.processReviewAction(action: .REPEAT)
-        XCTAssertEqual(scheduler.settings.easeFactor, assertedFactor)
-        XCTAssertEqual(scheduler.currentReviewInterval, assertedInterval)
-        XCTAssertEqual(scheduler.learningState, .REVIEW)
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .REPEAT)
+        XCTAssertEqual(updatedScheduler.settings.easeFactor, assertedFactor)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, assertedInterval)
+        XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
     }
     
     func testSkipToReview() throws {
-        let previousScheduler = scheduler
-        scheduler.processReviewAction(action: .REPEAT)
-        let assertedEaseFactor = scheduler.calculateModifiedFactor(
-            baseFactor: scheduler.settings.easeFactor,
-            factorModifier: scheduler.settings.easyFactorModifier
+        var updatedScheduler = scheduler
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .REPEAT)
+        let assertedEaseFactor = updatedScheduler.calculateModifiedFactor(
+            for: updatedScheduler.settings.easeFactor,
+            with: updatedScheduler.settings.easyFactorModifier
         )
-        let assertedPostLapseEaseFactor = scheduler.calculateInterval(
-            baseInterval: previousScheduler.currentReviewInterval,
-            factor: scheduler.settings.lapseSetBackFactor
+        let assertedPostLapseEaseFactor = updatedScheduler.calculateInterval(
+            baseInterval: scheduler.currentReviewInterval,
+            factor: updatedScheduler.settings.lapseSetBackFactor
         )
-        let assertedInterval = scheduler.calculateInterval(
+        let assertedInterval = updatedScheduler.calculateInterval(
             baseInterval: assertedPostLapseEaseFactor,
-            factor: scheduler.settings.easyIntervalModifier,
+            factor: updatedScheduler.settings.easyIntervalModifier,
             considerMinimumInterval: true,
-            minimumInterval: scheduler.settings.minimumInterval
+            minimumInterval: updatedScheduler.settings.minimumInterval
         )
-        scheduler.processReviewAction(action: .EASY)
-        XCTAssertEqual(scheduler.currentReviewInterval, assertedInterval)
-        XCTAssertEqual(scheduler.settings.easeFactor, assertedEaseFactor)
-        XCTAssertEqual(scheduler.learningState, .REVIEW)
-        
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .EASY)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, assertedInterval)
+        XCTAssertEqual(updatedScheduler.settings.easeFactor, assertedEaseFactor)
+        XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
     }
     
     func testHardLapse() throws {
-        scheduler.processReviewAction(action: .REPEAT)
-        let previousScheduler = scheduler
-        let assertedEaseFactor = scheduler.calculateModifiedFactor(
-            baseFactor: previousScheduler.settings.easeFactor,
-            factorModifier: previousScheduler.settings.hardFactorModifier
+        var updatedScheduler = scheduler
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .REPEAT)
+        let previousScheduler = updatedScheduler
+        let assertedEaseFactor = updatedScheduler.calculateModifiedFactor(
+            for: previousScheduler.settings.easeFactor,
+            with: previousScheduler.settings.hardFactorModifier
         )
-        scheduler.processReviewAction(action: .HARD)
-        XCTAssertEqual(scheduler.currentReviewInterval, previousScheduler.currentReviewInterval)
-        XCTAssertEqual(scheduler.settings.easeFactor, assertedEaseFactor)
-        XCTAssertEqual(scheduler.learningState, .LAPSE)
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .HARD)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, previousScheduler.currentReviewInterval)
+        XCTAssertEqual(updatedScheduler.settings.easeFactor, assertedEaseFactor)
+        XCTAssertEqual(updatedScheduler.learningState, .LAPSE)
     }
     
     func testRepeatLapseThenGraduate() throws {
-        let firstAssertedPostLapseInterval = scheduler.calculateInterval(
-            baseInterval: scheduler.currentReviewInterval,
-            factor: scheduler.settings.lapseSetBackFactor,
+        var updatedScheduler = scheduler
+        let firstAssertedPostLapseInterval = updatedScheduler.calculateInterval(
+            baseInterval: updatedScheduler.currentReviewInterval,
+            factor: updatedScheduler.settings.lapseSetBackFactor,
             considerMinimumInterval: true,
-            minimumInterval: scheduler.settings.minimumInterval
+            minimumInterval: updatedScheduler.settings.minimumInterval
         )
-        let secondAssertedPostLapseInterval = scheduler.calculateInterval(
+        let secondAssertedPostLapseInterval = updatedScheduler.calculateInterval(
             baseInterval: firstAssertedPostLapseInterval,
-            factor: scheduler.settings.lapseSetBackFactor,
+            factor: updatedScheduler.settings.lapseSetBackFactor,
             considerMinimumInterval: true,
-            minimumInterval: scheduler.settings.minimumInterval
+            minimumInterval: updatedScheduler.settings.minimumInterval
         )
-        scheduler.processReviewAction(action: .REPEAT)
-        XCTAssertEqual(scheduler.currentReviewInterval, scheduler.settings.lapseSteps[0])
-        let assertedFactor = scheduler.calculateModifiedFactor(
-            baseFactor: scheduler.settings.easeFactor,
-            factorModifier: scheduler.settings.lapseFactorModifier
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .REPEAT)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.settings.lapseSteps[0])
+        let assertedFactor = updatedScheduler.calculateModifiedFactor(
+            for: updatedScheduler.settings.easeFactor,
+            with: updatedScheduler.settings.lapseFactorModifier
         )
-        scheduler.processReviewAction(action: .GOOD)
-        scheduler.processReviewAction(action: .REPEAT)
-        for _ in 0...scheduler.settings.lapseSteps.count - 1 {
-            scheduler.processReviewAction(action: .GOOD)
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .GOOD)
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .REPEAT)
+        for _ in 0...updatedScheduler.settings.lapseSteps.count - 1 {
+            updatedScheduler = updatedScheduler.processedReviewAction(as: .GOOD)
         }
-        XCTAssertEqual(scheduler.settings.easeFactor, assertedFactor)
-        XCTAssertEqual(scheduler.currentReviewInterval, secondAssertedPostLapseInterval)
+        XCTAssertEqual(updatedScheduler.settings.easeFactor, assertedFactor)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, secondAssertedPostLapseInterval)
     }
     
     func testLeaveLapseWithCustomInterval() throws {
+        var updatedScheduler = scheduler
         let customInterval: TimeInterval = 3024000
-        scheduler.processReviewAction(action: .REPEAT)
-        XCTAssertEqual(scheduler.learningState, .LAPSE)
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .REPEAT)
+        XCTAssertEqual(updatedScheduler.learningState, .LAPSE)
         
-        scheduler.processReviewAction(action: .CUSTOMINTERVAL(interval: 3024000))
-        XCTAssertEqual(scheduler.learningState, .REVIEW)
-        XCTAssertEqual(scheduler.currentReviewInterval, customInterval)
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .CUSTOMINTERVAL(3024000))
+        XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, customInterval)
     }
 }

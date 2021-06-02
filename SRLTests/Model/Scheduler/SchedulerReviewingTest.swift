@@ -18,7 +18,7 @@ class SchedulerReviewingTest: XCTestCase {
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
-        
+
         let lastReviewDate: Date = Date()
         let reviewInterval: TimeInterval = 3888000
         let nextReviewDate: Date = DateInterval(start: lastReviewDate, duration: reviewInterval).end
@@ -35,59 +35,59 @@ class SchedulerReviewingTest: XCTestCase {
     }
 
     func testNormalReview() throws {
-        let previousScheduler = scheduler
-        scheduler.processReviewAction(action: .GOOD)
-        let assertedReviewFactor: Float = previousScheduler.calculateModifiedFactor(
-            baseFactor: previousScheduler.settings.easeFactor,
-            factorModifier: previousScheduler.settings.normalFactorModifier
+        var updatedScheduler = scheduler
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .GOOD)
+        let assertedReviewFactor: Float = scheduler.calculateModifiedFactor(
+            for: scheduler.settings.easeFactor,
+            with: scheduler.settings.normalFactorModifier
         )
-        let assertedInterval: TimeInterval = previousScheduler.calculateInterval(
-            baseInterval: previousScheduler.currentReviewInterval,
+        let assertedInterval: TimeInterval = scheduler.calculateInterval(
+            baseInterval: scheduler.currentReviewInterval,
             factor: assertedReviewFactor
         )
-        XCTAssertEqual(scheduler.settings.easeFactor, assertedReviewFactor)
-        XCTAssertEqual(scheduler.currentReviewInterval, assertedInterval)
-        XCTAssertEqual(scheduler.learningState, .REVIEW)
+        XCTAssertEqual(updatedScheduler.settings.easeFactor, assertedReviewFactor)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, assertedInterval)
+        XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
     }
-    
+
     func testEasyReview() throws {
-        let previousScheduler = scheduler
-        scheduler.processReviewAction(action: .EASY)
-        let assertedReviewFactor: Float = previousScheduler.calculateModifiedFactor(
-            baseFactor: previousScheduler.settings.easeFactor,
-            factorModifier: previousScheduler.settings.easyFactorModifier
+        var updatedScheduler = scheduler
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .EASY)
+        let assertedReviewFactor: Float = scheduler.calculateModifiedFactor(
+            for: scheduler.settings.easeFactor,
+            with: scheduler.settings.easyFactorModifier
         )
-        let assertedInterval: TimeInterval = previousScheduler.calculateInterval(
-            baseInterval: previousScheduler.currentReviewInterval,
+        let assertedInterval: TimeInterval = scheduler.calculateInterval(
+            baseInterval: scheduler.currentReviewInterval,
             factor: assertedReviewFactor,
-            intervalModifier: previousScheduler.settings.easyIntervalModifier
+            intervalModifier: scheduler.settings.easyIntervalModifier
         )
-        XCTAssertEqual(scheduler.settings.easeFactor, assertedReviewFactor)
-        XCTAssertEqual(scheduler.currentReviewInterval, assertedInterval)
-        XCTAssertEqual(scheduler.learningState, .REVIEW)
+        XCTAssertEqual(updatedScheduler.settings.easeFactor, assertedReviewFactor)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, assertedInterval)
+        XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
     }
-    
+
     func testHardReview() throws {
-        let previousScheduler = scheduler
-        scheduler.processReviewAction(action: .HARD)
-        let assertedReviewFactor: Float = previousScheduler.calculateModifiedFactor(
-            baseFactor: previousScheduler.settings.easeFactor,
-            factorModifier: previousScheduler.settings.hardFactorModifier
+        var updatedScheduler = scheduler
+        updatedScheduler = scheduler.processedReviewAction(as: .HARD)
+        let assertedReviewFactor: Float = scheduler.calculateModifiedFactor(
+            for: scheduler.settings.easeFactor,
+            with: scheduler.settings.hardFactorModifier
         )
-        XCTAssertEqual(scheduler.settings.easeFactor, assertedReviewFactor)
-        XCTAssertEqual(scheduler.currentReviewInterval, previousScheduler.currentReviewInterval)
-        XCTAssertEqual(scheduler.learningState, .REVIEW)
+        XCTAssertEqual(updatedScheduler.settings.easeFactor, assertedReviewFactor)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, scheduler.currentReviewInterval)
+        XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
     }
-    
+
     func testRepeatReview() throws {
-        let previousScheduler = scheduler
-        scheduler.processReviewAction(action: .REPEAT)
-        let assertedReviewFactor: Float = previousScheduler.calculateModifiedFactor(
-            baseFactor: previousScheduler.settings.easeFactor,
-            factorModifier: previousScheduler.settings.lapseFactorModifier
+        var updatedScheduler = scheduler
+        updatedScheduler = updatedScheduler.processedReviewAction(as: .REPEAT)
+        let assertedReviewFactor: Float = scheduler.calculateModifiedFactor(
+            for: scheduler.settings.easeFactor,
+            with: scheduler.settings.lapseFactorModifier
         )
-        XCTAssertEqual(scheduler.currentReviewInterval, scheduler.settings.lapseSteps[0])
-        XCTAssertEqual(scheduler.settings.easeFactor, assertedReviewFactor)
-        XCTAssertEqual(scheduler.learningState, .LAPSE)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.settings.lapseSteps[0])
+        XCTAssertEqual(updatedScheduler.settings.easeFactor, assertedReviewFactor)
+        XCTAssertEqual(updatedScheduler.learningState, .LAPSE)
     }
 }

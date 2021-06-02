@@ -17,7 +17,6 @@ struct StoreView: View {
                 .navigationBarItems(
                     leading: Button(action: {
                         //TODO
-                        storeViewModel.createNewDeck(name: "Test")
                     }, label: {
                         Image(systemName: "plus").imageScale(.large)
                     }),

@@ -7,10 +7,9 @@
 
 import Foundation
 
-
-protocol Cardable: IdentifiableUUID, SchedulableItem {
+protocol Cardable: SchedulableItem {
+    var id: UUID { get }
     var dateCreated: Date { get }
     var dateLastModified: Date { get }
-    var schedule: Schedulable { get set }
-    // content ?
+    var schedule: Schedulable { get }
 }

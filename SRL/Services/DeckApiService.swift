@@ -8,26 +8,21 @@
 import Foundation
 
 final class DeckApiService {
-    private (set) var decks: [UUID: Deck]
+    @Published private (set) var decks: [UUID: Deck] = [UUID: Deck]()
     
-    init() {
-        decks = [UUID: Deck]()
-    }
     
-    func createDeck(deckName: String) {
-        let deck = Deck(name: deckName)
+    
+    func addDeck(withDeck deck: Deck) {
         decks[deck.id] = deck
     }
     
-    func findDeck(deckID: UUID) -> Deck? {
+    func withDeck(forID deckID: UUID) -> Deck? {
         decks[deckID]
     }
     
-    func removeDeck(deckID: UUID) -> Deck? {
+    func dropDeck(forID deckID: UUID) -> Deck? {
+        let deck = decks[deckID]
         decks.removeValue(forKey: deckID)
-    }
-    
-    func createReviewQueue(deck: Deck) -> Reviewable {
-        deck.createReviewableQueue(f: ReviewQueue.createInstance(deck:cards:))
+        return deck
     }
 }

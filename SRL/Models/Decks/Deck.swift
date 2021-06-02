@@ -6,42 +6,31 @@
 //
 
 import Foundation
-import Combine
 
-class Deck: IdentifiableUUID {
-    private (set) var id: UUID
+struct Deck: Identifiable {
+    private (set) var id: UUID = UUID()
     private (set) var name: String
-    @Published private (set) var cards: [UUID: Cardable]
+    private (set) var cards: [UUID: Cardable] = [UUID: Cardable]()
     
     
-    init(name: String) {
-        id = UUID()
-        cards = [UUID: Cardable]()
-        self.name = name
+    
+    func addedCard(card: Cardable) -> Deck {
+        var deck = self
+        deck.cards[card.id] = card
+        return deck
     }
     
-    
-    func addCard(card: Cardable) {
-        cards[card.id] = card
-    }
-    
-    func updateCard(card: Cardable) throws {
-        if let _ = cards[card.id] {
-            cards[card.id] = card
-        } else {
-            // throw err
-        }
-    }
-    
-    func findCard(id: UUID) -> Cardable? {
+    func withCard(forId id: UUID) -> Cardable? {
         cards[id]
     }
     
-    func dropCard(id: UUID) -> Cardable? {
+    mutating func dropCard(forId id: UUID) -> Cardable? {
         cards.removeValue(forKey: id)
     }
     
-    func createReviewableQueue(f: ((Deck, Published<[UUID:Cardable]>.Publisher) -> Reviewable)) -> Reviewable {
-        f(self, $cards)
+    func droppedCard(forId id: UUID) -> Deck {
+        var deck = self
+        deck.cards.removeValue(forKey: id)
+        return deck
     }
 }

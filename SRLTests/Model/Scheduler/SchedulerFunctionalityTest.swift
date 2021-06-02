@@ -46,9 +46,9 @@ class SchedulerFunctionalityTest: XCTestCase {
     }
     
     func testNextReviewDateCalculation() throws {
-        scheduler.processReviewAction(action: .GOOD)
-        let assertedReviewDate = DateInterval(start: scheduler.lastReviewDate, duration: scheduler.currentReviewInterval).end
-        XCTAssert(scheduler.lastReviewDate <= Date())
-        XCTAssertEqual(scheduler.nextReviewDate, assertedReviewDate)
+        let newSchedule = scheduler.processedReviewAction(as: .GOOD)
+        let assertedReviewDate = DateInterval(start: newSchedule.lastReviewDate, duration: newSchedule.currentReviewInterval).end
+        XCTAssert(newSchedule.lastReviewDate <= Date())
+        XCTAssertEqual(newSchedule.nextReviewDate, assertedReviewDate)
     }
 }

@@ -13,5 +13,5 @@ enum ReviewAction {
     case HARD
     case GOOD
     case EASY
-    case CUSTOMINTERVAL(interval: TimeInterval)
+    case CUSTOMINTERVAL(_ interval: TimeInterval)
 }

@@ -6,13 +6,10 @@
 //
 
 import Foundation
-import Combine
 
-class ReviewQueue: Reviewable {
-    private (set) var id: UUID
+struct ReviewQueue: Reviewable {
     private (set) var deck: Deck
-    private var reviewQueue: Array<Cardable>
-    private var refreshQueueCancellable: AnyCancellable?
+    private (set) var reviewQueue: Array<Cardable> = Array()
     
     var reviewableCards: Int {
         get {
@@ -21,19 +18,18 @@ class ReviewQueue: Reviewable {
     }
     var nextCard: Cardable? {
         get {
-            reviewQueue.popLast()
+            reviewQueue.last
         }
     }
     
     
-    init(deck: Deck, cards: Published<[UUID : Cardable]>.Publisher) {
-        self.id = UUID()
+    
+    init(deck: Deck) {
         self.deck = deck
-        self.reviewQueue = []
-        self.refreshQueueCancellable = cards.sink { cards in self.refreshReviewQueue(cards: cards) }
+        refreshReviewQueue(with: deck.cards)
     }
     
-    private func refreshReviewQueue(cards: [UUID: Cardable]) {
+    private mutating func refreshReviewQueue(with cards: [UUID: Cardable]) {
         reviewQueue = Array()
         for card in cards {
             if card.value.schedule.isDueForReview {
@@ -41,9 +37,5 @@ class ReviewQueue: Reviewable {
             }
         }
         reviewQueue.shuffle()
-    }
-    
-    static func createInstance(deck: Deck, cards: Published<[UUID : Cardable]>.Publisher) -> Reviewable {
-        return ReviewQueue(deck: deck, cards: cards)
     }
 }
