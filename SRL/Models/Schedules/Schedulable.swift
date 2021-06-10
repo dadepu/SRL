@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Schedulable {
+protocol Schedulable: Codable {
     var settings: SchedulerSettings { get set }
     var learningState: LearningState { get }
     var lastReviewDate: Date { get }
@@ -21,3 +21,4 @@ protocol Schedulable {
     
     func processedReviewAction(as: ReviewAction) -> Scheduler
 }
+

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Scheduler: Schedulable {
+struct Scheduler: Schedulable, Codable {
     var settings: SchedulerSettings
     private (set) var learningState: LearningState = LearningState.LEARNING
     private (set) var lastReviewDate: Date = Date()

@@ -9,7 +9,7 @@ import Foundation
 
 struct ReviewQueue {
     private (set) var deck: Deck
-    private (set) var reviewQueue: Array<Cardable> = Array()
+    private (set) var reviewQueue: Array<Card> = Array()
     
     var reviewableCards: Int {
         get {
@@ -24,7 +24,17 @@ struct ReviewQueue {
         refreshReviewQueue(with: deck.cards)
     }
     
-    func refreshedReviewQueue(with cards: [UUID: Cardable]) -> ReviewQueue {
+    private mutating func refreshReviewQueue(with cards: [UUID: Card]) {
+        reviewQueue = Array()
+        for card in cards {
+            if card.value.schedule.isDueForReview {
+                reviewQueue.append(card.value)
+            }
+        }
+        reviewQueue.shuffle()
+    }
+    
+    func refreshedReviewQueue(with cards: [UUID: Card]) -> ReviewQueue {
         var newQueue = self
         newQueue.reviewQueue = Array()
         for card in cards {
@@ -34,15 +44,5 @@ struct ReviewQueue {
         }
         newQueue.reviewQueue.shuffle()
         return newQueue
-    }
-    
-    private mutating func refreshReviewQueue(with cards: [UUID: Cardable]) {
-        reviewQueue = Array()
-        for card in cards {
-            if card.value.schedule.isDueForReview {
-                reviewQueue.append(card.value)
-            }
-        }
-        reviewQueue.shuffle()
     }
 }

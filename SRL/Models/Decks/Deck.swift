@@ -7,24 +7,24 @@
 
 import Foundation
 
-struct Deck: Identifiable {
+struct Deck: Identifiable, Codable {
     private (set) var id: UUID = UUID()
     private (set) var name: String
-    private (set) var cards: [UUID: Cardable] = [UUID: Cardable]()
+    private (set) var cards: [UUID: Card] = [UUID: Card]()
     
     
     
-    func addedCard(card: Cardable) -> Deck {
+    func addedCard(card: Card) -> Deck {
         var deck = self
         deck.cards[card.id] = card
         return deck
     }
     
-    func withCard(forId id: UUID) -> Cardable? {
+    func withCard(forId id: UUID) -> Card? {
         cards[id]
     }
     
-    mutating func dropCard(forId id: UUID) -> Cardable? {
+    mutating func dropCard(forId id: UUID) -> Card? {
         cards.removeValue(forKey: id)
     }
     

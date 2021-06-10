@@ -12,6 +12,16 @@ class StoreViewModel: ObservableObject {
     private (set) var deckServiceApi: DeckApiService
     private (set) var listeningToDeckServiceApiCancellable: AnyCancellable?
     
+    var decks: [Deck] {
+        get {
+            var deckArray: [Deck] = []
+            for (_, value) in deckServiceApi.decks {
+                deckArray.append(value)
+            }
+            return deckArray
+        }
+    }
+    
     
     
     init(_ deckServiceApi: DeckApiService) {

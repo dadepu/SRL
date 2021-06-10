@@ -7,19 +7,18 @@
 
 import Foundation
 
-struct Card: Cardable {
+struct Card: Codable {
     private (set) var id: UUID = UUID()
     private (set) var dateCreated: Date = Date()
     private (set) var dateLastModified: Date = Date()
-    private (set) var schedule: Schedulable
+    private (set) var schedule: Scheduler
     
     
-    
-    init(schedule: Schedulable) {
+    init(schedule: Scheduler) {
         self.schedule = schedule
     }
     
-    func scheduled(with schedule: Schedulable) -> Card {
+    func scheduled(with schedule: Scheduler) -> Card {
         var card = self
         card.schedule = schedule
         card.dateLastModified = Date()

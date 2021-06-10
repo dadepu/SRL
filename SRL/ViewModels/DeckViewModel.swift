@@ -23,7 +23,7 @@ class DeckViewModel: ObservableObject {
         listeningToDeckServiceApiCancellable = deckServiceApi.$decks.sink(receiveValue: refreshModel)
     }
     
-    
+    // set default setting
     
     
     

@@ -9,11 +9,12 @@ import SwiftUI
 
 @main
 struct SRLApp: App {
-    @State var deckApi: DeckApiService = DeckApiService()
+    @StateObject var deckApiService: DeckApiService = DeckApiService()
     
     var body: some Scene {
         WindowGroup {
-            StoreView(storeViewModel: StoreViewModel(DeckApiService()))
+            StoreView(storeViewModel: StoreViewModel(deckApiService))
+                .environmentObject(deckApiService)
         }
     }
 }
