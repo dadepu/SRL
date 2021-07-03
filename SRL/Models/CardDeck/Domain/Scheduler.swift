@@ -9,9 +9,7 @@ import Foundation
 
 struct Scheduler: Identifiable, Codable {
     private (set) var id: UUID = UUID()
-    private       var deck: Deck
                   var schedulePreset: SchedulePreset
-    private (set) var schedulerHistory: SchedulerHistory = SchedulerHistory()
     
     private (set) var learningState: LearningState = LearningState.LEARNING
     private (set) var lastReviewDate: Date = Date()
@@ -45,18 +43,23 @@ struct Scheduler: Identifiable, Codable {
         }
     }
     
+    private var deck: Deck? {
+        get {
+            // TODO
+            return nil
+        }
+    }
     
     
-    init(deck: Deck, schedulePreset: SchedulePreset) {
-        self.deck = deck
+    
+    init(schedulePreset: SchedulePreset) {
         self.schedulePreset = schedulePreset
         self.easeFactor = schedulePreset.easeFactor
         initializeCardSchedule(schedulePreset: schedulePreset)
     }
     
 
-    init(deck: Deck, schedulePreset: SchedulePreset, cardCreated: Date) {
-        self.deck = deck
+    init(schedulePreset: SchedulePreset, cardCreated: Date) {
         self.schedulePreset = schedulePreset
         self.easeFactor = schedulePreset.easeFactor
         self.lastReviewDate = cardCreated
@@ -73,11 +76,10 @@ struct Scheduler: Identifiable, Codable {
     /**
         UNIT TESTING PURPOSE ONLY
      */
-    init(deck: Deck, schedulePreset: SchedulePreset, easeFactor: Float, learningState: LearningState, lastReviewDate: Date,
+    init(schedulePreset: SchedulePreset, easeFactor: Float, learningState: LearningState, lastReviewDate: Date,
          nextReviewDate: Date, cardStudyCount: Int, learningStepIndex: Int, lapseStepIndex: Int,
          currentReviewInterval: TimeInterval)
     {
-        self.deck = deck
         self.schedulePreset = schedulePreset
         self.easeFactor = easeFactor
         self.learningState = learningState
@@ -125,10 +127,11 @@ struct Scheduler: Identifiable, Codable {
     private func fetchCurrentSchedulePreset(_ scheduler: Scheduler) -> SchedulePreset {
         let scheduleService = SchedulePresetService()
         let deckService = CardDeckService()
-        let schedulerPresetId: UUID = scheduler.schedulePreset.id
-        let deckPresetId: UUID? = deckService.getDeck(forId: scheduler.deck.id)?.schedulePreset.id
         
-        if let preset: SchedulePreset = scheduleService.getSchedulePreset(forId: schedulerPresetId) {
+        let schedulePresetId: UUID = scheduler.schedulePreset.id
+        let deckPresetId: UUID? = deck != nil ? deckService.getDeck(forId: scheduler.deck!.id)?.schedulePreset.id : nil
+        
+        if let preset: SchedulePreset = scheduleService.getSchedulePreset(forId: schedulePresetId) {
             return preset
         } else if deckPresetId != nil, let preset: SchedulePreset = scheduleService.getSchedulePreset(forId: deckPresetId!) {
             return preset

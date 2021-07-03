@@ -10,7 +10,6 @@ import XCTest
 @testable import SRL
 
 class SchedulerLapsingTest: XCTestCase {
-    private var deck: Deck?
     private var schedulePreset: SchedulePreset?
     private var scheduler: Scheduler?
     private var formatter = DateFormatter()
@@ -23,14 +22,12 @@ class SchedulerLapsingTest: XCTestCase {
         formatter.locale = .current
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         
-        deck = Deck(name: "UNIT Test")
         schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
         
         let lastReviewDate: Date = Date()
         let reviewInterval: TimeInterval = 3888000
         let nextReviewDate: Date = DateInterval(start: lastReviewDate, duration: reviewInterval).end
         scheduler = Scheduler(
-            deck: deck!,
             schedulePreset: schedulePreset!,
             easeFactor: schedulePreset!.easeFactor,
             learningState: .REVIEW,

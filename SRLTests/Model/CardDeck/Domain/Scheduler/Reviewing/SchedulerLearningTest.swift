@@ -10,17 +10,14 @@ import XCTest
 @testable import SRL
 
 class SchedulerLearningTest: XCTestCase {
-    private var deck: Deck?
     private var schedulePreset: SchedulePreset?
     private var scheduler: Scheduler?
 
     
     override func setUpWithError() throws {
         SchedulePresetService().deleteAllSchedulePresets()
-        
-        deck = Deck(name: "UNIT Test")
         schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
-        scheduler = Scheduler(deck: deck!, schedulePreset: schedulePreset!)
+        scheduler = Scheduler(schedulePreset: schedulePreset!)
     }
 
     func testMoveThroughLearningStepsToGraduation() throws {

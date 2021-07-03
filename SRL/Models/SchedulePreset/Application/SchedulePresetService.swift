@@ -43,10 +43,12 @@ struct SchedulePresetService {
             }
             schedulePresetRepository.deleteSchedulePreset(id)
         }
+        CardDeckService().refreshSchedulePresets()
     }
     
     func deleteAllSchedulePresets() {
         schedulePresetRepository.deleteAllSchedulePresets()
+        CardDeckService().refreshSchedulePresets()
     }
     
     func getSchedulePresetFactory() -> FactoringSchedulePreset {

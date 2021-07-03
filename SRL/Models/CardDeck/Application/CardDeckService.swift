@@ -19,6 +19,11 @@ struct CardDeckService {
         deckRepository.getDeck(forId: id)
     }
     
+    func getDeck(forCardId id: UUID) -> Deck? {
+        // TODO
+        return nil
+    }
+    
     func saveDeck(deck: Deck) {
         deckRepository.saveDeck(deck: deck)
     }
@@ -29,5 +34,21 @@ struct CardDeckService {
     
     func deleteAllDecks() {
         deckRepository.deleteAllDecks()
+    }
+    
+    func addCard(deckId: UUID, card: Card) {
+        // TODO
+    }
+    
+    func dropCard(deckId: UUID, cardId: UUID) {
+        // TODO
+    }
+    
+    func refreshSchedulePresets() {
+        // TODO 
+    }
+    
+    func getDeckFactory() -> FactoringDeck {
+        return DeckFactory()
     }
 }

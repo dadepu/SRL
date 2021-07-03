@@ -10,16 +10,14 @@ import XCTest
 @testable import SRL
 
 class SchedulerFunctionalityTest: XCTestCase {
-    private var deck: Deck?
     private var schedulePreset: SchedulePreset?
     private var scheduler: Scheduler?
     private var formatter = DateFormatter()
 
     
     override func setUpWithError() throws {
-        deck = Deck(name: "UNIT Test")
         schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
-        scheduler = Scheduler(deck: deck!, schedulePreset: schedulePreset!)
+        scheduler = Scheduler(schedulePreset: schedulePreset!)
         
         formatter = DateFormatter()
         formatter.timeZone = .current
@@ -41,7 +39,6 @@ class SchedulerFunctionalityTest: XCTestCase {
         let nextReviewDate: Date = DateInterval(start: lastReviewDate, duration: reviewInterval).end
         
         let schedulerPastReviewDate = Scheduler(
-            deck: deck!,
             schedulePreset: schedulePreset!,
             easeFactor: schedulePreset!.easeFactor,
             learningState: .LEARNING,

@@ -21,6 +21,11 @@ struct Deck: Identifiable, Codable {
         self.schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
     }
     
+    init(name: String, schedulePreset: SchedulePreset) {
+        self.name = name
+        self.schedulePreset = schedulePreset
+    }
+    
     
     
     mutating func saveCard(forId id: UUID, card: Card) {
@@ -47,10 +52,8 @@ struct Deck: Identifiable, Codable {
         return deck
     }
     
-    func renamedDeck(name: String) -> Deck {
-        var deck = self
-        deck.name = name
-        return deck
+    mutating func renameDeck(name: String) {
+        self.name = name
     }
 }
 

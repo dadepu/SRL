@@ -13,6 +13,13 @@ struct Card: Identifiable, Codable {
     private (set) var dateLastModified: Date = Date()
     private (set) var schedule: Scheduler
     private (set) var content: CardContent
+    
+    
+    
+    init(content: CardContent, preset: SchedulePreset) {
+        self.content = content
+        self.schedule = Scheduler(schedulePreset: preset)
+    }
 }
 
 extension Card: Equatable {

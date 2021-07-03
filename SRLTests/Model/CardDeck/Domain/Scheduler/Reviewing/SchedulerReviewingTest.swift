@@ -10,27 +10,24 @@ import XCTest
 @testable import SRL
 
 class SchedulerReviewingTest: XCTestCase {
-    private var deck: Deck?
     private var schedulePreset: SchedulePreset?
     private var scheduler: Scheduler?
     private var formatter = DateFormatter()
 
     override func setUpWithError() throws {
         SchedulePresetService().deleteAllSchedulePresets()
+        schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
         
         formatter = DateFormatter()
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "dd.MM.yyyy HH:mm:ss"
         
-        deck = Deck(name: "UNIT Test")
-        schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
 
         let lastReviewDate: Date = Date()
         let reviewInterval: TimeInterval = 3888000
         let nextReviewDate: Date = DateInterval(start: lastReviewDate, duration: reviewInterval).end
         scheduler = Scheduler(
-            deck: deck!,
             schedulePreset: schedulePreset!,
             easeFactor: schedulePreset!.easeFactor,
             learningState: .REVIEW,
