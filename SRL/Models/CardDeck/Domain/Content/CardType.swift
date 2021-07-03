@@ -8,8 +8,8 @@
 import Foundation
 
 enum CardType {
-    case DEFAULT(content: DefaultCardContent)
-    case TYPING(content: TypingContent)
+    case DEFAULT(content: DefaultCard)
+    case TYPING(content: TypingCard)
 }
 
 extension CardType {
@@ -43,10 +43,10 @@ extension CardType: Decodable {
         let rawValue = try container.decode(Int.self, forKey: .rawValue)
         switch rawValue {
         case 0:
-            let content = try container.decode(DefaultCardContent.self, forKey: .associatedValue)
+            let content = try container.decode(DefaultCard.self, forKey: .associatedValue)
             self = .DEFAULT(content: content)
         case 1:
-            let content = try container.decode(TypingContent.self, forKey: .associatedValue)
+            let content = try container.decode(TypingCard.self, forKey: .associatedValue)
             self = .TYPING(content: content)
         default:
             throw CodingError.unknownValue
