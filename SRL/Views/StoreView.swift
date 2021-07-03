@@ -10,7 +10,7 @@ import SwiftUI
 struct StoreView: View {
     @ObservedObject var storeViewModel: StoreViewModel
     
-    @State private var isBottomSheetPresent = false
+    @State private var bottomSheetPosition: BottomSheetPosition = .hidden
     
 
     var body: some View {
@@ -29,13 +29,15 @@ struct StoreView: View {
             .navigationBarTitle("Decks", displayMode: .inline)
             .navigationBarItems(
                 leading: Button(action: {
-//                    try! storeViewModel.makeDeck(name: "TH-Koeln")
-                    isBottomSheetPresent = true
+                    bottomSheetPosition = .middle
                 }, label: {
                     Image(systemName: "plus").imageScale(.large)
                 }),
                 trailing: EditButton()
             )
+            .bottomSheet(bottomSheetPosition: $bottomSheetPosition, options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss]) {
+                Text("Test")
+            }
         }
     }
     

@@ -19,6 +19,12 @@
 		871F11B0268F217700BF9A51 /* SchedulePresetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F11AF268F217700BF9A51 /* SchedulePresetFactory.swift */; };
 		871F11B2268F245F00BF9A51 /* SchedulePresetException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F11B1268F245F00BF9A51 /* SchedulePresetException.swift */; };
 		871F11B4268F261100BF9A51 /* SchedulePresetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F11B3268F261100BF9A51 /* SchedulePresetConfig.swift */; };
+		873D4F952690D0D700A4F128 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F912690D0D700A4F128 /* BottomSheet.swift */; };
+		873D4F962690D0D700A4F128 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F922690D0D700A4F128 /* ViewExtension.swift */; };
+		873D4F972690D0D700A4F128 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F932690D0D700A4F128 /* BottomSheetView.swift */; };
+		873D4F982690D0D700A4F128 /* BottomSheetPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F942690D0D700A4F128 /* BottomSheetPosition.swift */; };
+		873D4F9C2690D0E500A4F128 /* EffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F9A2690D0E500A4F128 /* EffectView.swift */; };
+		873D4F9D2690D0E500A4F128 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F9B2690D0E500A4F128 /* RoundedCorner.swift */; };
 		87541C57265CDF03009E805D /* SRLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C56265CDF03009E805D /* SRLApp.swift */; };
 		87541C5B265CDF04009E805D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5A265CDF04009E805D /* Assets.xcassets */; };
 		87541C5E265CDF04009E805D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5D265CDF04009E805D /* Preview Assets.xcassets */; };
@@ -82,6 +88,12 @@
 		871F11AF268F217700BF9A51 /* SchedulePresetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetFactory.swift; sourceTree = "<group>"; };
 		871F11B1268F245F00BF9A51 /* SchedulePresetException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetException.swift; sourceTree = "<group>"; };
 		871F11B3268F261100BF9A51 /* SchedulePresetConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetConfig.swift; sourceTree = "<group>"; };
+		873D4F912690D0D700A4F128 /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		873D4F922690D0D700A4F128 /* ViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		873D4F932690D0D700A4F128 /* BottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
+		873D4F942690D0D700A4F128 /* BottomSheetPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetPosition.swift; sourceTree = "<group>"; };
+		873D4F9A2690D0E500A4F128 /* EffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectView.swift; sourceTree = "<group>"; };
+		873D4F9B2690D0E500A4F128 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		87541C53265CDF03009E805D /* SRL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87541C56265CDF03009E805D /* SRLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRLApp.swift; sourceTree = "<group>"; };
 		87541C5A265CDF04009E805D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -246,6 +258,27 @@
 			path = Factory;
 			sourceTree = "<group>";
 		};
+		873D4F902690D0C700A4F128 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				873D4F992690D0DB00A4F128 /* HelperViews */,
+				873D4F912690D0D700A4F128 /* BottomSheet.swift */,
+				873D4F942690D0D700A4F128 /* BottomSheetPosition.swift */,
+				873D4F932690D0D700A4F128 /* BottomSheetView.swift */,
+				873D4F922690D0D700A4F128 /* ViewExtension.swift */,
+			);
+			path = BottomSheet;
+			sourceTree = "<group>";
+		};
+		873D4F992690D0DB00A4F128 /* HelperViews */ = {
+			isa = PBXGroup;
+			children = (
+				873D4F9A2690D0E500A4F128 /* EffectView.swift */,
+				873D4F9B2690D0E500A4F128 /* RoundedCorner.swift */,
+			);
+			path = HelperViews;
+			sourceTree = "<group>";
+		};
 		87541C4A265CDF03009E805D = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +356,7 @@
 				8795D2122663E135007C99D9 /* StoreView.swift */,
 				8795D2142663E175007C99D9 /* DeckView.swift */,
 				87D3D05D2669FC6900D2B4DB /* DeckRow.swift */,
+				873D4F902690D0C700A4F128 /* BottomSheet */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -552,6 +586,7 @@
 				871F11B0268F217700BF9A51 /* SchedulePresetFactory.swift in Sources */,
 				87541C8B265CE2AD009E805D /* Deck.swift in Sources */,
 				87C634312663E88F008194B6 /* StoreViewModel.swift in Sources */,
+				873D4F9C2690D0E500A4F128 /* EffectView.swift in Sources */,
 				871F11A6268F05C200BF9A51 /* SchedulePresetService.swift in Sources */,
 				871F11B4268F261100BF9A51 /* SchedulePresetConfig.swift in Sources */,
 				87541C57265CDF03009E805D /* SRLApp.swift in Sources */,
@@ -562,10 +597,14 @@
 				87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */,
 				87B480CB26906E8600887C6A /* TypingContent.swift in Sources */,
 				87B480AE2690221300887C6A /* DeckUserDefaultsRepository.swift in Sources */,
+				873D4F952690D0D700A4F128 /* BottomSheet.swift in Sources */,
 				87B480AA26901AF300887C6A /* FactoringSchedulePreset.swift in Sources */,
+				873D4F962690D0D700A4F128 /* ViewExtension.swift in Sources */,
+				873D4F972690D0D700A4F128 /* BottomSheetView.swift in Sources */,
 				87B480C426906B9300887C6A /* Card.swift in Sources */,
 				87B480B326903E3D00887C6A /* DeckFactory.swift in Sources */,
 				87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */,
+				873D4F982690D0D700A4F128 /* BottomSheetPosition.swift in Sources */,
 				87B480B526903E5100887C6A /* FactoringDeck.swift in Sources */,
 				87541C95265CF1E4009E805D /* ReviewAction.swift in Sources */,
 				87B480C926906DF800887C6A /* ImageContent.swift in Sources */,
@@ -573,6 +612,7 @@
 				87D3D05E2669FC6900D2B4DB /* DeckRow.swift in Sources */,
 				87B480AC26901F7B00887C6A /* DeckRepository.swift in Sources */,
 				8795D2132663E135007C99D9 /* StoreView.swift in Sources */,
+				873D4F9D2690D0E500A4F128 /* RoundedCorner.swift in Sources */,
 				87B480BF2690669C00887C6A /* DefaultCard.swift in Sources */,
 				871F11A8268F05CD00BF9A51 /* SchedulePreset.swift in Sources */,
 				871F11B2268F245F00BF9A51 /* SchedulePresetException.swift in Sources */,
