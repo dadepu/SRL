@@ -7,21 +7,17 @@
 
 import Foundation
 
-struct Card: Codable {
+struct Card: Identifiable, Codable {
     private (set) var id: UUID = UUID()
     private (set) var dateCreated: Date = Date()
     private (set) var dateLastModified: Date = Date()
     private (set) var schedule: Scheduler
-    
-    
-    init(schedule: Scheduler) {
-        self.schedule = schedule
-    }
-    
-    func scheduled(with schedule: Scheduler) -> Card {
-        var card = self
-        card.schedule = schedule
-        card.dateLastModified = Date()
-        return card
+    private (set) var content: CardContent
+}
+
+extension Card: Equatable {
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        return
+            lhs.id == rhs.id
     }
 }

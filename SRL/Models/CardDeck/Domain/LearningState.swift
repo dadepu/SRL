@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 enum LearningState {
     case LEARNING
     case REVIEW
@@ -56,4 +57,3 @@ extension LearningState: Decodable {
         }
     }
 }
-

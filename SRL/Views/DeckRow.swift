@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct DeckRow: View {
-    @ObservedObject var deckViewModel: DeckViewModel
-    
-    var body: some View {
-        HStack {
-            Text(deckViewModel.deck.name)
-            Spacer()
-            Text("\(deckViewModel.reviewQueue.reviewableCards)").padding(.horizontal)
-        }
-    }
-}
+//struct DeckRow: View {
+//    @ObservedObject var deckViewModel: DeckViewModel
+//    
+//    var body: some View {
+//        HStack {
+//            Text(deckViewModel.deck.name)
+//            Spacer()
+//            Text("\(deckViewModel.reviewQueue.reviewableCards)").padding(.horizontal)
+//        }
+//    }
+//}
 
 
 

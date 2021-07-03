@@ -6,8 +6,4 @@
 //
 
 import Foundation
-import Combine
 
-class ReviewViewModel: ObservableObject {
-
-}

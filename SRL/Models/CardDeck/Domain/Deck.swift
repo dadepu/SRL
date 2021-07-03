@@ -11,16 +11,29 @@ struct Deck: Identifiable, Codable {
     private (set) var id: UUID = UUID()
     private (set) var name: String
     private (set) var cards: [UUID: Card] = [UUID: Card]()
+    private (set) var reviewQueue: ReviewQueue = ReviewQueue()
+    private (set) var schedulePreset: SchedulePreset
     
     
     
-    func addedCard(card: Card) -> Deck {
+    init(name: String) {
+        self.name = name
+        self.schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
+    }
+    
+    
+    
+    mutating func saveCard(forId id: UUID, card: Card) {
+        cards[card.id] = card
+    }
+    
+    func savedCard(card: Card) -> Deck {
         var deck = self
         deck.cards[card.id] = card
         return deck
     }
     
-    func withCard(forId id: UUID) -> Card? {
+    func getCard(forId id: UUID) -> Card? {
         cards[id]
     }
     
@@ -38,5 +51,12 @@ struct Deck: Identifiable, Codable {
         var deck = self
         deck.name = name
         return deck
+    }
+}
+
+extension Deck: Equatable {
+    static func == (lhs: Deck, rhs: Deck) -> Bool {
+        return
+            lhs.id == rhs.id
     }
 }
