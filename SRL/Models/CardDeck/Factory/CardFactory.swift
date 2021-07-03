@@ -10,7 +10,7 @@ import Foundation
 struct CardFactory: FactoringCard {
     private let schedulePresetService = SchedulePresetService()
     
-    func newCard(content: CardContent, schedule: SchedulePreset?) throws -> Card {
+    func newCard(content: CardType, schedule: SchedulePreset?) throws -> Card {
         return Card(content: content, preset: getSchedulePreset(schedule))
     }
     

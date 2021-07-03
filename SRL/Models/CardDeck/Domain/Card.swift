@@ -12,11 +12,11 @@ struct Card: Identifiable, Codable {
     private (set) var dateCreated: Date = Date()
     private (set) var dateLastModified: Date = Date()
     private (set) var schedule: Scheduler
-    private (set) var content: CardContent
+    private (set) var content: CardType
     
     
     
-    init(content: CardContent, preset: SchedulePreset) {
+    init(content: CardType, preset: SchedulePreset) {
         self.content = content
         self.schedule = Scheduler(schedulePreset: preset)
     }
