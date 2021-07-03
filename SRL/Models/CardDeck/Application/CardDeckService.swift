@@ -10,8 +10,12 @@ import Foundation
 struct CardDeckService {
     private let deckRepository = DeckRepository.getInstance()
     
+
+    func getModelPublisher() -> Published<[UUID:Deck]>.Publisher {
+        deckRepository.$decks
+    }
     
-    func getAllDecks() -> [UUID:Deck]? {
+    func getAllDecks() -> [UUID:Deck] {
         deckRepository.getAllDecks()
     }
     

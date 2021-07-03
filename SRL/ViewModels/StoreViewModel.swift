@@ -8,42 +8,40 @@
 import Foundation
 import Combine
 
-//class StoreViewModel: ObservableObject {
-//    private (set) var deckServiceApi: DeckApiService
-//    private (set) var listeningToDeckServiceApiCancellable: AnyCancellable?
-//    
-//    var decks: [Deck] {
-//        get {
-//            var deckArray: [Deck] = []
-//            for (_, value) in deckServiceApi.decks {
-//                deckArray.append(value)
-//            }
-//            return deckArray
-//        }
-//    }
-//    
-//    
-//    
-//    init(_ deckServiceApi: DeckApiService) {
-//        self.deckServiceApi = deckServiceApi
-//        listeningToDeckServiceApiCancellable = deckServiceApi.$decks.sink(receiveValue: refreshModel)
-//    }
-//    
-//    func makeNewDeck(name: String) {
-//        deckServiceApi.setDeck(with: Deck(name: name))
-//    }
-//    
-//    func renameDeck(id: UUID, name: String) {
-//        if let renamedDeck = deckServiceApi.withDeck(forID: id)?.renamedDeck(name: name) {
-//            deckServiceApi.setDeck(with: renamedDeck)
-//        }
-//    }
-//    
-//    func removeDeck(id: UUID) {
-//        deckServiceApi.dropDeck(forID: id)
-//    }
-//    
-//    private func refreshModel(decks: [UUID: Deck]) {
-//        self.objectWillChange.send()
-//    }
-//}
+class StoreViewModel: ObservableObject {
+    private let cardDeckService = CardDeckService()
+    private var cardDeckObserver: AnyCancellable?
+    
+    var decks: Array<Deck> {
+        get {
+            let decks: [UUID:Deck] = cardDeckService.getAllDecks()
+            var deckArray: [Deck] = []
+            for (_, value) in decks {
+                deckArray.append(value)
+            }
+            return deckArray
+        }
+    }
+    
+    
+    
+    init() {
+        cardDeckObserver = cardDeckService.getModelPublisher().sink(receiveValue: publishChange(_:))
+    }
+    
+
+    
+    func makeDeck(name: String) throws {
+        let deckFactory = cardDeckService.getDeckFactory()
+        let deck = try deckFactory.newDeck(name: name, schedulePreset: nil)
+        cardDeckService.saveDeck(deck: deck)
+    }
+    
+    func dropDeck(id: UUID) {
+        cardDeckService.deleteDeck(forId: id)
+    }
+
+    private func publishChange(_: Any) {
+        self.objectWillChange.send()
+    }
+}

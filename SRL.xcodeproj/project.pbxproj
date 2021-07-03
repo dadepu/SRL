@@ -27,14 +27,11 @@
 		87541C8B265CE2AD009E805D /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C8A265CE2AD009E805D /* Deck.swift */; };
 		87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C8E265CE2C8009E805D /* Scheduler.swift */; };
 		87541C95265CF1E4009E805D /* ReviewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C94265CF1E4009E805D /* ReviewAction.swift */; };
-		87541C9A265CFA00009E805D /* DeckApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C99265CFA00009E805D /* DeckApiService.swift */; };
 		87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C9F265D5646009E805D /* DeckViewModel.swift */; };
-		87541CA2265D565F009E805D /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541CA1265D565F009E805D /* CardViewModel.swift */; };
 		87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87946B68268F996600CEAA98 /* SchedulePresetRepository.swift */; };
 		8795D2132663E135007C99D9 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795D2122663E135007C99D9 /* StoreView.swift */; };
 		8795D2152663E175007C99D9 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795D2142663E175007C99D9 /* DeckView.swift */; };
 		87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110C9265ED23A00F0D4B6 /* LearningState.swift */; };
-		87A157D82667564900EEDCD7 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A157D72667564900EEDCD7 /* ReviewViewModel.swift */; };
 		87B480A8269018E200887C6A /* SchedulePresetPersistanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480A7269018E200887C6A /* SchedulePresetPersistanceTest.swift */; };
 		87B480AA26901AF300887C6A /* FactoringSchedulePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480A926901AF300887C6A /* FactoringSchedulePreset.swift */; };
 		87B480AC26901F7B00887C6A /* DeckRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480AB26901F7B00887C6A /* DeckRepository.swift */; };
@@ -99,14 +96,11 @@
 		87541C8A265CE2AD009E805D /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		87541C8E265CE2C8009E805D /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		87541C94265CF1E4009E805D /* ReviewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAction.swift; sourceTree = "<group>"; };
-		87541C99265CFA00009E805D /* DeckApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckApiService.swift; sourceTree = "<group>"; };
 		87541C9F265D5646009E805D /* DeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewModel.swift; sourceTree = "<group>"; };
-		87541CA1265D565F009E805D /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		87946B68268F996600CEAA98 /* SchedulePresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetRepository.swift; sourceTree = "<group>"; };
 		8795D2122663E135007C99D9 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		8795D2142663E175007C99D9 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		87A110C9265ED23A00F0D4B6 /* LearningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningState.swift; sourceTree = "<group>"; };
-		87A157D72667564900EEDCD7 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		87B480A7269018E200887C6A /* SchedulePresetPersistanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetPersistanceTest.swift; sourceTree = "<group>"; };
 		87B480A926901AF300887C6A /* FactoringSchedulePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoringSchedulePreset.swift; sourceTree = "<group>"; };
 		87B480AB26901F7B00887C6A /* DeckRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckRepository.swift; sourceTree = "<group>"; };
@@ -338,8 +332,6 @@
 			children = (
 				87C634302663E88F008194B6 /* StoreViewModel.swift */,
 				87541C9F265D5646009E805D /* DeckViewModel.swift */,
-				87541CA1265D565F009E805D /* CardViewModel.swift */,
-				87A157D72667564900EEDCD7 /* ReviewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -347,7 +339,6 @@
 		87541C98265CF9C1009E805D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				87541C99265CFA00009E805D /* DeckApiService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -559,13 +550,10 @@
 				871F11AD268F09E300BF9A51 /* SchedulePresetUserDefaultsRepository.swift in Sources */,
 				87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */,
 				871F11B0268F217700BF9A51 /* SchedulePresetFactory.swift in Sources */,
-				87541C9A265CFA00009E805D /* DeckApiService.swift in Sources */,
-				87A157D82667564900EEDCD7 /* ReviewViewModel.swift in Sources */,
 				87541C8B265CE2AD009E805D /* Deck.swift in Sources */,
 				87C634312663E88F008194B6 /* StoreViewModel.swift in Sources */,
 				871F11A6268F05C200BF9A51 /* SchedulePresetService.swift in Sources */,
 				871F11B4268F261100BF9A51 /* SchedulePresetConfig.swift in Sources */,
-				87541CA2265D565F009E805D /* CardViewModel.swift in Sources */,
 				87541C57265CDF03009E805D /* SRLApp.swift in Sources */,
 				87B480C1269066A200887C6A /* TypingCard.swift in Sources */,
 				8795D2152663E175007C99D9 /* DeckView.swift in Sources */,

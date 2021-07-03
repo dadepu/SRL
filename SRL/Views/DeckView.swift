@@ -7,23 +7,15 @@
 
 import SwiftUI
 
-//struct DeckView: View {
-//    @ObservedObject var deckViewModel: DeckViewModel
-//    
-//    var body: some View {
-//        NavigationView {
-//            List {
-//                Section(header: Text("Study")) {
-//                    
-//                }
-//                Section(header: Text("Actions")) {
-//                    
-//                }
-//            }
-//        }
-//        .navigationBarTitle(deckViewModel.deck.name, displayMode: .inline)
-//    }
-//}
+struct DeckView: View {
+    @ObservedObject var deckViewModel: DeckViewModel
+    
+    var body: some View {
+        List {
+        }
+        .navigationBarTitle(deckViewModel.deck.name, displayMode: .inline)
+    }
+}
 
 //struct DeckView_Previews: PreviewProvider {
 //    static var previews: some View {

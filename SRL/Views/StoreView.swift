@@ -6,34 +6,44 @@
 //
 
 import SwiftUI
-import UIKit
 
 struct StoreView: View {
-    @EnvironmentObject var deckApiService: DeckApiService
-//    @ObservedObject var storeViewModel: StoreViewModel
+    @ObservedObject var storeViewModel: StoreViewModel
     
-    @State var alertNewDeck = false
+    @State private var isBottomSheetPresent = false
+    
 
     var body: some View {
-        Group {
-            
+        NavigationView {
+            List {
+                ForEach(storeViewModel.decks) { deck in
+                    NavigationLink(destination: DeckView(deckViewModel: DeckViewModel(deck: deck))) {
+                        DeckRow(deckViewModel: DeckViewModel(deck: deck))
+                    }
+                }
+                .onDelete(perform: { indexSet in
+                    delete(at: indexSet)
+                })
+            }
+            .listStyle(GroupedListStyle())
+            .navigationBarTitle("Decks", displayMode: .inline)
+            .navigationBarItems(
+                leading: Button(action: {
+//                    try! storeViewModel.makeDeck(name: "TH-Koeln")
+                    isBottomSheetPresent = true
+                }, label: {
+                    Image(systemName: "plus").imageScale(.large)
+                }),
+                trailing: EditButton()
+            )
         }
-//        NavigationView {
-//            List(storeViewModel.decks) { (deck: Deck) in
-//                NavigationLink(destination: DeckView(deckViewModel: DeckViewModel(deckApiService, deck: deck))) {
-//                    DeckRow(deckViewModel: DeckViewModel(deckApiService, deck: deck))
-//                }
-//            }.listStyle(GroupedListStyle())
-//            .navigationBarTitle("Decks", displayMode: .inline)
-//            .navigationBarItems(
-//                leading: Button(action: {
-//                    storeViewModel.makeNewDeck(name: "TH-Koeln")
-//                }, label: {
-//                    Image(systemName: "plus").imageScale(.large)
-//                }),
-//                trailing: EditButton()
-//            )
-//        }
+    }
+    
+    func delete(at offset: IndexSet) {
+        let decks: [Deck] = storeViewModel.decks
+        for i in offset {
+            storeViewModel.dropDeck(id: decks[i].id)
+        }
     }
 }
 
