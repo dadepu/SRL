@@ -25,7 +25,8 @@
 		873D4F982690D0D700A4F128 /* BottomSheetPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F942690D0D700A4F128 /* BottomSheetPosition.swift */; };
 		873D4F9C2690D0E500A4F128 /* EffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F9A2690D0E500A4F128 /* EffectView.swift */; };
 		873D4F9D2690D0E500A4F128 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F9B2690D0E500A4F128 /* RoundedCorner.swift */; };
-		8750A3C72691891800837E24 /* DeckListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3C62691891800837E24 /* DeckListSection.swift */; };
+		8750A3C926919C2A00837E24 /* CustomStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3C826919C2A00837E24 /* CustomStudyView.swift */; };
+		8750A3CB2691B92800837E24 /* PresetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CA2691B92800837E24 /* PresetViewModel.swift */; };
 		87541C57265CDF03009E805D /* SRLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C56265CDF03009E805D /* SRLApp.swift */; };
 		87541C5B265CDF04009E805D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5A265CDF04009E805D /* Assets.xcassets */; };
 		87541C5E265CDF04009E805D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5D265CDF04009E805D /* Preview Assets.xcassets */; };
@@ -56,7 +57,7 @@
 		87B480C926906DF800887C6A /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480C826906DF800887C6A /* ImageContent.swift */; };
 		87B480CB26906E8600887C6A /* TypingContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480CA26906E8600887C6A /* TypingContent.swift */; };
 		87C634312663E88F008194B6 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C634302663E88F008194B6 /* StoreViewModel.swift */; };
-		87D3D05E2669FC6900D2B4DB /* DeckRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D3D05D2669FC6900D2B4DB /* DeckRow.swift */; };
+		87D3D05E2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,7 +96,8 @@
 		873D4F942690D0D700A4F128 /* BottomSheetPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetPosition.swift; sourceTree = "<group>"; };
 		873D4F9A2690D0E500A4F128 /* EffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectView.swift; sourceTree = "<group>"; };
 		873D4F9B2690D0E500A4F128 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
-		8750A3C62691891800837E24 /* DeckListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckListSection.swift; sourceTree = "<group>"; };
+		8750A3C826919C2A00837E24 /* CustomStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStudyView.swift; sourceTree = "<group>"; };
+		8750A3CA2691B92800837E24 /* PresetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetViewModel.swift; sourceTree = "<group>"; };
 		87541C53265CDF03009E805D /* SRL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87541C56265CDF03009E805D /* SRLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRLApp.swift; sourceTree = "<group>"; };
 		87541C5A265CDF04009E805D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -132,7 +134,7 @@
 		87B480C826906DF800887C6A /* ImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContent.swift; sourceTree = "<group>"; };
 		87B480CA26906E8600887C6A /* TypingContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingContent.swift; sourceTree = "<group>"; };
 		87C634302663E88F008194B6 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
-		87D3D05D2669FC6900D2B4DB /* DeckRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckRow.swift; sourceTree = "<group>"; };
+		87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowHorizontalSeparated.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -357,8 +359,8 @@
 			children = (
 				8795D2122663E135007C99D9 /* StoreView.swift */,
 				8795D2142663E175007C99D9 /* DeckView.swift */,
-				8750A3C62691891800837E24 /* DeckListSection.swift */,
-				87D3D05D2669FC6900D2B4DB /* DeckRow.swift */,
+				8750A3C826919C2A00837E24 /* CustomStudyView.swift */,
+				87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */,
 				873D4F902690D0C700A4F128 /* BottomSheet */,
 			);
 			path = Views;
@@ -367,6 +369,7 @@
 		87541C84265CE02B009E805D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				8750A3CA2691B92800837E24 /* PresetViewModel.swift */,
 				87C634302663E88F008194B6 /* StoreViewModel.swift */,
 				87541C9F265D5646009E805D /* DeckViewModel.swift */,
 			);
@@ -586,6 +589,7 @@
 				87B480C726906DF200887C6A /* TextContent.swift in Sources */,
 				871F11AD268F09E300BF9A51 /* SchedulePresetUserDefaultsRepository.swift in Sources */,
 				87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */,
+				8750A3CB2691B92800837E24 /* PresetViewModel.swift in Sources */,
 				871F11B0268F217700BF9A51 /* SchedulePresetFactory.swift in Sources */,
 				87541C8B265CE2AD009E805D /* Deck.swift in Sources */,
 				87C634312663E88F008194B6 /* StoreViewModel.swift in Sources */,
@@ -595,6 +599,7 @@
 				87541C57265CDF03009E805D /* SRLApp.swift in Sources */,
 				87B480C1269066A200887C6A /* TypingCard.swift in Sources */,
 				8795D2152663E175007C99D9 /* DeckView.swift in Sources */,
+				8750A3C926919C2A00837E24 /* CustomStudyView.swift in Sources */,
 				871F1187268ED0C400BF9A51 /* CardDeckService.swift in Sources */,
 				871F1192268ED10E00BF9A51 /* ReviewQueue.swift in Sources */,
 				87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */,
@@ -604,7 +609,6 @@
 				87B480AA26901AF300887C6A /* FactoringSchedulePreset.swift in Sources */,
 				873D4F962690D0D700A4F128 /* ViewExtension.swift in Sources */,
 				873D4F972690D0D700A4F128 /* BottomSheetView.swift in Sources */,
-				8750A3C72691891800837E24 /* DeckListSection.swift in Sources */,
 				87B480C426906B9300887C6A /* Card.swift in Sources */,
 				87B480B326903E3D00887C6A /* DeckFactory.swift in Sources */,
 				87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */,
@@ -613,7 +617,7 @@
 				87541C95265CF1E4009E805D /* ReviewAction.swift in Sources */,
 				87B480C926906DF800887C6A /* ImageContent.swift in Sources */,
 				87B480B726903E5D00887C6A /* FactoringCard.swift in Sources */,
-				87D3D05E2669FC6900D2B4DB /* DeckRow.swift in Sources */,
+				87D3D05E2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift in Sources */,
 				87B480AC26901F7B00887C6A /* DeckRepository.swift in Sources */,
 				8795D2132663E135007C99D9 /* StoreView.swift in Sources */,
 				873D4F9D2690D0E500A4F128 /* RoundedCorner.swift in Sources */,

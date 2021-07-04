@@ -21,12 +21,17 @@ class DeckViewModel: ObservableObject {
     }
     
     
-
+    func editDeck(name: String, presetIndex: Int) {
+        let presetViewModel = PresetViewModel()
+        cardDeckService.editDeck(deckId: deck.id, name: name, presetId: presetViewModel.getPreset(forIndex: presetIndex)?.id)
+    }
+    
     private func refreshDeck(_: Any) {
         if let deck: Deck = cardDeckService.getDeck(forId: self.deck.id) {
             self.deck = deck
         } else {
             cardDeckObserver?.cancel()
         }
+        self.objectWillChange.send()
     }
 }

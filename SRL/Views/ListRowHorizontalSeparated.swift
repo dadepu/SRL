@@ -7,14 +7,16 @@
 
 import SwiftUI
 
-struct DeckRow: View {
-    @ObservedObject var deckViewModel: DeckViewModel
+struct ListRowHorizontalSeparated: View {
+    var textLeft: () -> String
+    var textRight: () -> String
     
     var body: some View {
         HStack {
-            Text(deckViewModel.deck.name)
+            Text(textLeft())
             Spacer()
-            Text("\(deckViewModel.deck.reviewQueue.reviewableCardCount)").padding(.horizontal)
+            Text(textRight())
+                .padding(.horizontal)
         }
     }
 }

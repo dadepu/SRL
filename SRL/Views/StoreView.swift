@@ -17,11 +17,44 @@ struct StoreView: View {
 
     var body: some View {
         NavigationView {
-            DeckListSection(storeViewModel: storeViewModel, decks: storeViewModel.decks)
+            DeckListSection()
             .bottomSheet(bottomSheetPosition: $bottomSheetPosition, options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss],
                          headerContent: BottomSheetHeader, mainContent: BottomSheetContent)
             .navigationBarTitle("Decks", displayMode: .inline)
             .navigationBarItems(leading: ButtonAddDeck(bottomSheetPosition: $bottomSheetPosition))
+        }
+    }
+    
+    
+    struct DeckListSection: View {
+        private var storeViewModel: StoreViewModel
+        private var decks: [Deck]
+        
+        init() {
+            let storeViewModel = StoreViewModel()
+            self.storeViewModel = storeViewModel
+            self.decks = storeViewModel.decks
+        }
+        
+        
+        var body: some View {
+            List {
+                ForEach(decks) { deck in
+                    NavigationLink(destination: DeckView(deck: deck)) {
+                        ListRowHorizontalSeparated(textLeft: {deck.name}, textRight: {"\(deck.reviewQueue.reviewableCardCount)"})
+                    }
+                }
+                .onDelete(perform: deleteDeck)
+            }
+            .listStyle(GroupedListStyle())
+        }
+        
+        
+        func deleteDeck(at offset: IndexSet) {
+            let decks: [Deck] = storeViewModel.decks
+            for i in offset {
+                storeViewModel.dropDeck(id: decks[i].id)
+            }
         }
     }
     
@@ -77,6 +110,14 @@ struct StoreView: View {
         try? storeViewModel.makeDeck(name: name, presetId: presetId)
     }
 }
+
+
+
+
+
+
+
+
 
 
 //struct StoreView_Previews: PreviewProvider {

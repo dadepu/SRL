@@ -62,6 +62,10 @@ struct Deck: Identifiable, Codable {
         self.name = name
     }
     
+    mutating func changeSchedulePreset(forPresetId id: UUID) {
+        self.schedulePreset = SchedulePresetService().getSchedulePresetOrDefault(forId: id)
+    }
+    
     mutating func rebuildQueue() {
         reviewQueue.rebuildQueue(cards: cards)
     }

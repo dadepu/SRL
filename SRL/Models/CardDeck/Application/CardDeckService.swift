@@ -48,6 +48,16 @@ struct CardDeckService {
         // TODO
     }
     
+    func editDeck(deckId: UUID, name: String, presetId: UUID?) {
+        if var deck: Deck = getDeck(forId: deckId) {
+            deck.renameDeck(name: name)
+            if presetId != nil {
+                deck.changeSchedulePreset(forPresetId: presetId!)
+            }
+            saveDeck(deck: deck)
+        }
+    }
+    
     func refreshSchedulePresets() {
         // TODO 
     }
