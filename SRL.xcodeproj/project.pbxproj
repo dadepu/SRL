@@ -27,6 +27,9 @@
 		873D4F9D2690D0E500A4F128 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F9B2690D0E500A4F128 /* RoundedCorner.swift */; };
 		8750A3C926919C2A00837E24 /* CustomStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3C826919C2A00837E24 /* CustomStudyView.swift */; };
 		8750A3CB2691B92800837E24 /* PresetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CA2691B92800837E24 /* PresetViewModel.swift */; };
+		8750A3CD2691E19B00837E24 /* DeckListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CC2691E19B00837E24 /* DeckListSection.swift */; };
+		8750A3CF2691E97A00837E24 /* DeleteDeckSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CE2691E97A00837E24 /* DeleteDeckSheet.swift */; };
+		8750A3D12691EA4F00837E24 /* EditDeckSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3D02691EA4F00837E24 /* EditDeckSheet.swift */; };
 		87541C57265CDF03009E805D /* SRLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C56265CDF03009E805D /* SRLApp.swift */; };
 		87541C5B265CDF04009E805D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5A265CDF04009E805D /* Assets.xcassets */; };
 		87541C5E265CDF04009E805D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5D265CDF04009E805D /* Preview Assets.xcassets */; };
@@ -98,6 +101,9 @@
 		873D4F9B2690D0E500A4F128 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		8750A3C826919C2A00837E24 /* CustomStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStudyView.swift; sourceTree = "<group>"; };
 		8750A3CA2691B92800837E24 /* PresetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetViewModel.swift; sourceTree = "<group>"; };
+		8750A3CC2691E19B00837E24 /* DeckListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckListSection.swift; sourceTree = "<group>"; };
+		8750A3CE2691E97A00837E24 /* DeleteDeckSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeckSheet.swift; sourceTree = "<group>"; };
+		8750A3D02691EA4F00837E24 /* EditDeckSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDeckSheet.swift; sourceTree = "<group>"; };
 		87541C53265CDF03009E805D /* SRL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87541C56265CDF03009E805D /* SRLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRLApp.swift; sourceTree = "<group>"; };
 		87541C5A265CDF04009E805D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -283,6 +289,34 @@
 			path = HelperViews;
 			sourceTree = "<group>";
 		};
+		8750A3D22691EA5800837E24 /* Deck */ = {
+			isa = PBXGroup;
+			children = (
+				8795D2142663E175007C99D9 /* DeckView.swift */,
+				8750A3D02691EA4F00837E24 /* EditDeckSheet.swift */,
+				8750A3CE2691E97A00837E24 /* DeleteDeckSheet.swift */,
+			);
+			path = Deck;
+			sourceTree = "<group>";
+		};
+		8750A3D32691EA8600837E24 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */,
+				873D4F902690D0C700A4F128 /* BottomSheet */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		8750A3D42691EAF300837E24 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				8795D2122663E135007C99D9 /* StoreView.swift */,
+				8750A3CC2691E19B00837E24 /* DeckListSection.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		87541C4A265CDF03009E805D = {
 			isa = PBXGroup;
 			children = (
@@ -357,11 +391,10 @@
 		87541C83265CE020009E805D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8795D2122663E135007C99D9 /* StoreView.swift */,
-				8795D2142663E175007C99D9 /* DeckView.swift */,
+				8750A3D42691EAF300837E24 /* Root */,
+				8750A3D22691EA5800837E24 /* Deck */,
 				8750A3C826919C2A00837E24 /* CustomStudyView.swift */,
-				87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */,
-				873D4F902690D0C700A4F128 /* BottomSheet */,
+				8750A3D32691EA8600837E24 /* Shared */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -588,6 +621,7 @@
 			files = (
 				87B480C726906DF200887C6A /* TextContent.swift in Sources */,
 				871F11AD268F09E300BF9A51 /* SchedulePresetUserDefaultsRepository.swift in Sources */,
+				8750A3CD2691E19B00837E24 /* DeckListSection.swift in Sources */,
 				87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */,
 				8750A3CB2691B92800837E24 /* PresetViewModel.swift in Sources */,
 				871F11B0268F217700BF9A51 /* SchedulePresetFactory.swift in Sources */,
@@ -599,6 +633,7 @@
 				87541C57265CDF03009E805D /* SRLApp.swift in Sources */,
 				87B480C1269066A200887C6A /* TypingCard.swift in Sources */,
 				8795D2152663E175007C99D9 /* DeckView.swift in Sources */,
+				8750A3D12691EA4F00837E24 /* EditDeckSheet.swift in Sources */,
 				8750A3C926919C2A00837E24 /* CustomStudyView.swift in Sources */,
 				871F1187268ED0C400BF9A51 /* CardDeckService.swift in Sources */,
 				871F1192268ED10E00BF9A51 /* ReviewQueue.swift in Sources */,
@@ -628,6 +663,7 @@
 				87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */,
 				87B480BB269064B000887C6A /* CardType.swift in Sources */,
 				87B480BD269064F600887C6A /* CardContentType.swift in Sources */,
+				8750A3CF2691E97A00837E24 /* DeleteDeckSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

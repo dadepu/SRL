@@ -26,6 +26,10 @@ class DeckViewModel: ObservableObject {
         cardDeckService.editDeck(deckId: deck.id, name: name, presetId: presetViewModel.getPreset(forIndex: presetIndex)?.id)
     }
     
+    func dropDeck(id: UUID) {
+        cardDeckService.deleteDeck(forId: id)
+    }
+    
     private func refreshDeck(_: Any) {
         if let deck: Deck = cardDeckService.getDeck(forId: self.deck.id) {
             self.deck = deck

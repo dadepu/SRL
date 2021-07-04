@@ -11,7 +11,7 @@ import SwiftUI
 struct SRLApp: App {
     var body: some Scene {
         WindowGroup {
-            StoreView(storeViewModel: StoreViewModel())
+            StoreView()
         }
     }
 }
