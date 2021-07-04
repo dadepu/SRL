@@ -10,7 +10,9 @@ import Combine
 
 class StoreViewModel: ObservableObject {
     private let cardDeckService = CardDeckService()
+    private let schedulePresetService = SchedulePresetService()
     private var cardDeckObserver: AnyCancellable?
+    private var schedulePresetObserver: AnyCancellable?
     
     var decks: Array<Deck> {
         get {
@@ -19,7 +21,25 @@ class StoreViewModel: ObservableObject {
             for (_, value) in decks {
                 deckArray.append(value)
             }
-            return deckArray
+            return deckArray.sorted() { (lhs:Deck, rhs:Deck) -> Bool in
+                lhs.name < rhs.name
+            }
+        }
+    }
+    
+    var presets: Array<SchedulePreset> {
+        get {
+            let presets: [UUID:SchedulePreset] = schedulePresetService.getAllSchedulePresets()
+            let defaultPreset: [SchedulePreset] = [schedulePresetService.getDefaultSchedulePreset()]
+            var namedPresets: [SchedulePreset] = []
+            for (_, value) in presets {
+                if !value.isDefaultPreset {
+                    namedPresets.append(value)
+                }
+            }
+            return defaultPreset + namedPresets.sorted() { (lhs:SchedulePreset, rhs:SchedulePreset) -> Bool in
+                lhs.name < rhs.name
+            }
         }
     }
     
@@ -27,11 +47,12 @@ class StoreViewModel: ObservableObject {
     
     init() {
         cardDeckObserver = cardDeckService.getModelPublisher().sink(receiveValue: publishChange(_:))
+        schedulePresetObserver = schedulePresetService.getModelPublisher().sink(receiveValue: publishChange(_:))
     }
     
 
     
-    func makeDeck(name: String) throws {
+    func makeDeck(name: String, presetId: UUID) throws {
         let deckFactory = cardDeckService.getDeckFactory()
         let deck = try deckFactory.newDeck(name: name, schedulePreset: nil)
         cardDeckService.saveDeck(deck: deck)

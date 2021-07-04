@@ -25,6 +25,7 @@
 		873D4F982690D0D700A4F128 /* BottomSheetPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F942690D0D700A4F128 /* BottomSheetPosition.swift */; };
 		873D4F9C2690D0E500A4F128 /* EffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F9A2690D0E500A4F128 /* EffectView.swift */; };
 		873D4F9D2690D0E500A4F128 /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F9B2690D0E500A4F128 /* RoundedCorner.swift */; };
+		8750A3C72691891800837E24 /* DeckListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3C62691891800837E24 /* DeckListSection.swift */; };
 		87541C57265CDF03009E805D /* SRLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C56265CDF03009E805D /* SRLApp.swift */; };
 		87541C5B265CDF04009E805D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5A265CDF04009E805D /* Assets.xcassets */; };
 		87541C5E265CDF04009E805D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87541C5D265CDF04009E805D /* Preview Assets.xcassets */; };
@@ -94,6 +95,7 @@
 		873D4F942690D0D700A4F128 /* BottomSheetPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetPosition.swift; sourceTree = "<group>"; };
 		873D4F9A2690D0E500A4F128 /* EffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectView.swift; sourceTree = "<group>"; };
 		873D4F9B2690D0E500A4F128 /* RoundedCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
+		8750A3C62691891800837E24 /* DeckListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckListSection.swift; sourceTree = "<group>"; };
 		87541C53265CDF03009E805D /* SRL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87541C56265CDF03009E805D /* SRLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRLApp.swift; sourceTree = "<group>"; };
 		87541C5A265CDF04009E805D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 			children = (
 				8795D2122663E135007C99D9 /* StoreView.swift */,
 				8795D2142663E175007C99D9 /* DeckView.swift */,
+				8750A3C62691891800837E24 /* DeckListSection.swift */,
 				87D3D05D2669FC6900D2B4DB /* DeckRow.swift */,
 				873D4F902690D0C700A4F128 /* BottomSheet */,
 			);
@@ -601,6 +604,7 @@
 				87B480AA26901AF300887C6A /* FactoringSchedulePreset.swift in Sources */,
 				873D4F962690D0D700A4F128 /* ViewExtension.swift in Sources */,
 				873D4F972690D0D700A4F128 /* BottomSheetView.swift in Sources */,
+				8750A3C72691891800837E24 /* DeckListSection.swift in Sources */,
 				87B480C426906B9300887C6A /* Card.swift in Sources */,
 				87B480B326903E3D00887C6A /* DeckFactory.swift in Sources */,
 				87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */,

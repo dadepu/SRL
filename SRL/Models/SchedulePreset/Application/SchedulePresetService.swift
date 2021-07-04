@@ -11,6 +11,10 @@ struct SchedulePresetService {
     private let schedulePresetRepository = SchedulePresetRepository.getInstance()
     
     
+    func getModelPublisher() -> Published<[UUID:SchedulePreset]>.Publisher {
+        schedulePresetRepository.$schedulePresets
+    }
+    
     func getAllSchedulePresets() -> [UUID:SchedulePreset] {
         let _ = getOrAddDefaultSchedulePreset()
         return schedulePresetRepository.getAllSchedulePresets()
