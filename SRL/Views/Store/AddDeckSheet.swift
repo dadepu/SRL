@@ -1,0 +1,62 @@
+//
+//  AddDeckSheet.swift
+//  SRL
+//
+//  Created by Daniel Koellgen on 05.07.21.
+//
+
+import SwiftUI
+
+struct AddDeckSheet: ViewModifier {
+    @ObservedObject var presetViewModel: PresetViewModel
+    @ObservedObject var storeViewModel: StoreViewModel
+    
+    @Binding var isShowingBottomSheet: BottomSheetPosition
+    @Binding var opacityBottomSheet: Double
+    @Binding var formDeckName: String
+    @Binding var formPresetIndex: Int
+    
+    
+    func body(content: Content) -> some View {
+        content
+            .bottomSheet(bottomSheetPosition: $isShowingBottomSheet, options: [.swipeToDismiss, .tapToDissmiss, .noBottomPosition], headerContent: sheetHeader, mainContent: sheetContent, opacity: $opacityBottomSheet)
+    }
+    
+    private func sheetHeader() -> some View {
+        VStack(alignment: .leading) {
+            Text("Add Deck")
+                .font(.title).bold()
+            Divider()
+        }
+    }
+    
+    private func sheetContent() -> some View {
+        VStack {
+            List {
+                TextField("Deck Name", text: $formDeckName)
+                Picker(selection: $formPresetIndex, label: Text("Preset")) {
+                    ForEach(0 ..< presetViewModel.presets.count) {
+                        Text(self.presetViewModel.presets[$0].name)
+                    }
+                }
+            }
+            Button(action: createDeckAction, label: {
+                Text("Create")
+                    .bold()
+            })
+            Spacer()
+        }
+    }
+    
+    private func createDeckAction() {
+        makeDeck(name: formDeckName, presetIndex: formPresetIndex)
+        formDeckName = ""
+        formPresetIndex = 0
+        isShowingBottomSheet = .hidden
+    }
+    
+    private func makeDeck(name: String, presetIndex: Int) {
+        let presetId = presetViewModel.getPreset(forIndex: presetIndex)!.id
+        try? storeViewModel.makeDeck(name: name, presetId: presetId)
+    }
+}

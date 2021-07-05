@@ -16,7 +16,7 @@ struct DeleteDeckSheet: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .bottomSheet(bottomSheetPosition: $isShowingBottomSheet, options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss],
+            .bottomSheet(bottomSheetPosition: $isShowingBottomSheet, options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss, .noBottomPosition],
                          headerContent: sheetHeader, mainContent: sheetContent)
     }
     

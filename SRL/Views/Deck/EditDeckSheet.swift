@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct EditDeckSheet: ViewModifier {
-    var deckViewModel: DeckViewModel
-    var presetViewModel: PresetViewModel
+    @ObservedObject var deckViewModel: DeckViewModel
+    @ObservedObject var presetViewModel: PresetViewModel
     
     @Binding var isShowingBottomSheet: BottomSheetPosition
-    @State private var formDeckName: String = ""
-    @State private var formPresetIndex: Int = 0
+    @Binding var formDeckName: String
+    @Binding var formPresetIndex: Int
     
     
     func body(content: Content) -> some View {
         content
-            .bottomSheet(bottomSheetPosition: $isShowingBottomSheet, options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss],
+            .bottomSheet(bottomSheetPosition: $isShowingBottomSheet, options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss, .noBottomPosition],
                       headerContent: sheetHeader, mainContent: sheetContent)
     }
     
@@ -31,7 +31,7 @@ struct EditDeckSheet: ViewModifier {
     }
     
     private func sheetContent() -> some View {
-        VStack(spacing: 0) {
+        VStack() {
             List {
                 TextField("Deck Name", text: $formDeckName)
                 Picker(selection: $formPresetIndex, label: Text("Preset")) {
@@ -39,20 +39,20 @@ struct EditDeckSheet: ViewModifier {
                         Text(presetViewModel.presets[$0].name)
                     }
                 }
+                Button(action: {
+                    editDeckAction(deckName: formDeckName, presetIndex: formPresetIndex)
+                }, label: {
+                    Text("Edit Deck")
+                        .bold()
+                })
             }
-            .listStyle(InsetGroupedListStyle())
-            Button(action: {
-                editDeckAction(deckName: formDeckName, presetIndex: formPresetIndex)
-            }, label: {
-                Text("Edit Deck")
-                    .bold()
-            })
-            Spacer()
+            .listStyle(GroupedListStyle())
         }
     }
     
     private func editDeckAction(deckName: String, presetIndex: Int) {
         deckViewModel.editDeck(name: deckName, presetIndex: presetIndex)
+        refreshEditDeckFormValues()
         isShowingBottomSheet = .hidden
     }
     

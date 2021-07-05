@@ -14,22 +14,22 @@ struct CustomStudyView: View {
         List {
             Section(header: Text("Study")){
                 NavigationLink(
-                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    destination: EmptyView(),
                     label: {
                         Text("Due Cards")
                     })
                 NavigationLink(
-                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    destination: EmptyView(),
                     label: {
                         Text("New Cards")
                     })
                 NavigationLink(
-                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    destination: EmptyView(),
                     label: {
                         Text("Forgotten Cards")
                     })
                 NavigationLink(
-                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    destination: EmptyView(),
                     label: {
                         Text("All Cards")
                     })

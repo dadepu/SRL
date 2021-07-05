@@ -12,12 +12,12 @@ class DeckViewModel: ObservableObject {
     private let cardDeckService = CardDeckService()
     private var cardDeckObserver: AnyCancellable?
     
-    private (set) var deck: Deck
+    @Published private (set) var deck: Deck
     
     
     init(deck: Deck) {
         self.deck = deck
-        cardDeckObserver = cardDeckService.getModelPublisher().sink(receiveValue: refreshDeck(_:))
+        cardDeckObserver = cardDeckService.getModelPublisher().sink(receiveValue: refreshDeck(decks:))
     }
     
     
@@ -30,12 +30,11 @@ class DeckViewModel: ObservableObject {
         cardDeckService.deleteDeck(forId: id)
     }
     
-    private func refreshDeck(_: Any) {
-        if let deck: Deck = cardDeckService.getDeck(forId: self.deck.id) {
+    private func refreshDeck(decks: [UUID:Deck]) {
+        if let deck: Deck = decks[self.deck.id] {
             self.deck = deck
         } else {
             cardDeckObserver?.cancel()
         }
-        self.objectWillChange.send()
     }
 }

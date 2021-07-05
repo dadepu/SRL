@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct DeckListSection: View {
+    private var presetViewModel: PresetViewModel
     private var storeViewModel: StoreViewModel
     private var decks: [Deck]
     
     
-    init(storeViewModel: StoreViewModel) {
+    init(storeViewModel: StoreViewModel, presetViewModel: PresetViewModel) {
+        self.presetViewModel = presetViewModel
         self.storeViewModel = storeViewModel
         self.decks = storeViewModel.decks
     }
@@ -21,7 +23,7 @@ struct DeckListSection: View {
     var body: some View {
         List {
             ForEach(decks) { deck in
-                NavigationLink(destination: DeckView(deck: deck)) {
+                NavigationLink(destination: DeckView(deck: deck, presetViewModel: presetViewModel)) {
                     ListRowHorizontalSeparated(textLeft: {deck.name}, textRight: {"\(deck.reviewQueue.reviewableCardCount)"})
                 }
             }

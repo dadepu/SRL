@@ -9,16 +9,20 @@ import SwiftUI
 
 struct DeckView: View {
     @ObservedObject private var deckViewModel: DeckViewModel
-    @ObservedObject private var presetViewModel: PresetViewModel = PresetViewModel()
+    @ObservedObject private var presetViewModel: PresetViewModel
     
     @State private var bottomSheetEditPosition: BottomSheetPosition = .hidden
     @State private var bottomSheetRemovePosition: BottomSheetPosition = .hidden
     
+    @State private var formDeckName: String = ""
+    @State private var formPresetIndex: Int = 0
+    
     @Environment(\.presentationMode) var presentationMode
     
     
-    init(deck: Deck) {
+    init(deck: Deck, presetViewModel: PresetViewModel) {
         self.deckViewModel = DeckViewModel(deck: deck)
+        self.presetViewModel = presetViewModel
     }
     
     
@@ -26,7 +30,7 @@ struct DeckView: View {
         List {
             Section(header: Text("Study")){
                 NavigationLink(
-                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    destination: EmptyView(),
                     label: {
                         ListRowHorizontalSeparated(textLeft: {"Review"}, textRight: {"\(deckViewModel.deck.reviewQueue.reviewableCardCount)"})
                     })
@@ -38,32 +42,41 @@ struct DeckView: View {
             }
             Section(header: Text("Actions")) {
                 NavigationLink(
-                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    destination: EmptyView(),
                     label: {
                         Text("Add Cards")
                     })
                 NavigationLink(
-                    destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                    destination: EmptyView(),
                     label: {
                         Text("Browse Cards")
                     })
             }
             Section(header: Text("Deck")) {
-                Button("Presets") {
-                    
-                }
+                NavigationLink(
+                    destination: PresetView(deck: deckViewModel.deck),
+                    label: {
+                        Text("Presets")
+                    })
                 Button("Edit") {
+                    refreshEditDeckFormValues()
                     bottomSheetEditPosition = .middle
                 }
                 Button("Delete") {
                     bottomSheetRemovePosition = .middle
                 }.foregroundColor(.red)
-                
             }
         }
         .listStyle(GroupedListStyle())
-        .modifier(EditDeckSheet(deckViewModel: deckViewModel, presetViewModel: presetViewModel, isShowingBottomSheet: $bottomSheetEditPosition))
+        .modifier(EditDeckSheet(deckViewModel: deckViewModel, presetViewModel: presetViewModel, isShowingBottomSheet: $bottomSheetEditPosition, formDeckName: $formDeckName, formPresetIndex: $formPresetIndex))
         .modifier(DeleteDeckSheet(presentationMode: presentationMode, isShowingBottomSheet: $bottomSheetRemovePosition, deckViewModel: deckViewModel))
         .navigationBarTitle(deckViewModel.deck.name, displayMode: .inline)
+    }
+    
+    
+    
+    private func refreshEditDeckFormValues() {
+        formDeckName = deckViewModel.deck.name
+        formPresetIndex = presetViewModel.getPresetIndexOrDefault(forId: deckViewModel.deck.schedulePreset.id)
     }
 }

@@ -19,6 +19,7 @@
 		871F11B0268F217700BF9A51 /* SchedulePresetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F11AF268F217700BF9A51 /* SchedulePresetFactory.swift */; };
 		871F11B2268F245F00BF9A51 /* SchedulePresetException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F11B1268F245F00BF9A51 /* SchedulePresetException.swift */; };
 		871F11B4268F261100BF9A51 /* SchedulePresetConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F11B3268F261100BF9A51 /* SchedulePresetConfig.swift */; };
+		872ADF2E2692DDF6007C601A /* AddDeckSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ADF2D2692DDF6007C601A /* AddDeckSheet.swift */; };
 		873D4F952690D0D700A4F128 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F912690D0D700A4F128 /* BottomSheet.swift */; };
 		873D4F962690D0D700A4F128 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F922690D0D700A4F128 /* ViewExtension.swift */; };
 		873D4F972690D0D700A4F128 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F932690D0D700A4F128 /* BottomSheetView.swift */; };
@@ -39,6 +40,9 @@
 		87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C8E265CE2C8009E805D /* Scheduler.swift */; };
 		87541C95265CF1E4009E805D /* ReviewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C94265CF1E4009E805D /* ReviewAction.swift */; };
 		87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C9F265D5646009E805D /* DeckViewModel.swift */; };
+		877BF8C8269216AA00710AD2 /* PresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877BF8C7269216AA00710AD2 /* PresetView.swift */; };
+		877BF8CB26921AF800710AD2 /* EditPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877BF8CA26921AF800710AD2 /* EditPresetView.swift */; };
+		877BF8CD26921CC300710AD2 /* AddPresetSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877BF8CC26921CC300710AD2 /* AddPresetSheet.swift */; };
 		87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87946B68268F996600CEAA98 /* SchedulePresetRepository.swift */; };
 		8795D2132663E135007C99D9 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795D2122663E135007C99D9 /* StoreView.swift */; };
 		8795D2152663E175007C99D9 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795D2142663E175007C99D9 /* DeckView.swift */; };
@@ -93,6 +97,7 @@
 		871F11AF268F217700BF9A51 /* SchedulePresetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetFactory.swift; sourceTree = "<group>"; };
 		871F11B1268F245F00BF9A51 /* SchedulePresetException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetException.swift; sourceTree = "<group>"; };
 		871F11B3268F261100BF9A51 /* SchedulePresetConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetConfig.swift; sourceTree = "<group>"; };
+		872ADF2D2692DDF6007C601A /* AddDeckSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeckSheet.swift; sourceTree = "<group>"; };
 		873D4F912690D0D700A4F128 /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		873D4F922690D0D700A4F128 /* ViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		873D4F932690D0D700A4F128 /* BottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
@@ -119,6 +124,9 @@
 		87541C8E265CE2C8009E805D /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		87541C94265CF1E4009E805D /* ReviewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAction.swift; sourceTree = "<group>"; };
 		87541C9F265D5646009E805D /* DeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewModel.swift; sourceTree = "<group>"; };
+		877BF8C7269216AA00710AD2 /* PresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetView.swift; sourceTree = "<group>"; };
+		877BF8CA26921AF800710AD2 /* EditPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetView.swift; sourceTree = "<group>"; };
+		877BF8CC26921CC300710AD2 /* AddPresetSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetSheet.swift; sourceTree = "<group>"; };
 		87946B68268F996600CEAA98 /* SchedulePresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetRepository.swift; sourceTree = "<group>"; };
 		8795D2122663E135007C99D9 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		8795D2142663E175007C99D9 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
@@ -308,13 +316,14 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		8750A3D42691EAF300837E24 /* Root */ = {
+		8750A3D42691EAF300837E24 /* Store */ = {
 			isa = PBXGroup;
 			children = (
 				8795D2122663E135007C99D9 /* StoreView.swift */,
 				8750A3CC2691E19B00837E24 /* DeckListSection.swift */,
+				872ADF2D2692DDF6007C601A /* AddDeckSheet.swift */,
 			);
-			path = Root;
+			path = Store;
 			sourceTree = "<group>";
 		};
 		87541C4A265CDF03009E805D = {
@@ -391,9 +400,10 @@
 		87541C83265CE020009E805D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8750A3D42691EAF300837E24 /* Root */,
+				8750A3D42691EAF300837E24 /* Store */,
 				8750A3D22691EA5800837E24 /* Deck */,
 				8750A3C826919C2A00837E24 /* CustomStudyView.swift */,
+				877BF8C9269216AD00710AD2 /* Preset */,
 				8750A3D32691EA8600837E24 /* Shared */,
 			);
 			path = Views;
@@ -432,6 +442,16 @@
 				87B480AF26902CC300887C6A /* Reviewing */,
 			);
 			path = Scheduler;
+			sourceTree = "<group>";
+		};
+		877BF8C9269216AD00710AD2 /* Preset */ = {
+			isa = PBXGroup;
+			children = (
+				877BF8C7269216AA00710AD2 /* PresetView.swift */,
+				877BF8CA26921AF800710AD2 /* EditPresetView.swift */,
+				877BF8CC26921CC300710AD2 /* AddPresetSheet.swift */,
+			);
+			path = Preset;
 			sourceTree = "<group>";
 		};
 		87946B64268F7D1900CEAA98 /* CardDeck */ = {
@@ -623,6 +643,7 @@
 				871F11AD268F09E300BF9A51 /* SchedulePresetUserDefaultsRepository.swift in Sources */,
 				8750A3CD2691E19B00837E24 /* DeckListSection.swift in Sources */,
 				87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */,
+				877BF8CD26921CC300710AD2 /* AddPresetSheet.swift in Sources */,
 				8750A3CB2691B92800837E24 /* PresetViewModel.swift in Sources */,
 				871F11B0268F217700BF9A51 /* SchedulePresetFactory.swift in Sources */,
 				87541C8B265CE2AD009E805D /* Deck.swift in Sources */,
@@ -635,6 +656,7 @@
 				8795D2152663E175007C99D9 /* DeckView.swift in Sources */,
 				8750A3D12691EA4F00837E24 /* EditDeckSheet.swift in Sources */,
 				8750A3C926919C2A00837E24 /* CustomStudyView.swift in Sources */,
+				872ADF2E2692DDF6007C601A /* AddDeckSheet.swift in Sources */,
 				871F1187268ED0C400BF9A51 /* CardDeckService.swift in Sources */,
 				871F1192268ED10E00BF9A51 /* ReviewQueue.swift in Sources */,
 				87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */,
@@ -643,9 +665,11 @@
 				873D4F952690D0D700A4F128 /* BottomSheet.swift in Sources */,
 				87B480AA26901AF300887C6A /* FactoringSchedulePreset.swift in Sources */,
 				873D4F962690D0D700A4F128 /* ViewExtension.swift in Sources */,
+				877BF8CB26921AF800710AD2 /* EditPresetView.swift in Sources */,
 				873D4F972690D0D700A4F128 /* BottomSheetView.swift in Sources */,
 				87B480C426906B9300887C6A /* Card.swift in Sources */,
 				87B480B326903E3D00887C6A /* DeckFactory.swift in Sources */,
+				877BF8C8269216AA00710AD2 /* PresetView.swift in Sources */,
 				87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */,
 				873D4F982690D0D700A4F128 /* BottomSheetPosition.swift in Sources */,
 				87B480B526903E5100887C6A /* FactoringDeck.swift in Sources */,
