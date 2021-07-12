@@ -28,6 +28,9 @@ struct DeckListSection: View {
                 }
             }
             .onDelete(perform: deleteDeck)
+            .onMove(perform: { indices, newOffset in
+                print(indices, newOffset)
+            })
         }
         .listStyle(GroupedListStyle())
     }

@@ -31,7 +31,7 @@ class DeckViewModel: ObservableObject {
     }
     
     private func refreshDeck(decks: [UUID:Deck]) {
-        if let deck: Deck = decks[self.deck.id] {
+        if let deck: Deck = cardDeckService.getDeck(inDictionary: decks, forKey: self.deck.id) {
             self.deck = deck
         } else {
             cardDeckObserver?.cancel()

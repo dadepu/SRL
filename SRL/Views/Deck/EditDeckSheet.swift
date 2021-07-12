@@ -34,19 +34,26 @@ struct EditDeckSheet: ViewModifier {
         VStack() {
             List {
                 TextField("Deck Name", text: $formDeckName)
+                    .disableAutocorrection(true)
                 Picker(selection: $formPresetIndex, label: Text("Preset")) {
                     ForEach(0 ..< presetViewModel.presets.count) {
                         Text(presetViewModel.presets[$0].name)
                     }
                 }
-                Button(action: {
-                    editDeckAction(deckName: formDeckName, presetIndex: formPresetIndex)
-                }, label: {
-                    Text("Edit Deck")
-                        .bold()
-                })
+                Section {
+                    Button(action: {
+                        editDeckAction(deckName: formDeckName, presetIndex: formPresetIndex)
+                    }, label: {
+                        HStack {
+                            Spacer()
+                            Text("Edit Deck")
+                                .bold()
+                            Spacer()
+                        }
+                    })
+                }
             }
-            .listStyle(GroupedListStyle())
+            .listStyle(InsetGroupedListStyle())
         }
     }
     

@@ -34,7 +34,7 @@ struct DeleteDeckSheet: ViewModifier {
                 Text("Are you sure?")
                     .foregroundColor(.red)
                     .bold()
-                Text("Your deck will be removed permanently. Once your deck is removed, it can not be restored. Associated Cards will be removed as well.")
+                Text("Your deck will be removed permanently. Once your deck is removed, it can not be restored. Associated cards will be removed as well.")
                     .foregroundColor(.red)
             }
             .listStyle(InsetGroupedListStyle())

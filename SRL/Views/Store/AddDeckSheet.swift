@@ -34,28 +34,35 @@ struct AddDeckSheet: ViewModifier {
         VStack {
             List {
                 TextField("Deck Name", text: $formDeckName)
+                    .disableAutocorrection(true)
                 Picker(selection: $formPresetIndex, label: Text("Preset")) {
                     ForEach(0 ..< presetViewModel.presets.count) {
                         Text(self.presetViewModel.presets[$0].name)
                     }
                 }
+                Section {
+                    Button(action: createDeckButtonAction, label: {
+                        HStack {
+                            Spacer()
+                            Text("Create")
+                                .bold()
+                            Spacer()
+                        }
+                    })
+                }
             }
-            Button(action: createDeckAction, label: {
-                Text("Create")
-                    .bold()
-            })
-            Spacer()
+            .listStyle(InsetGroupedListStyle())
         }
     }
     
-    private func createDeckAction() {
-        makeDeck(name: formDeckName, presetIndex: formPresetIndex)
+    private func createDeckButtonAction() {
+        createNewDeckInModel(name: formDeckName, presetIndex: formPresetIndex)
         formDeckName = ""
         formPresetIndex = 0
         isShowingBottomSheet = .hidden
     }
     
-    private func makeDeck(name: String, presetIndex: Int) {
+    private func createNewDeckInModel(name: String, presetIndex: Int) {
         let presetId = presetViewModel.getPreset(forIndex: presetIndex)!.id
         try? storeViewModel.makeDeck(name: name, presetId: presetId)
     }

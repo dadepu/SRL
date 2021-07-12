@@ -13,6 +13,20 @@ struct AddPresetSheet: ViewModifier {
     
     @State private var formPresetName: String = ""
     @State private var formLearningSteps: String = ""
+    @State private var formGraduationInterval: String = ""
+    
+    @State private var formLapseSteps: String = ""
+    @State private var formMinimumInterval: String = ""
+    
+    @State private var formEaseFactor: String = ""
+    @State private var formEasyModifier: String = ""
+    @State private var formNormalModifier: String = ""
+    @State private var formHardModifier: String = ""
+    
+    @State private var formLapseIntervalModifier: String = ""
+    @State private var formEasyIntervalModifier: String = ""
+    
+    
     
     func body(content: Content) -> some View {
         content
@@ -56,13 +70,14 @@ struct AddPresetSheet: ViewModifier {
                     
                 }, label: {
                     HStack {
+                        Spacer()
                         Text("Add Preset")
                             .bold()
+                        Spacer()
                     }
                 })
             }
-            .listStyle(GroupedListStyle())
-            
+            .listStyle(InsetGroupedListStyle())
         }
     }
 }

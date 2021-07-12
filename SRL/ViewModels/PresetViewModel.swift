@@ -34,7 +34,6 @@ class PresetViewModel: ObservableObject {
         schedulePresetObserver = schedulePresetService.getModelPublisher().sink(receiveValue: publishChange(_:))
     }
     
-    
     func getPreset(forIndex index: Int) -> SchedulePreset? {
         return presets[index]
     }

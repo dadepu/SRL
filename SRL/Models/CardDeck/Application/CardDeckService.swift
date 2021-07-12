@@ -23,6 +23,10 @@ struct CardDeckService {
         deckRepository.getDeck(forId: id)
     }
     
+    func getDeck(inDictionary decks: [UUID:Deck], forKey key: UUID) -> Deck? {
+        return decks[key]
+    }
+    
     func getDeck(forCardId id: UUID) -> Deck? {
         // TODO
         return nil
