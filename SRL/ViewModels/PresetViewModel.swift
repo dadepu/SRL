@@ -12,27 +12,14 @@ class PresetViewModel: ObservableObject {
     private let schedulePresetService = SchedulePresetService()
     private var schedulePresetObserver: AnyCancellable?
     
-    var presets: Array<SchedulePreset> {
-        get {
-            let presets: [UUID:SchedulePreset] = schedulePresetService.getAllSchedulePresets()
-            let defaultPreset: [SchedulePreset] = [schedulePresetService.getDefaultSchedulePreset()]
-            var namedPresets: [SchedulePreset] = []
-            for (_, value) in presets {
-                if !value.isDefaultPreset {
-                    namedPresets.append(value)
-                }
-            }
-            return defaultPreset + namedPresets.sorted() { (lhs:SchedulePreset, rhs:SchedulePreset) -> Bool in
-                lhs.name < rhs.name
-            }
-        }
-    }
-    
+    @Published private (set) var presets: [SchedulePreset] = [SchedulePreset]()
     
     
     init() {
-        schedulePresetObserver = schedulePresetService.getModelPublisher().sink(receiveValue: publishChange(_:))
+        presets = getPresetsInOrder(schedulePresetService.getAllSchedulePresets())
+        schedulePresetObserver = schedulePresetService.getModelPublisher().sink(receiveValue: updateLocalPresets)
     }
+    
     
     func getPreset(forIndex index: Int) -> SchedulePreset? {
         return presets[index]
@@ -45,7 +32,24 @@ class PresetViewModel: ObservableObject {
         return 0
     }
     
-    private func publishChange(_: Any) {
-        self.objectWillChange.send()
+    
+    
+    private func updateLocalPresets(schedulePresets presets: [UUID : SchedulePreset]) {
+        self.presets = getPresetsInOrder(presets)
+    }
+    
+    private func getPresetsInOrder(_ presets: [UUID : SchedulePreset]) -> [SchedulePreset] {
+        let defaultPreset: SchedulePreset = try! presets.first(where: { (_: UUID, preset: SchedulePreset) throws -> Bool in
+            preset.isDefaultPreset
+        })!.value
+        var namedPresets: [SchedulePreset] = []
+        for (_, preset) in presets {
+            if !preset.isDefaultPreset {
+                namedPresets.append(preset)
+            }
+        }
+        return [defaultPreset] + namedPresets.sorted() { (lhs:SchedulePreset, rhs:SchedulePreset) -> Bool in
+            lhs.name < rhs.name
+        }
     }
 }

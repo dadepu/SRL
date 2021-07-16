@@ -15,6 +15,8 @@ struct SchedulePresetService {
         schedulePresetRepository.$schedulePresets
     }
     
+    
+    
     func getAllSchedulePresets() -> [UUID:SchedulePreset] {
         let _ = getOrAddDefaultSchedulePreset()
         return schedulePresetRepository.getAllSchedulePresets()
@@ -36,10 +38,6 @@ struct SchedulePresetService {
         return getOrAddDefaultSchedulePreset()
     }
     
-    func saveSchedulePreset(_ preset: SchedulePreset) {
-        schedulePresetRepository.saveSchedulePreset(preset)
-    }
-    
     func deleteSchedulePreset(forId id: UUID) throws {
         if let preset: SchedulePreset = schedulePresetRepository.getSchedulePreset(forId: id) {
             if preset.isDefaultPreset {
@@ -47,24 +45,24 @@ struct SchedulePresetService {
             }
             schedulePresetRepository.deleteSchedulePreset(id)
         }
-        CardDeckService().refreshSchedulePresets()
     }
+    
+//    func makeSchedulePreset() -> SchedulePreset? {
+//        
+//    }
     
     func deleteAllSchedulePresets() {
         schedulePresetRepository.deleteAllSchedulePresets()
-        CardDeckService().refreshSchedulePresets()
     }
     
-    func getSchedulePresetFactory() -> FactoringSchedulePreset {
-        return SchedulePresetFactory()
-    }
+    
+    
     
     private func getOrAddDefaultSchedulePreset() -> SchedulePreset {
         if let defaultPreset: SchedulePreset = schedulePresetRepository.getScheduleDefaultPreset() {
             return defaultPreset
         } else {
-            let factory = SchedulePresetFactory()
-            let defaultPreset = factory.newDefaultPreset()
+            let defaultPreset = SchedulePresetFactory().newDefaultPreset()
             schedulePresetRepository.saveSchedulePreset(defaultPreset)
             return defaultPreset
         }

@@ -9,32 +9,45 @@ import Foundation
 import Combine
 
 class DeckViewModel: ObservableObject {
-    private let cardDeckService = CardDeckService()
-    private var cardDeckObserver: AnyCancellable?
-    
+    private let deckService = DeckService()
+    private var deckObserver: AnyCancellable?
+
     @Published private (set) var deck: Deck
-    
-    
+    private (set) var reviewQueue: ReviewQueue
+
+
     init(deck: Deck) {
         self.deck = deck
-        cardDeckObserver = cardDeckService.getModelPublisher().sink(receiveValue: refreshDeck(decks:))
+        self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: deck)
+        deckObserver = deckService.getModelPublisher().sink(receiveValue: decksUpdatedCallback)
     }
-    
-    
-    func editDeck(name: String, presetIndex: Int) {
-        let presetViewModel = PresetViewModel()
-        cardDeckService.editDeck(deckId: deck.id, name: name, presetId: presetViewModel.getPreset(forIndex: presetIndex)?.id)
-    }
-    
-    func dropDeck(id: UUID) {
-        cardDeckService.deleteDeck(forId: id)
-    }
-    
-    private func refreshDeck(decks: [UUID:Deck]) {
-        if let deck: Deck = cardDeckService.getDeck(inDictionary: decks, forKey: self.deck.id) {
-            self.deck = deck
-        } else {
-            cardDeckObserver?.cancel()
+
+
+    func editDeck(name: String, presetId: UUID) {
+        if deck.name != name {
+            deckService.renameDeck(forId: deck.id, withName: name)
         }
+        if deck.schedulePreset.id != presetId {
+            deckService.updateSchedulePreset(forId: deck.id, withPresetId: presetId)
+        }
+    }
+
+    func dropDeck(id: UUID) {
+        deckService.deleteDeck(forId: id)
+    }
+
+    
+    
+    private func decksUpdatedCallback(decks: [UUID:Deck]) {
+        if let deck: Deck = deckService.getDeck(inDictionary: decks, forKey: self.deck.id) {
+            self.deck = deck
+            self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: deck)
+        } else {
+            deckObserver?.cancel()
+        }
+    }
+    
+    private static func getDefaultReviewQueue(deck: Deck) -> ReviewQueue {
+        ReviewQueueService().makeTransientQueue(decks: [deck], reviewType: .REGULAR)
     }
 }

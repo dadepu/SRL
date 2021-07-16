@@ -8,7 +8,6 @@
 import Foundation
 
 struct SchedulePresetFactory: FactoringSchedulePreset {
-    private var schedulePresetConfig: SchedulePresetConfig = SchedulePresetConfig()
     
     private (set) var oneNumberRequiredRegEx = #"^(\d)+"#
     private (set) var learningStepsRegEx = #"^(\d)+(\s(\d)+)*"#
@@ -17,7 +16,7 @@ struct SchedulePresetFactory: FactoringSchedulePreset {
     
     
     func newDefaultPreset() -> SchedulePreset {
-        return SchedulePreset(name: "Default")
+        return SchedulePreset(name: SchedulePresetConfig.defaultPresetName)
     }
     
     func newPreset(name: String) throws -> SchedulePreset {
@@ -56,7 +55,7 @@ struct SchedulePresetFactory: FactoringSchedulePreset {
     
     
     func validateNameIsNotDefault(name: String) throws {
-        if name == schedulePresetConfig.defaultPresetName {
+        if name == SchedulePresetConfig.defaultPresetName {
             throw SchedulePresetException.nameConflictsDefaultName
         }
     }

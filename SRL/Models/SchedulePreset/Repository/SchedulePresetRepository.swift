@@ -33,6 +33,7 @@ class SchedulePresetRepository {
     
     
     
+    
     func getAllSchedulePresets() -> [UUID:SchedulePreset] {
         schedulePresets
     }
@@ -54,17 +55,14 @@ class SchedulePresetRepository {
         schedulePresets[preset.id] = preset
     }
     
-    func saveAndReplaceAllSchedulePresets(_ presets: [UUID:SchedulePreset]) {
-        schedulePresets = presets
-    }
-    
-    func deleteSchedulePreset(_ preset: UUID) {
-        schedulePresets.removeValue(forKey: preset)
+    func deleteSchedulePreset(_ id: UUID) {
+        schedulePresets.removeValue(forKey: id)
     }
     
     func deleteAllSchedulePresets() {
         schedulePresets = [UUID:SchedulePreset]()
     }
+    
     
     
     

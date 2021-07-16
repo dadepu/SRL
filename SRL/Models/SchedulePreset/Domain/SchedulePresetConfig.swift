@@ -8,5 +8,5 @@
 import Foundation
 
 struct SchedulePresetConfig {
-    private (set) var defaultPresetName: String = "Default"
+    private (set) static var defaultPresetName: String = "Default"
 }

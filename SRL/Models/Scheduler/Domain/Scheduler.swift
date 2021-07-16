@@ -9,7 +9,7 @@ import Foundation
 
 struct Scheduler: Identifiable, Codable {
     private (set) var id: UUID = UUID()
-                  var schedulePreset: SchedulePreset
+    private (set) var schedulePreset: SchedulePreset
     
     private (set) var learningState: LearningState = LearningState.LEARNING
     private (set) var lastReviewDate: Date = Date()
@@ -43,26 +43,11 @@ struct Scheduler: Identifiable, Codable {
         }
     }
     
-    private var deck: Deck? {
-        get {
-            // TODO
-            return nil
-        }
-    }
-    
     
     
     init(schedulePreset: SchedulePreset) {
         self.schedulePreset = schedulePreset
         self.easeFactor = schedulePreset.easeFactor
-        initializeCardSchedule(schedulePreset: schedulePreset)
-    }
-    
-
-    init(schedulePreset: SchedulePreset, cardCreated: Date) {
-        self.schedulePreset = schedulePreset
-        self.easeFactor = schedulePreset.easeFactor
-        self.lastReviewDate = cardCreated
         initializeCardSchedule(schedulePreset: schedulePreset)
     }
     
@@ -95,7 +80,6 @@ struct Scheduler: Identifiable, Codable {
     
     func processedReviewAction(as action: ReviewAction) -> Scheduler {
         var scheduler = self
-        scheduler.schedulePreset = fetchCurrentSchedulePreset(scheduler)
         
         switch (action, learningState) {
         case (.GOOD, .LEARNING):
@@ -122,22 +106,6 @@ struct Scheduler: Identifiable, Codable {
             scheduler = handledReviewActionCustomIntervalAllStates(for: interval)
         }
         return incrementReviewCount(for: scheduler, by: 1)
-    }
-    
-    private func fetchCurrentSchedulePreset(_ scheduler: Scheduler) -> SchedulePreset {
-        let scheduleService = SchedulePresetService()
-        let deckService = CardDeckService()
-        
-        let schedulePresetId: UUID = scheduler.schedulePreset.id
-        let deckPresetId: UUID? = deck != nil ? deckService.getDeck(forId: scheduler.deck!.id)?.schedulePreset.id : nil
-        
-        if let preset: SchedulePreset = scheduleService.getSchedulePreset(forId: schedulePresetId) {
-            return preset
-        } else if deckPresetId != nil, let preset: SchedulePreset = scheduleService.getSchedulePreset(forId: deckPresetId!) {
-            return preset
-        } else {
-            return scheduleService.getDefaultSchedulePreset()
-        }
     }
     
     private func handledReviewActionGoodLearning(_ scheduler: Scheduler) -> Scheduler {
@@ -326,5 +294,13 @@ struct Scheduler: Identifiable, Codable {
     {
         let newInterval = round(Double(baseInterval) * Double(factor) * Double(intervalModifier))
         return newInterval < minimumInterval && considerMinimumInterval ? minimumInterval : newInterval
+    }
+    
+    
+    
+    func hasSetSchedulePreset(_ preset: SchedulePreset) -> Scheduler {
+        var scheduler = self
+        scheduler.schedulePreset = preset
+        return scheduler
     }
 }

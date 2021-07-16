@@ -27,7 +27,7 @@ struct SchedulePreset: Identifiable, Codable {
     
     var isDefaultPreset: Bool {
         get {
-            name == "Default"
+            name == SchedulePresetConfig.defaultPresetName
         }
     }
     

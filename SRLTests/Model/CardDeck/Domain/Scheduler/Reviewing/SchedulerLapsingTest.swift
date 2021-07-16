@@ -15,8 +15,6 @@ class SchedulerLapsingTest: XCTestCase {
     private var formatter = DateFormatter()
 
     override func setUpWithError() throws {
-        SchedulePresetService().deleteAllSchedulePresets()
-        
         formatter = DateFormatter()
         formatter.timeZone = .current
         formatter.locale = .current
@@ -73,14 +71,13 @@ class SchedulerLapsingTest: XCTestCase {
         XCTAssertEqual(updatedScheduler.currentReviewInterval, assertedPostLapseInterval)
         XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
     }
-    
+
     func testGraduateFromReviewToLapseToReviewWithoutLapses() throws {
-        var updatedSchedulePreset = try! SchedulePresetService().getSchedulePresetFactory().newPreset(name: "UNIT TEST 2")
-        try! updatedSchedulePreset.setLapseSteps(steps: Array())
-        SchedulePresetService().saveSchedulePreset(updatedSchedulePreset)
-        var updatedScheduler = scheduler!
-        updatedScheduler.schedulePreset = updatedSchedulePreset
+        var customSchedulePreset = SchedulePreset(name: "TEST")
+        try! customSchedulePreset.setLapseSteps(steps: [])
         
+        var updatedScheduler = scheduler!.hasSetSchedulePreset(customSchedulePreset)
+
         let assertedFactor = updatedScheduler.calculateModifiedFactor(
             for: updatedScheduler.easeFactor,
             with: updatedScheduler.schedulePreset.lapseFactorModifier

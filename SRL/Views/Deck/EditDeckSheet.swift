@@ -58,7 +58,9 @@ struct EditDeckSheet: ViewModifier {
     }
     
     private func editDeckAction(deckName: String, presetIndex: Int) {
-        deckViewModel.editDeck(name: deckName, presetIndex: presetIndex)
+        if let preset: SchedulePreset = presetViewModel.getPreset(forIndex: presetIndex) {
+            deckViewModel.editDeck(name: deckName, presetId: preset.id)
+        }
         refreshEditDeckFormValues()
         isShowingBottomSheet = .hidden
     }

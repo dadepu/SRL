@@ -64,6 +64,6 @@ struct AddDeckSheet: ViewModifier {
     
     private func createNewDeckInModel(name: String, presetIndex: Int) {
         let presetId = presetViewModel.getPreset(forIndex: presetIndex)!.id
-        try? storeViewModel.makeDeck(name: name, presetId: presetId)
+        storeViewModel.makeDeck(name: name, presetId: presetId)
     }
 }

@@ -25,7 +25,7 @@ class DeckRepository {
     }
     
     private init() {
-        if let decks: [UUID:Deck] = userDefaultsRepository.loadPresets() {
+        if let decks: [UUID:Deck] = userDefaultsRepository.loadDecks() {
             self.decks = decks
         }
         dataSaving = self.$decks.sink(receiveValue: saveWithUserDefaultsRepository)
@@ -33,20 +33,17 @@ class DeckRepository {
     
     
     
+    
     func getAllDecks() -> [UUID:Deck] {
-        decks
+        getAllRefreshedDecks()
     }
     
     func getDeck(forId id: UUID) -> Deck? {
-        decks[id]
+        getRefreshedDeck(forId: id)
     }
     
     func saveDeck(deck: Deck) {
         decks[deck.id] = deck
-    }
-    
-    func saveAndReplaceAllDecks(decks: [UUID:Deck]) {
-        self.decks = decks
     }
     
     func deleteDeck(forId id: UUID) {
@@ -59,7 +56,34 @@ class DeckRepository {
     
     
     
+    
+    private func getRefreshedDeck(forId id: UUID) -> Deck? {
+        if let deck: Deck = decks[id], let refreshedDeck: Deck = refreshedDeck(deck) {
+            decks[id] = refreshedDeck
+            return refreshedDeck
+        } else {
+            deleteDeck(forId: id)
+            return nil
+        }
+    }
+
+    private func getAllRefreshedDecks() -> [UUID:Deck] {
+        let decks = self.decks
+        var refreshedDecks = [UUID:Deck]()
+        for (_, value) in decks {
+            if let refreshedDeck: Deck = refreshedDeck(value) {
+                refreshedDecks[refreshedDeck.id] = refreshedDeck
+            }
+        }
+        self.decks = refreshedDecks
+        return refreshedDecks
+    }
+
+    private func refreshedDeck(_ deck: Deck) -> Deck? {
+        DeckAssembler().refreshedDeck(deck)
+    }
+    
     private func saveWithUserDefaultsRepository(decks: [UUID:Deck]) {
-        userDefaultsRepository.savePresets(decks)
+        userDefaultsRepository.saveDecks(decks)
     }
 }

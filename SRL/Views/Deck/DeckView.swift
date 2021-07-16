@@ -32,7 +32,7 @@ struct DeckView: View {
                 NavigationLink(
                     destination: EmptyView(),
                     label: {
-                        ListRowHorizontalSeparated(textLeft: {"Review"}, textRight: {"\(deckViewModel.deck.reviewQueue.reviewableCardCount)"})
+                        ListRowHorizontalSeparated(textLeft: {"Review"}, textRight: {"\(deckViewModel.reviewQueue.countReviewableCards())"})
                     })
                 NavigationLink(
                     destination: CustomStudyView(deckViewModel: deckViewModel),

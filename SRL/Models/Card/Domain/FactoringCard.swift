@@ -8,5 +8,5 @@
 import Foundation
 
 protocol FactoringCard {
-    func newCard(content: CardType, schedule: SchedulePreset?) throws -> Card
+//    func makeCard(content: CardType, schedulePreset: SchedulePreset) -> Card
 }

@@ -8,11 +8,19 @@
 import Foundation
 
 struct CardFactory: FactoringCard {
+    private let schedulerService = SchedulerService()
     private let schedulePresetService = SchedulePresetService()
     
-    func newCard(content: CardType, schedule: SchedulePreset?) throws -> Card {
-        return Card(content: content, preset: getSchedulePreset(schedule))
-    }
+    
+//    func makeCard(content: CardType, schedulePreset: SchedulePreset) -> Card {
+//        let scheduler: Scheduler = schedulerService.getSchedulerFactory().makeScheduler(schedulePreset: schedulePreset)
+//        schedulerService.saveScheduler(scheduler)
+//        return Card(content: content, scheduler: scheduler)
+//    }
+    
+    
+    
+    
     
     private func getSchedulePreset(_ preset: SchedulePreset?) -> SchedulePreset {
         if preset == nil {

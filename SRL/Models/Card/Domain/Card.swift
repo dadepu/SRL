@@ -11,14 +11,27 @@ struct Card: Identifiable, Codable {
     private (set) var id: UUID = UUID()
     private (set) var dateCreated: Date = Date()
     private (set) var dateLastModified: Date = Date()
-    private (set) var schedule: Scheduler
+    private (set) var scheduler: Scheduler
     private (set) var content: CardType
     
     
-    
-    init(content: CardType, preset: SchedulePreset) {
+    init(content: CardType, scheduler: Scheduler) {
         self.content = content
-        self.schedule = Scheduler(schedulePreset: preset)
+        self.scheduler = scheduler
+    }
+    
+    init(_ card: Card, scheduler: Scheduler) {
+        self = card
+        self.scheduler = scheduler
+    }
+    
+    
+    
+    func reviewedCard(as action: ReviewAction) -> Card {
+        var card = self
+        card.scheduler = scheduler.processedReviewAction(as: action)
+        card.dateLastModified = Date()
+        return card
     }
 }
 

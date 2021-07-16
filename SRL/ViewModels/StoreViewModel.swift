@@ -9,39 +9,53 @@ import Foundation
 import Combine
 
 class StoreViewModel: ObservableObject {
-    private let cardDeckService = CardDeckService()
-    private var cardDeckObserver: AnyCancellable?
+    private let deckService = DeckService()
+    private var deckObserver: AnyCancellable?
     
-    var decks: Array<Deck> {
-        get {
-            let decks: [UUID:Deck] = cardDeckService.getAllDecks()
-            var deckArray: [Deck] = []
-            for (_, value) in decks {
-                deckArray.append(value)
-            }
-            return deckArray.sorted() { (lhs:Deck, rhs:Deck) -> Bool in
-                lhs.name < rhs.name
-            }
-        }
-    }
+    @Published private (set) var decks: [Deck] = []
+    private (set) var reviewQueues: [UUID:ReviewQueue] = [:]
     
     
     init() {
-        cardDeckObserver = cardDeckService.getModelPublisher().sink(receiveValue: publishChange(_:))
+        let hashedDecks = deckService.getAllDecks()
+        decks = getDecksInOrder(hashedDecks)
+        reviewQueues = getReviewQueues(hashedDecks)
+        deckObserver = deckService.getModelPublisher().sink(receiveValue: decksUpdatedCallback)
     }
 
     
-    func makeDeck(name: String, presetId: UUID) throws {
-        let deckFactory = cardDeckService.getDeckFactory()
-        let deck = try deckFactory.newDeck(name: name, schedulePreset: nil)
-        cardDeckService.saveDeck(deck: deck)
+    func makeDeck(name: String, presetId: UUID) {
+        deckService.makeDeck(name: name, presetId: presetId)
     }
     
     func dropDeck(id: UUID) {
-        cardDeckService.deleteDeck(forId: id)
+        deckService.deleteDeck(forId: id)
     }
 
-    private func publishChange(_: Any) {
-        self.objectWillChange.send()
+    
+    
+    private func decksUpdatedCallback(decks: [UUID:Deck]) {
+        self.decks = getDecksInOrder(decks)
+        self.reviewQueues = getReviewQueues(decks)
+    }
+    
+    private func getDecksInOrder(_ decks: [UUID:Deck]) -> [Deck] {
+        return try! decks.map({ (_: UUID, deck: Deck) throws -> Deck in
+            deck
+        }).sorted() { (lhs:Deck, rhs:Deck) -> Bool in
+            lhs.name < rhs.name
+        }
+    }
+    
+    private func getReviewQueues(_ decks: [UUID:Deck]) -> [UUID:ReviewQueue] {
+        var reviewQueue = [UUID:ReviewQueue]()
+        for (_, deck) in decks {
+            reviewQueue[deck.id] = StoreViewModel.getDefaultReviewQueue(deck: deck)
+        }
+        return reviewQueue
+    }
+    
+    private static func getDefaultReviewQueue(deck: Deck) -> ReviewQueue {
+        ReviewQueueService().makeTransientQueue(decks: [deck], reviewType: .REGULAR)
     }
 }

@@ -15,7 +15,6 @@ class SchedulerReviewingTest: XCTestCase {
     private var formatter = DateFormatter()
 
     override func setUpWithError() throws {
-        SchedulePresetService().deleteAllSchedulePresets()
         schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
         
         formatter = DateFormatter()

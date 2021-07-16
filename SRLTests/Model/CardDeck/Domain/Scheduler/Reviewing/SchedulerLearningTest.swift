@@ -15,7 +15,6 @@ class SchedulerLearningTest: XCTestCase {
 
     
     override func setUpWithError() throws {
-        SchedulePresetService().deleteAllSchedulePresets()
         schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
         scheduler = Scheduler(schedulePreset: schedulePreset!)
     }
