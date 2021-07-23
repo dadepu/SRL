@@ -10,6 +10,7 @@ import Foundation
 struct DeckService {
     private let deckRepository = DeckRepository.getInstance()
     private let cardRepository = CardRepository.getInstance()
+    private let schedulerRepository = SchedulerRepository.getInstance()
     
 
     func getModelPublisher() -> Published<[UUID : Deck]>.Publisher {
@@ -62,8 +63,14 @@ struct DeckService {
         }
     }
     
-    func addCard() {
-        
+    func makeCard(deckId: UUID, schedulePresetId: UUID, cardType: CardType) throws -> Card {
+        if let deck = getDeck(forId: deckId) {
+            let cardCreationService = CardCreationService(cardRepository: cardRepository, schedulerRepository: schedulerRepository)
+            let newCard = cardCreationService.makeCard(cardType: cardType, schedulePresetId: schedulePresetId)
+            let updatedDeck = deck.addedCard(card: newCard)
+            deckRepository.saveDeck(deck: updatedDeck)
+        }
+        throw DeckException.deckNotFound
     }
     
     func removeCard(forDeckId deckId: UUID, withCardId cardId: UUID) {

@@ -43,4 +43,12 @@ class AbstractCardViewModel: ObservableObject {
     func deleteBackContent(at offset: IndexSet) {
         backCardContent.remove(atOffsets: offset)
     }
+    
+    func createCardType() throws -> CardType {
+        switch (cardType) {
+            case .Default:
+                let defaultCardContent = try DefaultCard.makeDefaultCard(questions: frontCardContent, answers: backCardContent, hint: nil)
+                return CardType.DEFAULT(content: defaultCardContent)
+        }
+    }
 }

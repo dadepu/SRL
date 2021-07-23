@@ -40,9 +40,10 @@ class CreateCardViewModel: AbstractCardViewModel {
     }
     
     func saveAsCard() {
-        if cardIsSaveable {
-            resetCardContent()
+        if cardIsSaveable, let cardType = try? createCardType() {
+            let _ = try? DeckService().makeCard(deckId: deck.id, schedulePresetId: schedulePreset.id, cardType: cardType)
         }
+        resetCardContent()
     }
     
     private func validateCardIsSaveable(front: [CardContentTypeContainer], back: [CardContentTypeContainer]) -> Bool {

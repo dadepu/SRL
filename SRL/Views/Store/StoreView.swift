@@ -21,9 +21,9 @@ struct StoreView: View {
     var body: some View {
         NavigationView {
             DeckListSection(storeViewModel: storeViewModel, presetViewModel: presetViewModel)
-                .modifier(AddDeckSheet(presetViewModel: presetViewModel, storeViewModel: storeViewModel, isShowingBottomSheet: $isShowingBottomSheetAddDeck,opacityBottomSheet: $opacityBottomUpSheets , formDeckName: $formDeckName, formPresetIndex: $formPresetIndex))
-                .navigationBarTitle("Decks", displayMode: .inline)
-                .navigationBarItems(leading: NavButtonAddDeck(bottomSheetPosition: $isShowingBottomSheetAddDeck, bottomSheetOpacity: $opacityBottomUpSheets))
+            .modifier(AddDeckSheet(presetViewModel: presetViewModel, storeViewModel: storeViewModel, isShowingBottomSheet: $isShowingBottomSheetAddDeck,opacityBottomSheet: $opacityBottomUpSheets , formDeckName: $formDeckName, formPresetIndex: $formPresetIndex))
+            .navigationBarTitle("Decks", displayMode: .inline)
+            .navigationBarItems(leading: NavButtonAddDeck(bottomSheetPosition: $isShowingBottomSheetAddDeck, bottomSheetOpacity: $opacityBottomUpSheets))
         }
     }
     
