@@ -42,7 +42,7 @@ struct DeckView: View {
             }
             Section(header: Text("Actions")) {
                 NavigationLink(
-                    destination: EmptyView(),
+                    destination: CreateCardView(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
                     label: {
                         Text("Add Cards")
                     })

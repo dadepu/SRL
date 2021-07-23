@@ -8,7 +8,6 @@
 import Foundation
 
 enum SchedulePresetException: Error {
-    case runtimeError(String)
     case nameConflictsDefaultName
     case defaultPresetAlreadyDefined
     case defaultPresetNotDefined

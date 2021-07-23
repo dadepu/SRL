@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SchedulePresetFactory: FactoringSchedulePreset {
+struct SchedulePresetFactory {
     
     private (set) var oneNumberRequiredRegEx = #"^(\d)+"#
     private (set) var learningStepsRegEx = #"^(\d)+(\s(\d)+)*"#
@@ -24,8 +24,11 @@ struct SchedulePresetFactory: FactoringSchedulePreset {
         return SchedulePreset(name: name)
     }
     
+    func validatePresetName(steps: String) {
+        
+    }
     
-    func validateLearningSteps(steps: String) throws {
+    func validateLearningSteps(steps: String) {
         
     }
     
@@ -53,10 +56,52 @@ struct SchedulePresetFactory: FactoringSchedulePreset {
         
     }
     
-    
     func validateNameIsNotDefault(name: String) throws {
         if name == SchedulePresetConfig.defaultPresetName {
             throw SchedulePresetException.nameConflictsDefaultName
         }
+    }
+    
+    enum NameValidation {
+        case OK
+        case EMPTY
+        case CONFLICTS_DEFAULT
+    }
+    
+    enum LearningStepsValidation {
+        case OK
+        case INVALID_PATTERN
+        case NEGATIVE_NUMBER
+    }
+    
+    enum GraduationIntervalValidation {
+        case OK
+        case EMPTY
+        case INVALID_PATTERN
+        case NEGATIVE_NUMBER
+    }
+    
+    enum LapseStepsValidation {
+        case OK
+        case INVALID_PATTERN
+        case NEGATIVE_NUMBER
+    }
+    
+    enum MinimumIntervalValidation {
+        case OK
+        case INVALID_PATTERN
+        case NEGATIVE_NUMBER
+    }
+    
+    enum EaseFactorValidation {
+        case OK
+        case EMPTY
+        case INVALID_PATTERN
+        case BELOW_MINIMUM
+    }
+    
+    enum ReviewFactorModifierValidation {
+        case OK
+        case INVALID_PATTERN
     }
 }

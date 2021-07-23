@@ -39,9 +39,13 @@ struct DeckService {
     }
     
     func deleteDeck(forId id: UUID) {
-        // delete deck
-        // delete cards
-        // delete scheduler
+        let cardService = CardService()
+        if let deck = getDeck(forId: id) {
+            for (cardId, _) in deck.cards {
+                cardService.deleteCard(forId: cardId)
+            }
+            deckRepository.deleteDeck(forId: deck.id)
+        }
     }
     
     func renameDeck(forId id: UUID, withName name: String) {

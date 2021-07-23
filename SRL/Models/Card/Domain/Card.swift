@@ -26,6 +26,11 @@ struct Card: Identifiable, Codable {
     }
     
     
+    func changedContent(content: CardType) -> Card {
+        var card = self
+        card.content = content
+        return card
+    }
     
     func reviewedCard(as action: ReviewAction) -> Card {
         var card = self

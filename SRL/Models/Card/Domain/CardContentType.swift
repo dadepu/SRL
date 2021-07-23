@@ -60,3 +60,14 @@ extension CardContentType: Decodable {
         }
     }
 }
+
+extension CardContentType: Equatable {
+    static func == (lhs: CardContentType, rhs: CardContentType) -> Bool {
+        switch (lhs, rhs) {
+        case (.TEXT, .TEXT), (.IMAGE, .IMAGE), (.TYPING, .TYPING):
+            return true
+        default:
+            return false
+        }
+    }
+}

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct TypingContent: Codable {
+struct TypingContent: Codable, Hashable {
     
 }
