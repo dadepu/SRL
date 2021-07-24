@@ -34,9 +34,9 @@ struct Deck: Identifiable, Codable {
         return deck
     }
     
-    func removedCard(card: Card) -> Deck {
+    func removedCard(cardId id: UUID) -> Deck {
         var deck = self
-        deck.cards.removeValue(forKey: card.id)
+        deck.cards.removeValue(forKey: id)
         return deck
     }
     

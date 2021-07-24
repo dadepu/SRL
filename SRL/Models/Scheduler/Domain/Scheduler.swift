@@ -52,9 +52,12 @@ struct Scheduler: Identifiable, Codable {
     }
     
     private mutating func initializeCardSchedule(schedulePreset: SchedulePreset) {
-        let interval = schedulePreset.getNextLearningStep(learningIndex: 0) ?? schedulePreset.minimumInterval
+//        let interval = schedulePreset.getNextLearningStep(learningIndex: 0) ?? schedulePreset.minimumInterval
+//        self = setNextReviewDate(for: self, with: interval)
+//        learningStepIndex = 1
+        let interval = 0.0
         self = setNextReviewDate(for: self, with: interval)
-        learningStepIndex = 1
+        learningStepIndex = 0
         easeFactor = schedulePreset.easeFactor
     }
     

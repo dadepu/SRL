@@ -8,5 +8,5 @@
 import Foundation
 
 enum CardContentException: Error {
-    case illegalArgument
+    case IllegalArgument
 }

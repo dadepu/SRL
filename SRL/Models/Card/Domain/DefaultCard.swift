@@ -25,13 +25,13 @@ struct DefaultCard: Codable {
         if try validate(content: questions), try validate(content: answers) {
             return DefaultCard(questions: questions, answers: answers, hint: hint)
         }
-        throw CardTypeException.containsInvalidCardContentType
+        throw CardTypeException.ContainsInvalidCardContentType
     }
     
     private static func validate(content: [CardContentTypeContainer]) throws -> Bool {
         for cardContentContainer in content {
             if !validate(cardContent: cardContentContainer.content) {
-                throw CardTypeException.containsInvalidCardContentType
+                throw CardTypeException.ContainsInvalidCardContentType
             }
         }
         return true

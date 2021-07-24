@@ -13,19 +13,38 @@ class AbstractCardViewModel: ObservableObject {
     @Published var schedulePreset: SchedulePreset
     @Published var frontCardContent: [CardContentTypeContainer] = []
     @Published var backCardContent: [CardContentTypeContainer] = []
+    @Published var cardIsSaveable: Bool = false
+               var deck: Deck
     
-    var deck: Deck
+    var frontContentObserver: AnyCancellable?
+    var backContentObserver: AnyCancellable?
+    
+    
     
     
     init(deck: Deck) {
         self.deck = deck
         self.schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
+        self.frontContentObserver = self.$frontCardContent.sink { (front: [CardContentTypeContainer]) in
+            self.cardIsSaveable = self.validateCardIsSaveable(front: front, back: self.backCardContent)
+        }
+        self.backContentObserver = self.$backCardContent.sink { (back: [CardContentTypeContainer]) in
+            self.cardIsSaveable = self.validateCardIsSaveable(front: self.frontCardContent, back: back)
+        }
+    }
+    
+    private func validateCardIsSaveable(front: [CardContentTypeContainer], back: [CardContentTypeContainer]) -> Bool {
+        front.count > 0 && back.count > 0
     }
     
     
     
     func changeSchedulePreset(presetId id: UUID) {
         schedulePreset = SchedulePresetService().getSchedulePresetOrDefault(forId: id)
+    }
+    
+    func addFrontContent(_ content: CardContentType) {
+        frontCardContent.append(CardContentTypeContainer(content))
     }
     
     func moveFrontContent(from source: IndexSet, to destination: Int) {
@@ -36,6 +55,10 @@ class AbstractCardViewModel: ObservableObject {
         frontCardContent.remove(atOffsets: offset)
     }
     
+    func addBackContent(_ content: CardContentType) {
+        backCardContent.append(CardContentTypeContainer(content))
+    }
+    
     func moveBackContent(from source: IndexSet, to destination: Int) {
         backCardContent.move(fromOffsets: source, toOffset: destination)
     }
@@ -43,6 +66,9 @@ class AbstractCardViewModel: ObservableObject {
     func deleteBackContent(at offset: IndexSet) {
         backCardContent.remove(atOffsets: offset)
     }
+    
+    
+    
     
     func createCardType() throws -> CardType {
         switch (cardType) {

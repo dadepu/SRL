@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardContentSheet: ViewModifier {
-    @ObservedObject var createCardViewModel: CreateCardViewModel
+    @ObservedObject var createCardViewModel: AbstractCardViewModel
     
     @Binding var isShowingSheet: BottomSheetPosition
     @Binding var opacitySheet: Double
@@ -19,7 +19,7 @@ struct CardContentSheet: ViewModifier {
     
     @State var formTextContent: String = ""
     
-    var saveAction: (CardContentType, CreateCardViewModel) -> ()
+    var saveAction: (CardContentType, AbstractCardViewModel) -> ()
     
     
     

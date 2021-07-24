@@ -23,6 +23,7 @@ class DeckViewModel: ObservableObject {
     }
 
 
+    
     func editDeck(name: String, presetId: UUID) {
         if deck.name != name {
             deckService.renameDeck(forId: deck.id, withName: name)
@@ -34,6 +35,19 @@ class DeckViewModel: ObservableObject {
 
     func dropDeck(id: UUID) {
         deckService.deleteDeck(forId: id)
+    }
+    
+    func getSortedCards(sort: (Card, Card) -> Bool) -> [Card] {
+        deck.cards.map { (key: UUID, value: Card) in
+            value
+        }.sorted(by: sort)
+    }
+    
+    func deleteCards(indexSet: IndexSet) {
+        let cards: [Card] = deck.cards.map { (key: UUID, value: Card) in value }
+        for index in indexSet {
+            deckService.deleteCard(forDeckId: deck.id, withCardId: cards[index].id)
+        }
     }
 
     
@@ -49,5 +63,9 @@ class DeckViewModel: ObservableObject {
     
     private static func getDefaultReviewQueue(deck: Deck) -> ReviewQueue {
         ReviewQueueService().makeTransientQueue(decks: [deck], reviewType: .REGULAR)
+    }
+    
+    static func sortByDateCardCreatedNewToOld(lhs: Card, rhs: Card) -> Bool {
+        lhs.dateCreated > rhs.dateCreated
     }
 }

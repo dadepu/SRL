@@ -40,11 +40,12 @@ struct DeckService {
     }
     
     func deleteDeck(forId id: UUID) {
-        let cardService = CardService()
+        let cardDeletionService = CardDeletionService(cardRepository: cardRepository, schedulerRepository: schedulerRepository)
         if let deck = getDeck(forId: id) {
-            for (cardId, _) in deck.cards {
-                cardService.deleteCard(forId: cardId)
+            let cardIds: [UUID] = deck.cards.map { (key: UUID, value: Card) in
+                key
             }
+            cardDeletionService.deleteCards(forIds: cardIds)
             deckRepository.deleteDeck(forId: deck.id)
         }
     }
@@ -73,7 +74,12 @@ struct DeckService {
         throw DeckException.deckNotFound
     }
     
-    func removeCard(forDeckId deckId: UUID, withCardId cardId: UUID) {
-        
+    func deleteCard(forDeckId deckId: UUID, withCardId cardId: UUID) {
+        if let deck = getDeck(forId: deckId), let card = deck.cards[cardId] {
+            let cardDeletionService = CardDeletionService(cardRepository: cardRepository, schedulerRepository: schedulerRepository)
+            cardDeletionService.deleteCard(forId: card.id)
+            let updatedDeck = deck.removedCard(cardId: card.id)
+            deckRepository.saveDeck(deck: updatedDeck)
+        }
     }
 }

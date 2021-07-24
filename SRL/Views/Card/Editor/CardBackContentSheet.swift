@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardBackContentSheet: ViewModifier {
-    @ObservedObject var createCardViewModel: CreateCardViewModel
+    @ObservedObject var createCardViewModel: AbstractCardViewModel
     
     @Binding var cardType: CardTypeMapper
     
@@ -27,7 +27,7 @@ struct CardBackContentSheet: ViewModifier {
         }
     }
     
-    private func appendContentToBack(content: CardContentType, cardViewModel: CreateCardViewModel) {
+    private func appendContentToBack(content: CardContentType, cardViewModel: AbstractCardViewModel) {
         cardViewModel.addBackContent(content)
     }
 }

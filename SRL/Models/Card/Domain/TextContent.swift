@@ -20,12 +20,12 @@ struct TextContent: Codable {
         if try validate(text: text) {
             return TextContent(text)
         }
-        throw CardContentException.illegalArgument
+        throw CardContentException.IllegalArgument
     }
     
     private static func validate(text: String) throws -> Bool {
         if text.isEmpty {
-            throw CardContentException.illegalArgument
+            throw CardContentException.IllegalArgument
         }
         return true
     }

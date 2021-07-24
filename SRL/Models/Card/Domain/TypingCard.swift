@@ -8,11 +8,11 @@
 import Foundation
 
 struct TypingCard: Codable {
-    private (set) var questionContent: [CardContentType]
-    private (set) var answerContent: TypingContent
+    private (set) var questionContent: [CardContentTypeContainer]
+    private (set) var answerContent: CardContentTypeContainer
     
     
-    init(questions: [CardContentType], answers: TypingContent) {
+    init(questions: [CardContentTypeContainer], answers: CardContentTypeContainer) {
         self.questionContent = questions
         self.answerContent = answers
     }

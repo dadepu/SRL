@@ -22,6 +22,10 @@ struct CardService {
         cardRepository.getCard(forId: id)
     }
     
+    func getCard(in cards: [UUID:Card], forId id: UUID) -> Card? {
+        cards[id]
+    }
+    
     func editCardContent(cardId id: UUID, cardContent: CardType) {
         if let card = getCard(forId: id) {
             let updatedCard = card.changedContent(content: cardContent)
@@ -31,13 +35,6 @@ struct CardService {
     
     func editScheduler(cardId id: UUID, schedulerId: UUID) {
         // TODO
-    }
-    
-    func deleteCard(forId id: UUID) {
-        if let card = getCard(forId: id) {
-            schedulerRepository.deleteScheduler(forId: card.scheduler.id)
-            cardRepository.deleteCard(forId: id)
-        }
     }
     
     func reviewCard(forId id: UUID, action: ReviewAction) {

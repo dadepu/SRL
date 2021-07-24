@@ -8,5 +8,6 @@
 import Foundation
 
 enum CardTypeException: Error {
-    case containsInvalidCardContentType
+    case UnsupportedCardType
+    case ContainsInvalidCardContentType
 }

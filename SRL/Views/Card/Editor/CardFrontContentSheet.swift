@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardFrontContentSheet: ViewModifier {
-    @ObservedObject var createCardViewModel: CreateCardViewModel
+    @ObservedObject var createCardViewModel: AbstractCardViewModel
     
     @Binding var isShowingBottomSheet: BottomSheetPosition
     @Binding var opacityBottomSheet: Double
@@ -23,7 +23,7 @@ struct CardFrontContentSheet: ViewModifier {
         [.Text, .Image]
     }
     
-    private func appendContentToFront(content: CardContentType, cardViewModel: CreateCardViewModel) {
+    private func appendContentToFront(content: CardContentType, cardViewModel: AbstractCardViewModel) {
         cardViewModel.addFrontContent(content)
     }
 }

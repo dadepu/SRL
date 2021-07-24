@@ -47,7 +47,7 @@ struct DeckView: View {
                         Text("Add Cards")
                     })
                 NavigationLink(
-                    destination: EmptyView(),
+                    destination: CardBrowser(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
                     label: {
                         Text("Browse Cards")
                     })
