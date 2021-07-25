@@ -10,6 +10,7 @@ import Combine
 
 class CreateCardViewModel: AbstractCardViewModel {
     
+    // TODO: for future card types it may be necessary to check the front card content as well
     func changeCardType(cardType: CardTypeMapper) {
         super.cardType = cardType
         super.backCardContent = []
@@ -17,12 +18,8 @@ class CreateCardViewModel: AbstractCardViewModel {
     
     func saveAsCard() {
         if cardIsSaveable, let cardType = try? createCardType() {
-            let _ = try? DeckService().makeCard(deckId: deck.id, schedulePresetId: schedulePreset.id, cardType: cardType)
+            _ = try? DeckService().makeCard(deckId: deck.id, schedulePresetId: schedulePreset.id, cardType: cardType)
         }
-        resetCardContent()
-    }
-    
-    private func resetCardContent() {
         super.frontCardContent = []
         super.backCardContent = []
     }

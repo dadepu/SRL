@@ -32,6 +32,7 @@ class DeckRepository {
         }
         dataSaving = self.$decks.sink(receiveValue: saveWithUserDefaultsRepository)
         cardObserver = CardRepository.getInstance().$cards.sink(receiveValue: updateDecks(withCards:))
+        schedulePresetObserver = SchedulePresetRepository.getInstance().$schedulePresets.sink(receiveValue: updateDecks(withSchedulePresets:))
     }
     
     
@@ -67,6 +68,16 @@ class DeckRepository {
         var updatedDecks: [UUID:Deck] = [:]
         for (_, deck) in self.decks {
             let updatedDeck = deckAssembler.refreshDeck(deck, withCards: cards)
+            updatedDecks[updatedDeck.id] = updatedDeck
+        }
+        self.decks = updatedDecks
+    }
+    
+    private func updateDecks(withSchedulePresets presets: [UUID:SchedulePreset]) {
+        let deckAssembler = DeckAssembler()
+        var updatedDecks: [UUID:Deck] = [:]
+        for (_, deck) in self.decks {
+            let updatedDeck = deckAssembler.refreshDeck(deck, withSchedulePresets: presets)
             updatedDecks[updatedDeck.id] = updatedDeck
         }
         self.decks = updatedDecks

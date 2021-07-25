@@ -9,20 +9,35 @@ import Foundation
 import Combine
 
 class DeckViewModel: ObservableObject {
+    @Published private (set) var deck: Deck
+    @Published private (set) var reviewQueue: ReviewQueue
+    @Published private (set) var orderedCards: [Card] = []
+    
     private let deckService = DeckService()
     private var deckObserver: AnyCancellable?
-
-    @Published private (set) var deck: Deck
-    private (set) var reviewQueue: ReviewQueue
 
 
     init(deck: Deck) {
         self.deck = deck
         self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: deck)
-        deckObserver = deckService.getModelPublisher().sink(receiveValue: decksUpdatedCallback)
+        initializeSortedCards(sort: DeckViewModel.sortByDateCardCreatedNewToOld)
+        
+        deckObserver = deckService.getModelPublisher().sink { decks in
+            if let updatedDeck  = self.deckService.getDeck(inDictionary: decks, forKey: self.deck.id) {
+                self.deck = updatedDeck
+                self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: updatedDeck)
+            } else {
+                self.deckObserver?.cancel()
+            }
+        }
     }
 
 
+    func initializeSortedCards(sort: (Card, Card) -> Bool) {
+        orderedCards = deck.cards.map { (key: UUID, value: Card) in
+            value
+        }.sorted(by: sort)
+    }
     
     func editDeck(name: String, presetId: UUID) {
         if deck.name != name {
@@ -37,29 +52,13 @@ class DeckViewModel: ObservableObject {
         deckService.deleteDeck(forId: id)
     }
     
-    func getSortedCards(sort: (Card, Card) -> Bool) -> [Card] {
-        deck.cards.map { (key: UUID, value: Card) in
-            value
-        }.sorted(by: sort)
-    }
-    
     func deleteCards(indexSet: IndexSet) {
-        let cards: [Card] = deck.cards.map { (key: UUID, value: Card) in value }
         for index in indexSet {
-            deckService.deleteCard(forDeckId: deck.id, withCardId: cards[index].id)
+            deckService.deleteCard(forDeckId: deck.id, withCardId: self.orderedCards[index].id)
+            orderedCards.remove(at: index)
         }
     }
 
-    
-    
-    private func decksUpdatedCallback(decks: [UUID:Deck]) {
-        if let deck: Deck = deckService.getDeck(inDictionary: decks, forKey: self.deck.id) {
-            self.deck = deck
-            self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: deck)
-        } else {
-            deckObserver?.cancel()
-        }
-    }
     
     private static func getDefaultReviewQueue(deck: Deck) -> ReviewQueue {
         ReviewQueueService().makeTransientQueue(deckIds: [deck.id], reviewType: .REGULAR)

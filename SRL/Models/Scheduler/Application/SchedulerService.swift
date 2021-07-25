@@ -16,12 +16,15 @@ struct SchedulerService {
     }
     
     
-    func getScheduler(forId id: UUID) -> Scheduler? {
-        schedulerRepository.getScheduler(forId: id)
+    func getScheduler(forId id: UUID) throws -> Scheduler {
+        if let scheduler = schedulerRepository.getScheduler(forId: id) {
+            return scheduler
+        }
+        throw SchedulerException.EntityNotFound
     }
     
     func setPreset(forId id: UUID, withId presetId: UUID) {
-        if let scheduler = getScheduler(forId: id), let preset = SchedulePresetService().getSchedulePreset(forId: presetId) {
+        if let scheduler = try? getScheduler(forId: id), let preset = SchedulePresetService().getSchedulePreset(forId: presetId) {
             schedulerRepository.saveScheduler(scheduler.hasSetSchedulePreset(preset))
         }
     }

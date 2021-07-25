@@ -9,23 +9,21 @@ import Foundation
 import Combine
 
 class AbstractCardViewModel: ObservableObject {
-    private (set) var id = UUID()
+    @Published var deck: Deck
     @Published var cardType: CardTypeMapper = .Default
     @Published var schedulePreset: SchedulePreset
     @Published var frontCardContent: [CardContentTypeContainer] = []
     @Published var backCardContent: [CardContentTypeContainer] = []
     @Published var cardIsSaveable: Bool = false
-               var deck: Deck
     
-    var frontContentObserver: AnyCancellable?
-    var backContentObserver: AnyCancellable?
-    
-    
+    private var frontContentObserver: AnyCancellable?
+    private var backContentObserver: AnyCancellable?
     
     
     init(deck: Deck) {
         self.deck = deck
         self.schedulePreset = SchedulePresetService().getDefaultSchedulePreset()
+        
         self.frontContentObserver = self.$frontCardContent.sink { (front: [CardContentTypeContainer]) in
             self.cardIsSaveable = self.validateCardIsSaveable(front: front, back: self.backCardContent)
         }
@@ -34,6 +32,7 @@ class AbstractCardViewModel: ObservableObject {
         }
     }
     
+    // TODO: for default cards this may be true, but not for further card types which may be added in the future
     private func validateCardIsSaveable(front: [CardContentTypeContainer], back: [CardContentTypeContainer]) -> Bool {
         front.count > 0 && back.count > 0
     }
@@ -44,6 +43,7 @@ class AbstractCardViewModel: ObservableObject {
         schedulePreset = SchedulePresetService().getSchedulePresetOrDefault(forId: id)
     }
     
+    // TODO: it must be checked which content types are added to which kind of selected cardtype
     func addFrontContent(_ content: CardContentType) {
         frontCardContent.append(CardContentTypeContainer(content))
     }
@@ -56,6 +56,7 @@ class AbstractCardViewModel: ObservableObject {
         frontCardContent.remove(atOffsets: offset)
     }
     
+    // TODO: it must be checked which content types are added to which kind of selected cardtype
     func addBackContent(_ content: CardContentType) {
         backCardContent.append(CardContentTypeContainer(content))
     }
@@ -67,7 +68,6 @@ class AbstractCardViewModel: ObservableObject {
     func deleteBackContent(at offset: IndexSet) {
         backCardContent.remove(atOffsets: offset)
     }
-    
     
     
     

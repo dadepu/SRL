@@ -13,14 +13,13 @@ class ReviewViewModel: ObservableObject {
     private (set) var reviewType: ReviewType
     
     private var deckObserver: AnyCancellable?
-    private var cardObserver: AnyCancellable?
     
     
     init(deckIds: [UUID], reviewType: ReviewType) {
         self.reviewQueue = ReviewQueueService().makeTransientQueue(deckIds: deckIds, reviewType: reviewType)
         self.reviewType = reviewType
     }
-    
+
     
     func reviewCard(reviewAction: ReviewAction) {
         do {

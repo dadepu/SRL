@@ -18,7 +18,7 @@ struct CardDeletionService {
     }
     
     func deleteCard(forId id: UUID) {
-        if let card = CardService().getCard(forId: id) {
+        if let card = try? CardService().getCard(forId: id) {
             schedulerRepository.deleteScheduler(forId: card.scheduler.id)
             cardRepository.deleteCard(forId: id)
         }

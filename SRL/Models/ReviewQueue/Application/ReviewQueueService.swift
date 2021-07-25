@@ -23,7 +23,10 @@ struct ReviewQueueService {
 
     func reviewCard(reviewQueue: ReviewQueue, cardId: UUID, reviewAction: ReviewAction) throws -> ReviewQueue {
         let card: Card = try CardService().getCard(forId: cardId)
-        CardService().reviewCard(forId: cardId, action: reviewAction)
+        let reviewedCard = card.reviewedCard(as: reviewAction)
+
+        SchedulerRepository.getInstance().saveScheduler(reviewedCard.scheduler)
+        CardRepository.getInstance().saveCard(reviewedCard)
         return reviewQueue.reviewedCard(card: card)
     }
 }

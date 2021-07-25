@@ -21,7 +21,7 @@ struct CardBrowser: View {
     var body: some View {
         List {
             Section(header: Text("Sort by date created")) {
-                ForEach(deckViewModel.getSortedCards(sort: DeckViewModel.sortByDateCardCreatedNewToOld(lhs:rhs:))) { card in
+                ForEach(deckViewModel.orderedCards) { card in
                     NavigationLink(
                         destination: EditCardView(deckViewModel: deckViewModel, presetViewModel: presetViewModel, deck: deckViewModel.deck, card: card),
                         label: {

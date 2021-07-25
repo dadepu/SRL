@@ -25,6 +25,11 @@ struct Deck: Identifiable, Codable {
         self.cards = cards
     }
     
+    init(_ deck: Deck, schedulePreset: SchedulePreset) {
+        self = deck
+        self.schedulePreset = schedulePreset
+    }
+    
     
     
     func addedCard(card: Card) -> Deck {

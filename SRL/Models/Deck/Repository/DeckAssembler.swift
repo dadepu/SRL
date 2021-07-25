@@ -8,8 +8,6 @@
 import Foundation
 
 struct DeckAssembler {
-    private let schedulePresetService = SchedulePresetService()
-    
     
     func refreshDeck(_ deck: Deck, withCards cards: [UUID:Card]) -> Deck {
         var updatedCards = [UUID:Card]()
@@ -19,5 +17,13 @@ struct DeckAssembler {
             }
         }
         return Deck(deck, cards: updatedCards)
+    }
+    
+    func refreshDeck(_ deck: Deck, withSchedulePresets presets: [UUID:SchedulePreset]) -> Deck {
+        if let updatedPreset = presets[deck.schedulePreset.id] {
+            return Deck(deck, schedulePreset: updatedPreset)
+        } else {
+            return Deck(deck, schedulePreset: SchedulePresetService().getDefaultSchedulePreset())
+        }
     }
 }

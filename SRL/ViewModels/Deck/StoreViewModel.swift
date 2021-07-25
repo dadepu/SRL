@@ -9,21 +9,22 @@ import Foundation
 import Combine
 
 class StoreViewModel: ObservableObject {
-    private let deckService = DeckService()
-    private let cardService = CardService()
-    
     @Published private (set) var decks: [Deck] = []
-    private (set) var reviewQueues: [UUID:ReviewQueue] = [:]
+    @Published private (set) var reviewQueues: [UUID:ReviewQueue] = [:]
     
+    private var deckService = DeckService()
     private var deckObserver: AnyCancellable?
     
     
     init() {
-        let hashedDecks = deckService.getAllDecks()
-        decks = getDecksInOrder(hashedDecks)
-        reviewQueues = getReviewQueues(hashedDecks)
-        deckObserver = deckService.getModelPublisher().sink(receiveValue: decksUpdatedCallback)
+        let hashedDecks: [UUID:Deck] = deckService.getAllDecks()
+        decks = getDecksOrderedByNameDesc(hashedDecks)
+        reviewQueues = fetchReviewQueues(hashedDecks)
         
+        deckObserver = deckService.getModelPublisher().sink { (decks: [UUID:Deck]) in
+            self.decks = self.getDecksOrderedByNameDesc(decks)
+            self.reviewQueues = self.fetchReviewQueues(decks)
+        }
     }
 
     
@@ -33,16 +34,13 @@ class StoreViewModel: ObservableObject {
     
     func dropDeck(id: UUID) {
         deckService.deleteDeck(forId: id)
+        decks.removeAll(where: { deck in deck.id == id })
     }
 
     
     
-    private func decksUpdatedCallback(decks: [UUID:Deck]) {
-        self.decks = getDecksInOrder(decks)
-        self.reviewQueues = getReviewQueues(decks)
-    }
     
-    private func getDecksInOrder(_ decks: [UUID:Deck]) -> [Deck] {
+    private func getDecksOrderedByNameDesc(_ decks: [UUID:Deck]) -> [Deck] {
         return try! decks.map({ (_: UUID, deck: Deck) throws -> Deck in
             deck
         }).sorted() { (lhs:Deck, rhs:Deck) -> Bool in
@@ -50,7 +48,7 @@ class StoreViewModel: ObservableObject {
         }
     }
     
-    private func getReviewQueues(_ decks: [UUID:Deck]) -> [UUID:ReviewQueue] {
+    private func fetchReviewQueues(_ decks: [UUID:Deck]) -> [UUID:ReviewQueue] {
         var reviewQueue = [UUID:ReviewQueue]()
         for (_, deck) in decks {
             reviewQueue[deck.id] = StoreViewModel.getDefaultReviewQueue(deck: deck)
