@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 class AbstractCardViewModel: ObservableObject {
+    private (set) var id = UUID()
     @Published var cardType: CardTypeMapper = .Default
     @Published var schedulePreset: SchedulePreset
     @Published var frontCardContent: [CardContentTypeContainer] = []

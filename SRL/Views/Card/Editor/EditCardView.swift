@@ -53,6 +53,8 @@ struct EditCardView: View {
             }
         }
         .listStyle(GroupedListStyle())
+        .modifier(CardFrontContentSheet(createCardViewModel: editCardViewModel, isShowingBottomSheet: $isShowingBottomSheetAddContentFront, opacityBottomSheet: $opacityBottomUpSheets))
+        .modifier(CardBackContentSheet(createCardViewModel: editCardViewModel, cardType: $formCardType, isShowingBottomSheet: $isShowingBottomSheetAddContentBack, opacityBottomSheet: $opacityBottomUpSheets))
         .navigationBarTitle("Edit Card", displayMode: .inline)
         .navigationBarItems(trailing: EditButton())
     }

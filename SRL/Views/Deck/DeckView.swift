@@ -30,10 +30,12 @@ struct DeckView: View {
         List {
             Section(header: Text("Study")){
                 NavigationLink(
-                    destination: EmptyView(),
+                    destination: // EmptyView(),
+                        ReviewView(presetViewModel: presetViewModel, deckIds: [deckViewModel.deck.id], reviewType: .REGULAR),
                     label: {
-                        ListRowHorizontalSeparated(textLeft: {"Review"}, textRight: {"\(deckViewModel.reviewQueue.countReviewableCards())"})
+                        ListRowHorizontalSeparated(textLeft: {"Review"}, textRight: {"\(deckViewModel.reviewQueue.getReviewableCardCount())"})
                     })
+                    .disabled(deckViewModel.reviewQueue.getReviewableCardCount() == 0)
                 NavigationLink(
                     destination: CustomStudyView(deckViewModel: deckViewModel),
                     label: {

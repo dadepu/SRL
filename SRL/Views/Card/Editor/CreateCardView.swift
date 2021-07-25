@@ -31,6 +31,7 @@ struct CreateCardView: View {
     
     var body: some View {
         List {
+            Text("ViewModel ID: \(createCardViewModel.id)")
             Section(header: Text("Settings")){
                 CardTypePicker(createCardViewModel: createCardViewModel, cardType: $formCardType)
                 SchedulePresetPicker(presetViewModel: presetViewModel, createCardViewModel: createCardViewModel, presetIndex: $formPresetIndex)

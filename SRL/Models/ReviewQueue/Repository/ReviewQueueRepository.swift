@@ -10,10 +10,8 @@ import Combine
 
 class ReviewQueueRepository {
     private static var instance: ReviewQueueRepository?
-    private (set) var userDefaultsRepository = ReviewQueueUserDefaultsRepository()
     
     @Published private (set) var reviewQueues: [UUID:ReviewQueue] = [UUID:ReviewQueue]()
-    private var dataSaving: AnyCancellable?
     
     
     
@@ -24,12 +22,7 @@ class ReviewQueueRepository {
         return ReviewQueueRepository.instance!
     }
     
-    private init() {
-        if let loadedQueues: [UUID:ReviewQueue] = userDefaultsRepository.loadReviewQueues() {
-            reviewQueues = loadedQueues
-        }
-        dataSaving = $reviewQueues.sink(receiveValue: saveWithUserDefaultsRepository)
-    }
+    private init() {}
     
     
     
@@ -37,7 +30,7 @@ class ReviewQueueRepository {
         return getRefreshedReviewQueue(forId: id)
     }
     
-    func saveReviewQueues(_ reviewQueue: ReviewQueue) {
+    func saveReviewQueue(_ reviewQueue: ReviewQueue) {
         reviewQueues[reviewQueue.id] = reviewQueue
     }
 
@@ -62,9 +55,5 @@ class ReviewQueueRepository {
 
     private func refreshReviewQueue(_ queue: ReviewQueue) -> ReviewQueue {
         ReviewQueueAssembler().refreshReviewQueue(queue)
-    }
-    
-    private func saveWithUserDefaultsRepository(queues: [UUID:ReviewQueue]) {
-        userDefaultsRepository.saveReviewQueues(queues)
     }
 }

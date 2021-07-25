@@ -22,7 +22,7 @@ struct DeckListSection: View {
         List {
             ForEach(storeViewModel.decks) { deck in
                 NavigationLink(destination: DeckView(deck: deck, presetViewModel: presetViewModel)) {
-                    ListRowHorizontalSeparated(textLeft: {deck.name}, textRight: {"\(storeViewModel.reviewQueues[deck.id]!.countReviewableCards())"})
+                    ListRowHorizontalSeparated(textLeft: {deck.name}, textRight: {"\(storeViewModel.reviewQueues[deck.id]!.getReviewableCardCount())"})
                 }
             }
             .onDelete(perform: deleteDeck)

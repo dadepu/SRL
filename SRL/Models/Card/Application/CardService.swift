@@ -22,6 +22,13 @@ struct CardService {
         cardRepository.getCard(forId: id)
     }
     
+    func getCard(forId id: UUID) throws -> Card {
+        if let card = cardRepository.getCard(forId: id) {
+            return card
+        }
+        throw CardException.EntityNotFound
+    }
+    
     func getCard(in cards: [UUID:Card], forId id: UUID) -> Card? {
         cards[id]
     }
