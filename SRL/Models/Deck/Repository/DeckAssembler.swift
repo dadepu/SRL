@@ -13,16 +13,16 @@ struct DeckAssembler {
     
     
     func refreshedDeck(_ deck: Deck) -> Deck {
-        let cards = getRefreshedCards(cards: deck.cards)
+        let cards = getRefreshedCards(cards: deck.cards.map { key, value in key })
         let preset = getSchedulePreset(id: deck.schedulePreset.id)
         return Deck(deck, cards: cards, schedulePreset: preset)
     }
     
     
-    private func getRefreshedCards(cards: [UUID : Card]) -> [UUID : Card] {
+    private func getRefreshedCards(cards: [UUID]) -> [UUID:Card] {
         var loadedCards = [UUID : Card]()
-        for (key, _) in cards {
-            if let loadedCard: Card = cardRepository.getCard(forId: key) {
+        for cardId in cards {
+            if let loadedCard: Card = cardRepository.getCard(forId: cardId) {
                 loadedCards[loadedCard.id] = loadedCard
             }
         }

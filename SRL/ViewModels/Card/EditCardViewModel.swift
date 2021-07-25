@@ -19,7 +19,7 @@ class EditCardViewModel: AbstractCardViewModel {
         super.init(deck: deck)
         try? initializeContentFromCard(card: card)
         cardObserver = CardService().getModelPublisher().sink { (cards: [UUID:Card]) in
-            if let card = CardService().getCard(in: cards, forId: card.id) {
+            if let card = CardService().getCard(inDictionary: cards, forId: card.id) {
                 try? self.initializeContentFromCard(card: card)
             }
         }
@@ -39,8 +39,8 @@ class EditCardViewModel: AbstractCardViewModel {
     
     public func saveCardChanges() {
         if cardIsSaveable, let cardType = try? createCardType() {
-            CardService().editCardContent(cardId: card.id, cardContent: cardType)
-            CardService().editScheduler(cardId: card.id, schedulerId: schedulePreset.id)
+            CardService().replaceCardContent(cardId: card.id, cardContent: cardType)
+            CardService().replaceScheduler(cardId: card.id, schedulerId: schedulePreset.id)
         }
     }
 }

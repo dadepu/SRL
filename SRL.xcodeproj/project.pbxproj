@@ -57,6 +57,7 @@
 		8757BBB726AD384B00B6C7B1 /* ReviewQueueInternalInitializationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBB626AD384B00B6C7B1 /* ReviewQueueInternalInitializationTest.swift */; };
 		8757BBBD26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBBC26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift */; };
 		8757BBC026AD4F4F00B6C7B1 /* MakeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBBF26AD4F4F00B6C7B1 /* MakeCard.swift */; };
+		8757BBC326AD793400B6C7B1 /* DeckPersistenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBC226AD793400B6C7B1 /* DeckPersistenceTest.swift */; };
 		8762CFF226ABEBC500CBEA2F /* CardDeletionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8762CFF126ABEBC500CBEA2F /* CardDeletionService.swift */; };
 		8762CFF426ABFD6900CBEA2F /* EditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8762CFF326ABFD6900CBEA2F /* EditCardView.swift */; };
 		876840BB26AB0BD7008384B3 /* CardContentException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876840BA26AB0BD7008384B3 /* CardContentException.swift */; };
@@ -76,7 +77,6 @@
 		87A0EBC826A0B82A00784D13 /* ReviewQueueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A0EBC726A0B82A00784D13 /* ReviewQueueRepository.swift */; };
 		87A0EBCA26A0B83500784D13 /* ReviewQueueUserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A0EBC926A0B83500784D13 /* ReviewQueueUserDefaultsRepository.swift */; };
 		87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110C9265ED23A00F0D4B6 /* LearningState.swift */; };
-		87B480A8269018E200887C6A /* SchedulePresetPersistanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480A7269018E200887C6A /* SchedulePresetPersistanceTest.swift */; };
 		87B480AC26901F7B00887C6A /* DeckRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480AB26901F7B00887C6A /* DeckRepository.swift */; };
 		87B480AE2690221300887C6A /* DeckUserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480AD2690221300887C6A /* DeckUserDefaultsRepository.swift */; };
 		87B480B726903E5D00887C6A /* FactoringCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480B626903E5D00887C6A /* FactoringCard.swift */; };
@@ -179,6 +179,7 @@
 		8757BBB626AD384B00B6C7B1 /* ReviewQueueInternalInitializationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQueueInternalInitializationTest.swift; sourceTree = "<group>"; };
 		8757BBBC26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestCoreCardBuilder.swift; sourceTree = "<group>"; };
 		8757BBBF26AD4F4F00B6C7B1 /* MakeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeCard.swift; sourceTree = "<group>"; };
+		8757BBC226AD793400B6C7B1 /* DeckPersistenceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckPersistenceTest.swift; sourceTree = "<group>"; };
 		8762CFF126ABEBC500CBEA2F /* CardDeletionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeletionService.swift; sourceTree = "<group>"; };
 		8762CFF326ABFD6900CBEA2F /* EditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardView.swift; sourceTree = "<group>"; };
 		876840BA26AB0BD7008384B3 /* CardContentException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentException.swift; sourceTree = "<group>"; };
@@ -198,7 +199,6 @@
 		87A0EBC726A0B82A00784D13 /* ReviewQueueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQueueRepository.swift; sourceTree = "<group>"; };
 		87A0EBC926A0B83500784D13 /* ReviewQueueUserDefaultsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQueueUserDefaultsRepository.swift; sourceTree = "<group>"; };
 		87A110C9265ED23A00F0D4B6 /* LearningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningState.swift; sourceTree = "<group>"; };
-		87B480A7269018E200887C6A /* SchedulePresetPersistanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetPersistanceTest.swift; sourceTree = "<group>"; };
 		87B480AB26901F7B00887C6A /* DeckRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckRepository.swift; sourceTree = "<group>"; };
 		87B480AD2690221300887C6A /* DeckUserDefaultsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckUserDefaultsRepository.swift; sourceTree = "<group>"; };
 		87B480B626903E5D00887C6A /* FactoringCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoringCard.swift; sourceTree = "<group>"; };
@@ -458,6 +458,7 @@
 				87541C83265CE020009E805D /* Views */,
 				87541C84265CE02B009E805D /* ViewModels */,
 				87541C82265CE019009E805D /* Models */,
+				8757BBBE26AD4F4800B6C7B1 /* Debug */,
 				87541C56265CDF03009E805D /* SRLApp.swift */,
 				87541C5A265CDF04009E805D /* Assets.xcassets */,
 				87541C5F265CDF04009E805D /* Info.plist */,
@@ -497,7 +498,6 @@
 		87541C82265CE019009E805D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8757BBBE26AD4F4800B6C7B1 /* Debug */,
 				871F117F268ECF5D00BF9A51 /* Deck */,
 				87DA6839269CB4E8003F07A8 /* Card */,
 				87DA683E269CB55E003F07A8 /* Scheduler */,
@@ -591,10 +591,18 @@
 			path = Debug;
 			sourceTree = "<group>";
 		};
+		8757BBC126AD791E00B6C7B1 /* Deck */ = {
+			isa = PBXGroup;
+			children = (
+				8757BBC226AD793400B6C7B1 /* DeckPersistenceTest.swift */,
+			);
+			path = Deck;
+			sourceTree = "<group>";
+		};
 		875E21A6265E272B00D973C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				87B480A52690183D00887C6A /* SchedulePreset */,
+				8757BBC126AD791E00B6C7B1 /* Deck */,
 				87946B64268F7D1900CEAA98 /* Scheduler */,
 				8757BBB426AD37DD00B6C7B1 /* ReviewQueue */,
 			);
@@ -665,22 +673,6 @@
 				871F75A926A135A7006431B8 /* ReviewQueueAssember.swift */,
 			);
 			path = Repository;
-			sourceTree = "<group>";
-		};
-		87B480A52690183D00887C6A /* SchedulePreset */ = {
-			isa = PBXGroup;
-			children = (
-				87B480A62690184800887C6A /* Application */,
-			);
-			path = SchedulePreset;
-			sourceTree = "<group>";
-		};
-		87B480A62690184800887C6A /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				87B480A7269018E200887C6A /* SchedulePresetPersistanceTest.swift */,
-			);
-			path = Application;
 			sourceTree = "<group>";
 		};
 		87C4970E26AC332E0015823E /* Review */ = {
@@ -1040,8 +1032,8 @@
 				87541C69265CDF04009E805D /* SRLTests.swift in Sources */,
 				871957CD2660EF0B00AA06CC /* SchedulerReviewingTest.swift in Sources */,
 				8757BBBD26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift in Sources */,
-				87B480A8269018E200887C6A /* SchedulePresetPersistanceTest.swift in Sources */,
 				8757BBB726AD384B00B6C7B1 /* ReviewQueueInternalInitializationTest.swift in Sources */,
+				8757BBC326AD793400B6C7B1 /* DeckPersistenceTest.swift in Sources */,
 				871957CF2660EF2200AA06CC /* SchedulerLapsingTest.swift in Sources */,
 				871957D12660F43E00AA06CC /* SchedulerFunctionalityTest.swift in Sources */,
 				871957C82660EAA800AA06CC /* SchedulerLearningTest.swift in Sources */,

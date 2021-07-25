@@ -35,11 +35,11 @@ class CardRepository {
     
     
     func getAllSchedulers() -> [UUID:Card] {
-        return getAllRefreshedCards()
+        getAllRefreshedCards()
     }
 
     func getCard(forId id: UUID) -> Card? {
-        return getRefreshedCard(forId: id)
+        getRefreshedCard(forId: id)
     }
 
     func saveCard(_ card: Card) {
@@ -59,10 +59,8 @@ class CardRepository {
     
     private func getRefreshedCard(forId id: UUID) -> Card? {
         if let card: Card = cards[id], let refreshedCard: Card = refreshCard(card) {
-            cards[id] = refreshedCard
             return refreshedCard
         } else {
-            deleteCard(forId: id)
             return nil
         }
     }
@@ -75,7 +73,6 @@ class CardRepository {
                 refreshedCards[refreshedCard.id] = refreshedCard
             }
         }
-        self.cards = refreshedCards
         return refreshedCards
     }
 

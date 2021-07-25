@@ -8,5 +8,5 @@
 import Foundation
 
 enum DeckException: Error {
-    case deckNotFound
+    case EntityNotFound
 }

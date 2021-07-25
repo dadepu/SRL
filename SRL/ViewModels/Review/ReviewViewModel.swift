@@ -30,15 +30,15 @@ class ReviewViewModel: ObservableObject {
         reviewQueue.getReviewableCardCount()
     }
     
-    private func refreshReviewQueue(withDecks decks: [UUID:Deck]) {
-        let refreshedQueue = reviewService.refreshReviewQueue(reviewQueue, withDecks: decks.map { key, value in value })
-        self.reviewQueue = refreshedQueue
-    }
+//    private func refreshReviewQueue(withDecks decks: [UUID:Deck]) {
+//        let refreshedQueue = reviewService.refreshReviewQueue(reviewQueue, withDecks: decks.map { key, value in value })
+//        self.reviewQueue = refreshedQueue
+//    }
     
-    private func refreshReviewQueue(withCards cards: [UUID:Card]) {
-        let refreshedQueue = reviewService.refreshReviewQueue(reviewQueue, withCards: cards.map { key, value in value })
-        self.reviewQueue = refreshedQueue
-    }
+//    private func refreshReviewQueue(withCards cards: [UUID:Card]) {
+//        let refreshedQueue = reviewService.refreshReviewQueue(reviewQueue, withCards: cards.map { key, value in value })
+//        self.reviewQueue = refreshedQueue
+//    }
     
     func reviewCard(reviewAction: ReviewAction) {
         let refreshedQueue = try! reviewService.reviewCard(reviewQueueId: reviewQueue.id, cardId: reviewQueue.currentCard!.id, reviewAction: reviewAction)

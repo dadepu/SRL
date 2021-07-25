@@ -36,7 +36,6 @@ struct ReviewQueueService {
                 decks.append(deck)
             }
         }
-        print(decks.count)
         let reviewQueue = ReviewQueue(decks: decks, reviewType: reviewType)
         reviewQueueRepository.saveReviewQueue(reviewQueue)
         return reviewQueue
@@ -46,21 +45,21 @@ struct ReviewQueueService {
         var reviewQueue: ReviewQueue = try getReviewQueue(reviewQueueId: reviewQueueId)
         let card: Card = try CardService().getCard(forId: cardId)
         
-//        CardService().reviewCard(forId: cardId, action: reviewAction)
+        CardService().reviewCard(forId: cardId, action: reviewAction)
         reviewQueue.reviewCard(reviewedCard: card)
         reviewQueueRepository.saveReviewQueue(reviewQueue)
         return reviewQueue
     }
     
-    func refreshReviewQueue(_ reviewQueue: ReviewQueue, withCards cards: [Card]) -> ReviewQueue {
-        let refreshedReviewQueue = ReviewQueue(reviewQueue, cards: cards)
-        reviewQueueRepository.saveReviewQueue(refreshedReviewQueue)
-        return refreshedReviewQueue
-    }
-    
-    func refreshReviewQueue(_ reviewQueue: ReviewQueue, withDecks decks: [Deck]) -> ReviewQueue {
-        let refreshedReviewQueue = ReviewQueue(reviewQueue, decks: decks)
-        reviewQueueRepository.saveReviewQueue(refreshedReviewQueue)
-        return refreshedReviewQueue
-    }
+//    func refreshReviewQueue(_ reviewQueue: ReviewQueue, withCards cards: [Card]) -> ReviewQueue {
+//        let refreshedReviewQueue = ReviewQueue(reviewQueue, cards: cards)
+//        reviewQueueRepository.saveReviewQueue(refreshedReviewQueue)
+//        return refreshedReviewQueue
+//    }
+//    
+//    func refreshReviewQueue(_ reviewQueue: ReviewQueue, withDecks decks: [Deck]) -> ReviewQueue {
+//        let refreshedReviewQueue = ReviewQueue(reviewQueue, decks: decks)
+//        reviewQueueRepository.saveReviewQueue(refreshedReviewQueue)
+//        return refreshedReviewQueue
+//    }
 }

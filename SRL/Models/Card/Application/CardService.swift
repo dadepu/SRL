@@ -29,21 +29,22 @@ struct CardService {
         throw CardException.EntityNotFound
     }
     
-    func getCard(in cards: [UUID:Card], forId id: UUID) -> Card? {
+    func getCard(inDictionary cards: [UUID:Card], forId id: UUID) -> Card? {
         cards[id]
     }
     
-    func editCardContent(cardId id: UUID, cardContent: CardType) {
+    func replaceCardContent(cardId id: UUID, cardContent: CardType) {
         if let card = getCard(forId: id) {
             let updatedCard = card.changedContent(content: cardContent)
             cardRepository.saveCard(updatedCard)
         }
     }
     
-    func editScheduler(cardId id: UUID, schedulerId: UUID) {
+    func replaceScheduler(cardId id: UUID, schedulerId: UUID) {
         // TODO
     }
     
+    // TODO entfernen
     func reviewCard(forId id: UUID, action: ReviewAction) {
         if let card = getCard(forId: id) {
             let reviewedCard = card.reviewedCard(as: action)

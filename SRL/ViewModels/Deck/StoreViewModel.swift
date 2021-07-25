@@ -10,7 +10,12 @@ import Combine
 
 class StoreViewModel: ObservableObject {
     private let deckService = DeckService()
+    private let cardService = CardService()
+    
     private var deckObserver: AnyCancellable?
+    private var cardObserver: AnyCancellable?
+    private var schedulerObserver: AnyCancellable?
+    
     
     @Published private (set) var decks: [Deck] = []
     private (set) var reviewQueues: [UUID:ReviewQueue] = [:]
@@ -20,12 +25,14 @@ class StoreViewModel: ObservableObject {
         let hashedDecks = deckService.getAllDecks()
         decks = getDecksInOrder(hashedDecks)
         reviewQueues = getReviewQueues(hashedDecks)
+        
         deckObserver = deckService.getModelPublisher().sink(receiveValue: decksUpdatedCallback)
+        
     }
 
     
     func makeDeck(name: String, presetId: UUID) {
-        deckService.makeDeck(name: name, presetId: presetId)
+        deckService.makeDeck(deckName: name, presetId: presetId)
     }
     
     func dropDeck(id: UUID) {

@@ -13,13 +13,13 @@ struct DeckService {
     private let schedulerRepository = SchedulerRepository.getInstance()
     
 
-    func getModelPublisher() -> Published<[UUID : Deck]>.Publisher {
+    func getModelPublisher() -> Published<[UUID:Deck]>.Publisher {
         deckRepository.$decks
     }
     
     
     
-    func getAllDecks() -> [UUID : Deck] {
+    func getAllDecks() -> [UUID:Deck] {
         deckRepository.getAllDecks()
     }
     
@@ -27,25 +27,22 @@ struct DeckService {
         deckRepository.getDeck(forId: id)
     }
 
-    func getDeck(inDictionary decks: [UUID : Deck], forKey key: UUID) -> Deck? {
+    func getDeck(inDictionary decks: [UUID:Deck], forKey key: UUID) -> Deck? {
         decks[key]
     }
     
     @discardableResult
-    func makeDeck(name: String, presetId: UUID) -> Deck {
+    func makeDeck(deckName: String, presetId: UUID) -> Deck {
         let preset = SchedulePresetService().getSchedulePresetOrDefault(forId: presetId)
-        let deck = Deck(name: name, schedulePreset: preset)
-        deckRepository.saveDeck(deck: deck)
-        return deck
+        let newDeck = Deck(name: deckName, schedulePreset: preset)
+        deckRepository.saveDeck(deck: newDeck)
+        return newDeck
     }
     
     func deleteDeck(forId id: UUID) {
         let cardDeletionService = CardDeletionService(cardRepository: cardRepository, schedulerRepository: schedulerRepository)
         if let deck = getDeck(forId: id) {
-            let cardIds: [UUID] = deck.cards.map { (key: UUID, value: Card) in
-                key
-            }
-            cardDeletionService.deleteCards(forIds: cardIds)
+            cardDeletionService.deleteCards(forIds: deck.cards.map { key, value in key })
             deckRepository.deleteDeck(forId: deck.id)
         }
     }
@@ -67,11 +64,11 @@ struct DeckService {
     func makeCard(deckId: UUID, schedulePresetId: UUID, cardType: CardType) throws -> Card {
         if let deck = getDeck(forId: deckId) {
             let cardCreationService = CardCreationService(cardRepository: cardRepository, schedulerRepository: schedulerRepository)
-            let newCard = cardCreationService.makeCard(cardType: cardType, schedulePresetId: schedulePresetId)
-            let updatedDeck = deck.addedCard(card: newCard)
+            let newPersistentCard = cardCreationService.makeCard(cardType: cardType, schedulePresetId: schedulePresetId)
+            let updatedDeck = deck.addedCard(card: newPersistentCard)
             deckRepository.saveDeck(deck: updatedDeck)
         }
-        throw DeckException.deckNotFound
+        throw DeckException.EntityNotFound
     }
     
     func deleteCard(forDeckId deckId: UUID, withCardId cardId: UUID) {

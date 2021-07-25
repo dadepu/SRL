@@ -58,11 +58,9 @@ class DeckRepository {
     
     
     private func getRefreshedDeck(forId id: UUID) -> Deck? {
-        if let deck: Deck = decks[id], let refreshedDeck: Deck = refreshedDeck(deck) {
-            decks[id] = refreshedDeck
-            return refreshedDeck
+        if let deck: Deck = decks[id] {
+            return refreshedDeck(deck)
         } else {
-            deleteDeck(forId: id)
             return nil
         }
     }
@@ -71,15 +69,13 @@ class DeckRepository {
         let decks = self.decks
         var refreshedDecks = [UUID:Deck]()
         for (_, value) in decks {
-            if let refreshedDeck: Deck = refreshedDeck(value) {
-                refreshedDecks[refreshedDeck.id] = refreshedDeck
-            }
+            let refreshedDeck: Deck = refreshedDeck(value)
+            refreshedDecks[refreshedDeck.id] = refreshedDeck
         }
-        self.decks = refreshedDecks
         return refreshedDecks
     }
 
-    private func refreshedDeck(_ deck: Deck) -> Deck? {
+    private func refreshedDeck(_ deck: Deck) -> Deck {
         DeckAssembler().refreshedDeck(deck)
     }
     

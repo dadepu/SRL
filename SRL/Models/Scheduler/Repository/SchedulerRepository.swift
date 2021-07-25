@@ -35,11 +35,11 @@ class SchedulerRepository {
     
     
     func getAllSchedulers() -> [UUID:Scheduler] {
-        return getAllRefreshedSchedulers()
+        getAllRefreshedSchedulers()
     }
     
     func getScheduler(forId id: UUID) -> Scheduler? {
-        return getRefreshedScheduler(forId: id)
+        getRefreshedScheduler(forId: id)
     }
     
     func saveScheduler(_ scheduler: Scheduler) {
@@ -59,9 +59,7 @@ class SchedulerRepository {
     
     private func getRefreshedScheduler(forId id: UUID) -> Scheduler? {
         if let scheduler: Scheduler = schedulers[id] {
-            let refreshedScheduler = refreshScheduler(scheduler)
-            schedulers[id] = refreshedScheduler
-            return refreshedScheduler
+            return refreshScheduler(scheduler)
         }
         return nil
     }
@@ -73,7 +71,6 @@ class SchedulerRepository {
             let refreshedScheduler = refreshScheduler(value)
             refreshedSchedulers[refreshedScheduler.id] = refreshedScheduler
         }
-        self.schedulers = refreshedSchedulers
         return refreshedSchedulers
     }
     
