@@ -51,6 +51,12 @@ struct ReviewQueue: Identifiable, Codable {
         }
     }
     
+    func reviewedCard(card: Card) -> ReviewQueue {
+        var reviewQueue = self
+        reviewQueue.reviewCard(reviewedCard: card)
+        return reviewQueue
+    }
+    
     
     
     private mutating func replaceCurrentCard(shuffledQueue: [Card]) {

@@ -24,40 +24,34 @@ struct ReviewView: View {
     
     var body: some View {
         List {
-            Text("ViewModel ID: \(reviewViewModel.id)")
             Text("ReviewQueue ID: \(reviewViewModel.reviewQueue.id)")
-            Text("Cards Remaining: \(reviewViewModel.getReviewCardCount())")
             ForEach(reviewViewModel.reviewQueue.decks) { deck in
                 Text("\(deck.name)")
             }
-            Button(action: {reviewViewModel.reviewCard(reviewAction: .REPEAT)}) {
-                Text("Bad")
-            }
         }
         .listStyle(GroupedListStyle())
-//        LazyVStack {
-//            HStack {
-//                Spacer()
-//                Button(action: {reviewViewModel.reviewCard(reviewAction: .REPEAT)}) {
-//                    Text("Bad")
-//                }
-//                .padding()
-//                Spacer()
-//                Button(action: {}) {
-//                    Text("Good")
-//                }.padding()
-//                Spacer()
-//                Button(action: {}) {
-//                    Text("Easy")
-//                }.padding()
-//                Spacer()
-//                Button(action: {}) {
-//                    Text("Custom")
-//                }.padding()
-//                Spacer()
-//            }
-//        }
-        
+        LazyVStack {
+            HStack {
+                Spacer()
+                Button(action: {reviewViewModel.reviewCard(reviewAction: .REPEAT)}) {
+                    Text("Bad")
+                }
+                .padding()
+                Spacer()
+                Button(action: {reviewViewModel.reviewCard(reviewAction: .GOOD)}) {
+                    Text("Good")
+                }.padding()
+                Spacer()
+                Button(action: {reviewViewModel.reviewCard(reviewAction: .EASY)}) {
+                    Text("Easy")
+                }.padding()
+                Spacer()
+                Button(action: {}) {
+                    Text("Custom")
+                }.padding()
+                Spacer()
+            }
+        }.navigationBarTitle("Review (\(reviewViewModel.reviewQueue.getReviewableCardCount()) Cards)", displayMode: .inline)
     }
     
 //    private struct DisplayCardContent: View {

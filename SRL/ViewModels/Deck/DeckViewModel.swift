@@ -62,7 +62,7 @@ class DeckViewModel: ObservableObject {
     }
     
     private static func getDefaultReviewQueue(deck: Deck) -> ReviewQueue {
-        ReviewQueueService().makeTransientQueue(decks: [deck], reviewType: .REGULAR)
+        ReviewQueueService().makeTransientQueue(deckIds: [deck.id], reviewType: .REGULAR)
     }
     
     static func sortByDateCardCreatedNewToOld(lhs: Card, rhs: Card) -> Bool {
