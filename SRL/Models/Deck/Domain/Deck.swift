@@ -20,10 +20,9 @@ struct Deck: Identifiable, Codable {
         self.schedulePreset = schedulePreset
     }
     
-    init(_ deck: Deck, cards: [UUID:Card], schedulePreset: SchedulePreset) {
+    init(_ deck: Deck, cards: [UUID:Card]) {
         self = deck
         self.cards = cards
-        self.schedulePreset = schedulePreset
     }
     
     

@@ -9,27 +9,15 @@ import Foundation
 
 struct DeckAssembler {
     private let schedulePresetService = SchedulePresetService()
-    private let cardRepository = CardRepository.getInstance()
     
     
-    func refreshedDeck(_ deck: Deck) -> Deck {
-        let cards = getRefreshedCards(cards: deck.cards.map { key, value in key })
-        let preset = getSchedulePreset(id: deck.schedulePreset.id)
-        return Deck(deck, cards: cards, schedulePreset: preset)
-    }
-    
-    
-    private func getRefreshedCards(cards: [UUID]) -> [UUID:Card] {
-        var loadedCards = [UUID : Card]()
-        for cardId in cards {
-            if let loadedCard: Card = cardRepository.getCard(forId: cardId) {
-                loadedCards[loadedCard.id] = loadedCard
+    func refreshDeck(_ deck: Deck, withCards cards: [UUID:Card]) -> Deck {
+        var updatedCards = [UUID:Card]()
+        for (cardId, _) in deck.cards {
+            if let updatedCard = cards[cardId] {
+                updatedCards[updatedCard.id] = updatedCard
             }
         }
-        return loadedCards
-    }
-    
-    private func getSchedulePreset(id: UUID) -> SchedulePreset {
-        schedulePresetService.getSchedulePresetOrDefault(forId: id)
+        return Deck(deck, cards: updatedCards)
     }
 }

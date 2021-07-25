@@ -13,8 +13,10 @@ class DeckRepository {
     private (set) var userDefaultsRepository = DeckUserDefaultsRepository()
     
     @Published private (set) var decks: [UUID:Deck] = [UUID:Deck]()
-    private var dataSaving: AnyCancellable?
     
+    private var dataSaving: AnyCancellable?
+    private var cardObserver: AnyCancellable?
+    private var schedulePresetObserver: AnyCancellable?
     
     
     static func getInstance() -> DeckRepository {
@@ -29,17 +31,17 @@ class DeckRepository {
             self.decks = decks
         }
         dataSaving = self.$decks.sink(receiveValue: saveWithUserDefaultsRepository)
+        cardObserver = CardRepository.getInstance().$cards.sink(receiveValue: updateDecks(withCards:))
     }
-    
     
     
     
     func getAllDecks() -> [UUID:Deck] {
-        getAllRefreshedDecks()
+        decks
     }
     
     func getDeck(forId id: UUID) -> Deck? {
-        getRefreshedDeck(forId: id)
+        decks[id]
     }
     
     func saveDeck(deck: Deck) {
@@ -56,30 +58,17 @@ class DeckRepository {
     
     
     
-    
-    private func getRefreshedDeck(forId id: UUID) -> Deck? {
-        if let deck: Deck = decks[id] {
-            return refreshedDeck(deck)
-        } else {
-            return nil
-        }
-    }
-
-    private func getAllRefreshedDecks() -> [UUID:Deck] {
-        let decks = self.decks
-        var refreshedDecks = [UUID:Deck]()
-        for (_, value) in decks {
-            let refreshedDeck: Deck = refreshedDeck(value)
-            refreshedDecks[refreshedDeck.id] = refreshedDeck
-        }
-        return refreshedDecks
-    }
-
-    private func refreshedDeck(_ deck: Deck) -> Deck {
-        DeckAssembler().refreshedDeck(deck)
-    }
-    
     private func saveWithUserDefaultsRepository(decks: [UUID:Deck]) {
         userDefaultsRepository.saveDecks(decks)
+    }
+    
+    private func updateDecks(withCards cards: [UUID:Card]) {
+        let deckAssembler = DeckAssembler()
+        var updatedDecks: [UUID:Deck] = [:]
+        for (_, deck) in self.decks {
+            let updatedDeck = deckAssembler.refreshDeck(deck, withCards: cards)
+            updatedDecks[updatedDeck.id] = updatedDeck
+        }
+        self.decks = updatedDecks
     }
 }

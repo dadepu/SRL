@@ -10,11 +10,12 @@ import Combine
 
 class SchedulerRepository {
     private static var instance: SchedulerRepository?
-    private (set) var userDefaultsRepository = SchedulerUserDefaultsRepository()
+    private var userDefaultsRepository = SchedulerUserDefaultsRepository()
     
     @Published private (set) var schedulers: [UUID:Scheduler] = [UUID:Scheduler]()
-    private var dataSaving: AnyCancellable?
     
+    private var dataSaving: AnyCancellable?
+    private var schedulePresetObserver: AnyCancellable?
     
     
     static func getInstance() -> SchedulerRepository {
@@ -29,17 +30,18 @@ class SchedulerRepository {
             schedulers = loadedScheduler
         }
         dataSaving = $schedulers.sink(receiveValue: saveWithUserDefaultsRepository)
+        schedulePresetObserver = SchedulePresetRepository.getInstance().$schedulePresets.sink(receiveValue: updateSchedulers(withSchedulePresets:))
     }
     
     
     
     
     func getAllSchedulers() -> [UUID:Scheduler] {
-        getAllRefreshedSchedulers()
+        schedulers
     }
     
     func getScheduler(forId id: UUID) -> Scheduler? {
-        getRefreshedScheduler(forId: id)
+        schedulers[id]
     }
     
     func saveScheduler(_ scheduler: Scheduler) {
@@ -56,29 +58,17 @@ class SchedulerRepository {
     
     
     
-    
-    private func getRefreshedScheduler(forId id: UUID) -> Scheduler? {
-        if let scheduler: Scheduler = schedulers[id] {
-            return refreshScheduler(scheduler)
-        }
-        return nil
-    }
-    
-    private func getAllRefreshedSchedulers() -> [UUID:Scheduler] {
-        let schedulers = self.schedulers
-        var refreshedSchedulers = [UUID:Scheduler]()
-        for (_, value) in schedulers {
-            let refreshedScheduler = refreshScheduler(value)
-            refreshedSchedulers[refreshedScheduler.id] = refreshedScheduler
-        }
-        return refreshedSchedulers
-    }
-    
-    private func refreshScheduler(_ scheduler: Scheduler) -> Scheduler {
-        return SchedulerAssembler().refreshScheduler(scheduler)
-    }
-    
     private func saveWithUserDefaultsRepository(scheduler: [UUID:Scheduler]) {
         userDefaultsRepository.saveSchedulers(scheduler)
+    }
+    
+    private func updateSchedulers(withSchedulePresets schedulePresets: [UUID:SchedulePreset]) {
+        let schedulerAssembler = SchedulerAssembler()
+        var updatedSchedulers: [UUID:Scheduler] = [:]
+        for (_, scheduler) in self.schedulers {
+            let updatedScheduler = schedulerAssembler.refreshScheduler(scheduler, withSchedulePresets: schedulePresets)
+            updatedSchedulers[updatedScheduler.id] = updatedScheduler
+        }
+        self.schedulers = updatedSchedulers
     }
 }

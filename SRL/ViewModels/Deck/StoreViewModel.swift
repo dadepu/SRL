@@ -12,20 +12,16 @@ class StoreViewModel: ObservableObject {
     private let deckService = DeckService()
     private let cardService = CardService()
     
-    private var deckObserver: AnyCancellable?
-    private var cardObserver: AnyCancellable?
-    private var schedulerObserver: AnyCancellable?
-    
-    
     @Published private (set) var decks: [Deck] = []
     private (set) var reviewQueues: [UUID:ReviewQueue] = [:]
+    
+    private var deckObserver: AnyCancellable?
     
     
     init() {
         let hashedDecks = deckService.getAllDecks()
         decks = getDecksInOrder(hashedDecks)
         reviewQueues = getReviewQueues(hashedDecks)
-        
         deckObserver = deckService.getModelPublisher().sink(receiveValue: decksUpdatedCallback)
         
     }

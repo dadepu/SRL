@@ -9,8 +9,8 @@ import Foundation
 
 struct CardAssembler {
     
-    func refreshCard(_ card: Card) -> Card? {
-        if let updatedScheduler: Scheduler = SchedulerService().getScheduler(forId: card.scheduler.id) {
+    func refreshCard(_ card: Card, withSchedulers schedulers: [UUID:Scheduler]) -> Card? {
+        if let updatedScheduler = schedulers[card.scheduler.id] {
             return Card(card, scheduler: updatedScheduler)
         }
         return nil
