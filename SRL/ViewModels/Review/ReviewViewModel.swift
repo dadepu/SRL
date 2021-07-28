@@ -10,22 +10,36 @@ import Combine
 
 class ReviewViewModel: ObservableObject {
     @Published private (set) var reviewQueue: ReviewQueue
+    private (set) var deckIds: [UUID]
     private (set) var reviewType: ReviewType
     
-    private var deckObserver: AnyCancellable?
+    private var reviewQueueObserver: AnyCancellable?
     
     
     init(deckIds: [UUID], reviewType: ReviewType) {
-        self.reviewQueue = ReviewQueueService().makeTransientQueue(deckIds: deckIds, reviewType: reviewType)
+        do {
+            self.reviewQueue = try ReviewQueueService().getReviewQueue()
+        } catch {
+            self.reviewQueue = ReviewQueueService().makeReviewQueue(deckIds: deckIds, reviewType: reviewType)
+        }
+        self.deckIds = deckIds
         self.reviewType = reviewType
+        
+        self.reviewQueueObserver = ReviewQueueService().getModelPublisher().sink { (updatedReviewQueue: ReviewQueue?) in
+            if updatedReviewQueue != nil {
+                self.reviewQueue = updatedReviewQueue!
+            } else {
+                self.reviewQueue = ReviewQueueService().makeReviewQueue(deckIds: deckIds, reviewType: reviewType)
+            }
+        }
     }
 
     
     func reviewCard(reviewAction: ReviewAction) {
         do {
-            self.reviewQueue = try ReviewQueueService().reviewCard(reviewQueue: reviewQueue, cardId: reviewQueue.currentCard!.id, reviewAction: reviewAction)
+            self.reviewQueue = try ReviewQueueService().reviewCard(cardId: reviewQueue.currentCard!.id, reviewAction: reviewAction)
         } catch {
-            self.reviewQueue = ReviewQueueService().makeTransientQueue(deckIds: reviewQueue.decks.map {deck in deck.id}, reviewType: reviewType)
+            self.reviewQueue = ReviewQueueService().makeReviewQueue(deckIds: reviewQueue.decks.map {deck in deck.id}, reviewType: reviewType)
         }
     }
 }

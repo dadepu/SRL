@@ -30,7 +30,8 @@ struct CardService {
     
     func replaceContent(cardId id: UUID, cardContent: CardType) throws {
         let card = try getCard(forId: id)
-        let updatedCard = card.changedContent(content: cardContent)
+        let updatedCard = card.replacedContent(content: cardContent)
         cardRepository.saveCard(updatedCard)
+        ReviewQueueService().resetReviewQueue()
     }
 }

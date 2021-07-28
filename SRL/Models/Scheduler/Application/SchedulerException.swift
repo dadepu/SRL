@@ -9,4 +9,6 @@ import Foundation
 
 enum SchedulerException: Error {
     case EntityNotFound
+    case IllegalArgument
+    case LearningstateNotPermittingGraduation
 }

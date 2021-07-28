@@ -15,6 +15,8 @@ struct ReviewQueue: Identifiable, Codable {
     private (set) var reviewType: ReviewType
     private (set) var previousCard: Card?
     private (set) var currentCard: Card?
+    
+    private (set) var reviewCounter: Int = 0
 
     
     init(decks: [Deck], reviewType: ReviewType) {
@@ -35,6 +37,9 @@ struct ReviewQueue: Identifiable, Codable {
     }
 
     
+    mutating func incrementCounter() {
+        reviewCounter += 1
+    }
     
     func getReviewableCardCount() -> Int {
         var cardCount: Int = 0
@@ -49,6 +54,7 @@ struct ReviewQueue: Identifiable, Codable {
         if currentCard != nil && currentCard!.id == reviewedCard.id {
             replaceCurrentCard(shuffledQueue: queue)
         }
+        reviewCounter += 1
     }
     
     func reviewedCard(card: Card) -> ReviewQueue {

@@ -24,8 +24,26 @@ struct SchedulerService {
     }
     
     func setPreset(forId id: UUID, withId presetId: UUID) {
-        if let scheduler = try? getScheduler(forId: id), let preset = SchedulePresetService().getSchedulePreset(forId: presetId) {
+        if let scheduler = try? getScheduler(forId: id), let preset = try? SchedulePresetService().getSchedulePreset(forId: presetId) {
             schedulerRepository.saveScheduler(scheduler.hasSetSchedulePreset(preset))
         }
+    }
+    
+    func changeEaseFactor(forId id: UUID, with factor: Float) throws {
+        let scheduler = try getScheduler(forId: id)
+        let updatedScheduler = try scheduler.replacedEaseFactor(factor: factor)
+        schedulerRepository.saveScheduler(updatedScheduler)
+    }
+    
+    func graduateScheduler(forId id: UUID) throws {
+        let scheduler = try getScheduler(forId: id)
+        let updatedScheduler = try scheduler.graduatedScheduler()
+        schedulerRepository.saveScheduler(updatedScheduler)
+    }
+    
+    func resetScheduler(forId id: UUID) throws {
+        let scheduler = try getScheduler(forId: id)
+        let updatedScheduler = scheduler.resettedScheduler()
+        schedulerRepository.saveScheduler(updatedScheduler)
     }
 }

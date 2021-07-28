@@ -9,4 +9,5 @@ import Foundation
 
 enum DeckException: Error {
     case EntityNotFound
+    case CardNotFound
 }

@@ -20,11 +20,12 @@ class DeckViewModel: ObservableObject {
     init(deck: Deck) {
         self.deck = deck
         self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: deck)
-        initializeSortedCards(sort: DeckViewModel.sortByDateCardCreatedNewToOld)
+        initializeSortedCards(cards: deck.cards, sort: DeckViewModel.sortByDateCardCreatedNewToOld)
         
         deckObserver = deckService.getModelPublisher().sink { decks in
             if let updatedDeck  = self.deckService.getDeck(inDictionary: decks, forKey: self.deck.id) {
                 self.deck = updatedDeck
+                self.initializeSortedCards(cards: updatedDeck.cards, sort: DeckViewModel.sortByDateCardCreatedNewToOld)
                 self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: updatedDeck)
             } else {
                 self.deckObserver?.cancel()
@@ -33,8 +34,8 @@ class DeckViewModel: ObservableObject {
     }
 
 
-    func initializeSortedCards(sort: (Card, Card) -> Bool) {
-        orderedCards = deck.cards.map { (key: UUID, value: Card) in
+    func initializeSortedCards(cards: [UUID:Card], sort: (Card, Card) -> Bool) {
+        orderedCards = cards.map { (key: UUID, value: Card) in
             value
         }.sorted(by: sort)
     }

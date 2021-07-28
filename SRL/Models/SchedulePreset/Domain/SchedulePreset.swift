@@ -36,7 +36,38 @@ struct SchedulePreset: Identifiable, Codable {
         self.name = name
     }
     
+    init(name: String, learningSteps: [TimeInterval], graduationInterval: TimeInterval, lapseSteps: [TimeInterval], lapseSetBackFactor: Float, minimumInterval: TimeInterval, easeFactor: Float, easyModifier: Float, normalModifier: Float, hardModifier: Float, lapseModifier: Float, easyIntervalModifier: Float) {
+        self.name = name
+        self.learningSteps = learningSteps
+        self.graduationInterval = graduationInterval
+        self.lapseSteps = lapseSteps
+        self.lapseSetBackFactor = lapseSetBackFactor
+        self.minimumInterval = minimumInterval
+        self.easeFactor = easeFactor
+        self.easyFactorModifier = easyModifier
+        self.normalFactorModifier = normalModifier
+        self.hardFactorModifier = hardModifier
+        self.lapseFactorModifier = lapseModifier
+        self.easyIntervalModifier = easyIntervalModifier
+    }
     
+    init(_ preset: SchedulePreset, name: String, learningSteps: [TimeInterval], graduationInterval: TimeInterval, lapseSteps: [TimeInterval], lapseSetBackFactor: Float, minimumInterval: TimeInterval, easeFactor: Float, easyModifier: Float, normalModifier: Float, hardModifier: Float, lapseModifier: Float, easyIntervalModifier: Float) {
+        self = preset
+        self.name = name
+        self.learningSteps = learningSteps
+        self.graduationInterval = graduationInterval
+        self.lapseSteps = lapseSteps
+        self.lapseSetBackFactor = lapseSetBackFactor
+        self.minimumInterval = minimumInterval
+        self.easeFactor = easeFactor
+        self.easyFactorModifier = easyModifier
+        self.normalFactorModifier = normalModifier
+        self.hardFactorModifier = hardModifier
+        self.lapseFactorModifier = lapseModifier
+        self.easyIntervalModifier = easyIntervalModifier
+    }
+    
+
     
     func getNextLearningStep(learningIndex: Int) -> TimeInterval? {
         if learningIndex < learningSteps.count {
@@ -64,7 +95,7 @@ struct SchedulePreset: Identifiable, Codable {
     
     private func validateOrThrowIsNotDefaultPreset() throws {
         if isDefaultPreset {
-            throw SchedulePresetException.defaultPresetIsImmutable
+            throw SchedulePresetException.DefaultPresetIsImmutable
         }
     }
 }

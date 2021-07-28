@@ -16,22 +16,23 @@ struct SchedulePresetService {
     }
     
     
-    
     func getAllSchedulePresets() -> [UUID:SchedulePreset] {
-        let _ = getOrAddDefaultSchedulePreset()
+        getOrAddDefaultSchedulePreset()
         return schedulePresetRepository.getAllSchedulePresets()
     }
     
-    func getSchedulePreset(forId id: UUID) -> SchedulePreset? {
-        return schedulePresetRepository.getSchedulePreset(forId: id)
+    func getSchedulePreset(forId id: UUID) throws ->  SchedulePreset {
+        guard let preset = schedulePresetRepository.getSchedulePreset(forId: id) else {
+            throw SchedulePresetException.EntityNotFound
+        }
+        return preset
     }
     
     func getSchedulePresetOrDefault(forId id: UUID) -> SchedulePreset {
-        if let preset: SchedulePreset = schedulePresetRepository.getSchedulePreset(forId: id) {
-            return preset
-        } else {
+        guard let preset: SchedulePreset = schedulePresetRepository.getSchedulePreset(forId: id) else {
             return getOrAddDefaultSchedulePreset()
         }
+        return preset
     }
     
     func getDefaultSchedulePreset() -> SchedulePreset {
@@ -39,32 +40,35 @@ struct SchedulePresetService {
     }
     
     func deleteSchedulePreset(forId id: UUID) throws {
-        if let preset: SchedulePreset = schedulePresetRepository.getSchedulePreset(forId: id) {
-            if preset.isDefaultPreset {
-                throw SchedulePresetException.defaultPresetIsImmutable
-            }
-            schedulePresetRepository.deleteSchedulePreset(id)
+        guard let preset: SchedulePreset = schedulePresetRepository.getSchedulePreset(forId: id) else {
+            return
         }
+        guard !preset.isDefaultPreset else {
+            throw SchedulePresetException.DefaultPresetIsImmutable
+        }
+        schedulePresetRepository.deleteSchedulePreset(id)
     }
     
-//    func makeSchedulePreset() -> SchedulePreset? {
-//        
-//    }
-    
-    func deleteAllSchedulePresets() {
-        schedulePresetRepository.deleteAllSchedulePresets()
+    func makePreset(presetName: String, learningSteps: String, graduationInterval: String, lapseSteps: String, lapseSetBackFactor: Float, minimumInterval: String, easeFactor: Float, easyModifier: Float, normalModifier: Float, hardModifier: Float, lapseModifier: Float, easyIntervalModifier: Float) throws -> SchedulePreset {
+        let preset = try SchedulePresetFactory().newPreset(name: presetName, learningSteps: learningSteps, graduationInterval: graduationInterval, lapseSteps: lapseSteps, lapseSetBackFactor: lapseSetBackFactor, minimumInterval: minimumInterval, easeFactor: easeFactor, easyModifier: easyModifier, normalModifier: normalModifier, hardModifier: hardModifier, lapseModifier: lapseModifier, easyIntervalModifier: easyIntervalModifier)
+        schedulePresetRepository.saveSchedulePreset(preset)
+        return preset
     }
     
+    func updatePreset(forId id: UUID, presetName: String, learningSteps: String, graduationInterval: String, lapseSteps: String, lapseSetBackFactor: Float, minimumInterval: String, easeFactor: Float, easyModifier: Float, normalModifier: Float, hardModifier: Float, lapseModifier: Float, easyIntervalModifier: Float) throws -> SchedulePreset {
+        let preset = try getSchedulePreset(forId: id)
+        let updatedPreset = try SchedulePresetFactory().updatePreset(preset, name: presetName, learningSteps: learningSteps, graduationInterval: graduationInterval, lapseSteps: lapseSteps, lapseSetBackFactor: lapseSetBackFactor, minimumInterval: minimumInterval, easeFactor: easeFactor, easyModifier: easyModifier, normalModifier: normalModifier, hardModifier: hardModifier, lapseModifier: lapseModifier, easyIntervalModifier: easyIntervalModifier)
+        schedulePresetRepository.saveSchedulePreset(updatedPreset)
+        return updatedPreset
+    }
     
-    
-    
+    @discardableResult
     private func getOrAddDefaultSchedulePreset() -> SchedulePreset {
-        if let defaultPreset: SchedulePreset = schedulePresetRepository.getScheduleDefaultPreset() {
-            return defaultPreset
-        } else {
-            let defaultPreset = SchedulePresetFactory().newDefaultPreset()
-            schedulePresetRepository.saveSchedulePreset(defaultPreset)
-            return defaultPreset
+        guard let defaultPreset: SchedulePreset = schedulePresetRepository.getScheduleDefaultPreset() else {
+            let newDefaultPreset = SchedulePresetFactory().newDefaultPreset()
+            schedulePresetRepository.saveSchedulePreset(newDefaultPreset)
+            return newDefaultPreset
         }
+        return defaultPreset
     }
 }

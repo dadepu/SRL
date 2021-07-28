@@ -26,7 +26,7 @@ struct Card: Identifiable, Codable {
     }
     
     
-    func changedContent(content: CardType) -> Card {
+    func replacedContent(content: CardType) -> Card {
         var card = self
         card.content = content
         return card

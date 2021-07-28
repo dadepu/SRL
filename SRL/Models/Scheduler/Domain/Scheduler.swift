@@ -42,6 +42,11 @@ struct Scheduler: Identifiable, Codable {
             reviewCount == 0
         }
     }
+    var isGraduateable: Bool {
+        get {
+            learningState == .LEARNING
+        }
+    }
     
     
     
@@ -248,7 +253,13 @@ struct Scheduler: Identifiable, Codable {
     }
     
     private func handledReviewActionHardLearning(_ scheduler: Scheduler) -> Scheduler {
-        let newInterval = currentReviewInterval
+        var minimumInterval: Double = 0.0
+        if let minimumStepInterval = scheduler.schedulePreset.getNextLearningStep(learningIndex: 0) {
+            minimumInterval = minimumStepInterval
+        } else {
+            minimumInterval = scheduler.schedulePreset.minimumInterval
+        }
+        let newInterval: Double = currentReviewInterval > minimumInterval ? currentReviewInterval : minimumInterval
         return setNextReviewDate(for: self, with: newInterval)
     }
     
@@ -302,5 +313,29 @@ struct Scheduler: Identifiable, Codable {
         var scheduler = self
         scheduler.schedulePreset = preset
         return scheduler
+    }
+    
+    func replacedEaseFactor(factor: Float) throws -> Scheduler {
+        if factor < 1.45 || 3.0 < factor {
+            throw SchedulerException.IllegalArgument
+        }
+        
+        var scheduler = self
+        scheduler.easeFactor = (factor * 100).rounded() / 100
+        return scheduler
+    }
+    
+    func resettedScheduler() -> Scheduler {
+        var newScheduler = Scheduler(schedulePreset: self.schedulePreset)
+        newScheduler.id = self.id
+        newScheduler.reviewCount = self.reviewCount
+        return newScheduler
+    }
+    
+    func graduatedScheduler() throws -> Scheduler {
+        guard self.learningState == .LEARNING else {
+            throw SchedulerException.LearningstateNotPermittingGraduation
+        }
+        return handledReviewActionEasyLearning(self)
     }
 }

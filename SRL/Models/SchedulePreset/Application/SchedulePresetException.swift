@@ -8,8 +8,9 @@
 import Foundation
 
 enum SchedulePresetException: Error {
-    case nameConflictsDefaultName
-    case defaultPresetAlreadyDefined
-    case defaultPresetNotDefined
-    case defaultPresetIsImmutable
+    case EntityNotFound
+    case NameConflictsDefaultName
+    case DefaultPresetAlreadyDefined
+    case DefaultPresetNotDefined
+    case DefaultPresetIsImmutable
 }

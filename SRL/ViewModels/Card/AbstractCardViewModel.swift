@@ -43,7 +43,7 @@ class AbstractCardViewModel: ObservableObject {
         schedulePreset = SchedulePresetService().getSchedulePresetOrDefault(forId: id)
     }
     
-    // TODO: it must be checked which content types are added to which kind of selected cardtype
+    // TODO: it has to be checked which content types are added to which kind of selected cardtype
     func addFrontContent(_ content: CardContentType) {
         frontCardContent.append(CardContentTypeContainer(content))
     }
@@ -56,7 +56,7 @@ class AbstractCardViewModel: ObservableObject {
         frontCardContent.remove(atOffsets: offset)
     }
     
-    // TODO: it must be checked which content types are added to which kind of selected cardtype
+    // TODO: it has to be checked which content types are added to which kind of selected cardtype
     func addBackContent(_ content: CardContentType) {
         backCardContent.append(CardContentTypeContainer(content))
     }

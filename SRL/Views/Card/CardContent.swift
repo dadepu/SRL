@@ -12,9 +12,12 @@ struct CardContent: View {
     
     var body: some View {
         switch (cardContent.content) {
-            case .TEXT(let content): Text(content.text)
-            case .IMAGE(_): Text("IMAGE")
-            case .TYPING(_): EmptyView()
+        case .TEXT(let content): Text(content.text)
+        case .IMAGE(let content):
+            Image(uiImage: try! content.getImage())
+                .resizable()
+                .scaledToFit()
+        case .TYPING(_): EmptyView()
         }
     }
 }

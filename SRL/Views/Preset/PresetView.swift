@@ -24,7 +24,7 @@ struct PresetView: View {
             Section(header: Text("Presets")) {
                 ForEach(presetViewModel.presets) { (preset: SchedulePreset) in
                     NavigationLink(
-                        destination: EditPresetView(preset: preset),
+                        destination: EditPresetView(preset: preset, presetViewModel: presetViewModel),
                         label: {
                             Text(preset.name)
                         })

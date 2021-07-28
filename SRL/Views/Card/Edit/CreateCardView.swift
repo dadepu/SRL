@@ -28,6 +28,9 @@ struct CreateCardView: View {
         self.createCardViewModel = CreateCardViewModel(deck: deckViewModel.deck)
     }
     
+    @State private var image: Image?
+    @State private var showingImagePicker = false
+    @State private var inputImage: UIImage?
     
     var body: some View {
         List {
@@ -46,14 +49,33 @@ struct CreateCardView: View {
             Section {
                 SaveCardButton(createCardViewModel: createCardViewModel)
             }
+//            VStack {
+//                if image != nil {
+//                    image?
+//                        .resizable()
+//                        .scaledToFit()
+//                } else {
+//                    Text("Tap to select a picture")
+//                }
+//            }.onTapGesture {
+//                self.showingImagePicker = true
+//            }
         }
         .listStyle(GroupedListStyle())
-        .modifier(CardFrontContentSheet(createCardViewModel: createCardViewModel, isShowingBottomSheet: $isShowingBottomSheetAddContentFront, opacityBottomSheet: $opacityBottomUpSheets))
-        .modifier(CardBackContentSheet(createCardViewModel: createCardViewModel, cardType: $formCardType, isShowingBottomSheet: $isShowingBottomSheetAddContentBack, opacityBottomSheet: $opacityBottomUpSheets))
+        .modifier(CardFrontContentSheet(createCardViewModel: createCardViewModel, isShowingBottomSheet: $isShowingBottomSheetAddContentFront, opacityBottomSheet: $opacityBottomUpSheets, image: $image, showingImagePicker: $showingImagePicker, inputImage: $inputImage))
+        .modifier(CardBackContentSheet(createCardViewModel: createCardViewModel, cardType: $formCardType, isShowingBottomSheet: $isShowingBottomSheetAddContentBack, opacityBottomSheet: $opacityBottomUpSheets, image: $image, showingImagePicker: $showingImagePicker, inputImage: $inputImage))
         .navigationBarTitle(deckViewModel.deck.name, displayMode: .inline)
         .navigationBarItems(trailing: EditButton())
+        .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+            ImagePicker(image: self.$inputImage)
+        }
     }
     
+    
+    func loadImage() {
+        guard let inputImage = inputImage else { return }
+        image = Image(uiImage: inputImage)
+    }
     
     private struct SchedulePresetPicker: View {
         @ObservedObject var presetViewModel: PresetViewModel

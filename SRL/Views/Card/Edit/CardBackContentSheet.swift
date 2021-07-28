@@ -15,9 +15,13 @@ struct CardBackContentSheet: ViewModifier {
     @Binding var isShowingBottomSheet: BottomSheetPosition
     @Binding var opacityBottomSheet: Double
     
+    @Binding var image: Image?
+    @Binding var showingImagePicker: Bool
+    @Binding var inputImage: UIImage?
+    
     
     func body(content: Content) -> some View {
-        content.modifier(CardContentSheet(createCardViewModel: createCardViewModel, isShowingSheet: $isShowingBottomSheet, opacitySheet: $opacityBottomSheet, allowedContentTypes: getAvailableTypes(), saveAction: appendContentToBack))
+        content.modifier(CardContentSheet(createCardViewModel: createCardViewModel, isShowingSheet: $isShowingBottomSheet, opacitySheet: $opacityBottomSheet, allowedContentTypes: getAvailableTypes(), image: $image, showingImagePicker: $showingImagePicker, inputImage: $inputImage, saveAction: appendContentToBack))
     }
     
     

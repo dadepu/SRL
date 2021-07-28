@@ -41,7 +41,7 @@ class StoreViewModel: ObservableObject {
     
     
     private func getDecksOrderedByNameDesc(_ decks: [UUID:Deck]) -> [Deck] {
-        return try! decks.map({ (_: UUID, deck: Deck) throws -> Deck in
+        return decks.map({ (_: UUID, deck: Deck) -> Deck in
             deck
         }).sorted() { (lhs:Deck, rhs:Deck) -> Bool in
             lhs.name < rhs.name

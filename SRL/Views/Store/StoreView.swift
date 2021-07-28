@@ -24,7 +24,7 @@ struct StoreView: View {
             .modifier(AddDeckSheet(presetViewModel: presetViewModel, storeViewModel: storeViewModel, isShowingBottomSheet: $isShowingBottomSheetAddDeck,opacityBottomSheet: $opacityBottomUpSheets , formDeckName: $formDeckName, formPresetIndex: $formPresetIndex))
             .navigationBarTitle("Decks", displayMode: .inline)
             .navigationBarItems(leading: NavButtonAddDeck(bottomSheetPosition: $isShowingBottomSheetAddDeck, bottomSheetOpacity: $opacityBottomUpSheets))
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     struct NavButtonAddDeck: View {

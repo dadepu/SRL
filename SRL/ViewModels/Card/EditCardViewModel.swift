@@ -10,6 +10,8 @@ import Combine
 
 class EditCardViewModel: AbstractCardViewModel {
     @Published private (set) var card: Card
+    @Published private (set) var changedDeckId: UUID?
+    @Published private (set) var changedEaseFactor: Float?
     
     private var cardObserver: AnyCancellable?
     
@@ -38,9 +40,35 @@ class EditCardViewModel: AbstractCardViewModel {
         }
     }
     
-    public func saveCardChanges() {
+    func saveCardChanges() {
         if cardIsSaveable, let cardType = try? createCardType() {
             try? CardService().replaceContent(cardId: card.id, cardContent: cardType)
+            if let newDeckId = changedDeckId, newDeckId != deck.id {
+                try? DeckService().transferCard(fromDeckId: deck.id, toDeckId: newDeckId, cardId: card.id)
+            }
+            if let newEaseFactor = changedEaseFactor, newEaseFactor != card.scheduler.easeFactor {
+                try? SchedulerService().changeEaseFactor(forId: card.scheduler.id, with: newEaseFactor)
+            }
         }
+    }
+    
+    func graduateScheduler() {
+        try? SchedulerService().graduateScheduler(forId: card.scheduler.id)
+        guard let updatedCard = try? CardService().getCard(forId: card.id) else { return }
+        try? initializeContentFromCard(card: updatedCard)
+    }
+    
+    func resetCard() {
+        try? SchedulerService().resetScheduler(forId: card.scheduler.id)
+        guard let updatedCard = try? CardService().getCard(forId: card.id) else { return }
+        try? initializeContentFromCard(card: updatedCard)
+    }
+    
+    func setTransferDeckId(destinationId id: UUID) {
+        self.changedDeckId = id
+    }
+    
+    func setUpdatedEaseFactor(factor: Float) {
+        self.changedEaseFactor = factor
     }
 }

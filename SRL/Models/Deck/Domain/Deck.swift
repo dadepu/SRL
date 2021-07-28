@@ -55,6 +55,21 @@ struct Deck: Identifiable, Codable {
         deck.schedulePreset = preset
         return deck
     }
+    
+    func transferedCard(newDeck: Deck, card: Card) throws -> TransferCardData {
+        if cards.contains(where: {key, _ in key == card.id}) {
+            let updatedSourceDeck = self.removedCard(cardId: card.id)
+            let updatedDestinationDeck = newDeck.addedCard(card: card)
+            return TransferCardData(fromDeck: updatedSourceDeck, toDeck: updatedDestinationDeck, card: card)
+        }
+        throw DeckException.CardNotFound
+    }
+    
+    struct TransferCardData {
+        let fromDeck: Deck
+        let toDeck: Deck
+        let card: Card
+    }
 }
 
 extension Deck: Equatable {

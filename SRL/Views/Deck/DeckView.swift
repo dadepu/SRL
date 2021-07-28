@@ -13,6 +13,7 @@ struct DeckView: View {
     
     @State private var bottomSheetEditPosition: BottomSheetPosition = .hidden
     @State private var bottomSheetRemovePosition: BottomSheetPosition = .hidden
+    @State private var navLinkDueCards: Bool = false
     
     @State private var formDeckName: String = ""
     @State private var formPresetIndex: Int = 0
@@ -30,12 +31,14 @@ struct DeckView: View {
         List {
             Section(header: Text("Study")){
                 NavigationLink(
-                    destination: // EmptyView(),
-                        ReviewView(presetViewModel: presetViewModel, deckIds: [deckViewModel.deck.id], reviewType: .REGULAR),
+                    destination: ReviewView(deckIds: [deckViewModel.deck.id], reviewType: .REGULAR),
+                    isActive: $navLinkDueCards,
                     label: {
                         ListRowHorizontalSeparated(textLeft: {"Review"}, textRight: {"\(deckViewModel.reviewQueue.getReviewableCardCount())"})
-                    })
-                    .disabled(deckViewModel.reviewQueue.getReviewableCardCount() == 0)
+                    }).simultaneousGesture(TapGesture().onEnded {
+                        ReviewQueueService().makeReviewQueue(deckIds: [deckViewModel.deck.id], reviewType: .REGULAR)
+                        navLinkDueCards = true
+                    }).disabled(deckViewModel.reviewQueue.getReviewableCardCount() == 0)
                 NavigationLink(
                     destination: CustomStudyView(deckViewModel: deckViewModel),
                     label: {
@@ -52,7 +55,7 @@ struct DeckView: View {
                     destination: CardBrowser(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
                     label: {
                         Text("Browse Cards")
-                    })
+                    }).disabled(deckViewModel.orderedCards.count == 0)
             }
             Section(header: Text("Deck")) {
                 NavigationLink(

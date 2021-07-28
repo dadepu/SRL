@@ -19,6 +19,10 @@ struct CardContentSheet: ViewModifier {
     
     @State var formTextContent: String = ""
     
+    @Binding var image: Image?
+    @Binding var showingImagePicker: Bool
+    @Binding var inputImage: UIImage?
+    
     var saveAction: (CardContentType, AbstractCardViewModel) -> ()
     
     
@@ -41,7 +45,7 @@ struct CardContentSheet: ViewModifier {
             List {
                 Section {
                     ContentTypePicker(allowedContentTypes: $allowedContentTypes, currentContentType: $currentContentType)
-                    ContentType(contentType: $currentContentType, saveAllowed: $saveAllowed, formTextContent: $formTextContent)
+                    ContentType(contentType: $currentContentType, saveAllowed: $saveAllowed, formTextContent: $formTextContent, image: $image, showingImagePicker: $showingImagePicker, inputImage: $inputImage)
                 }
                 Section {
                     ButtonSaveContent(saveAllowed: $saveAllowed, buttonAction: saveContentButtonPressAction)
@@ -72,10 +76,27 @@ struct CardContentSheet: ViewModifier {
         @Binding var saveAllowed: Bool
         @Binding var formTextContent: String
         
+        @Binding var image: Image?
+        @Binding var showingImagePicker: Bool
+        @Binding var inputImage: UIImage?
+        
         var body: some View {
             switch (contentType) {
                 case .Text: SheetCardContentText(validContent: $saveAllowed, formTextContent: $formTextContent)
-                case .Image: EmptyView()
+                case .Image:
+                    VStack {
+                        if image != nil {
+                            image?
+                                .resizable()
+                                .scaledToFit()
+                        } else {
+                            Text("Load from Gallery")
+                        }
+                    }.onTapGesture {
+                        self.showingImagePicker = true
+                    }.onChange(of: image, perform: { image in
+                        saveAllowed = (image != nil)
+                    })
             }
         }
     }
@@ -103,11 +124,12 @@ struct CardContentSheet: ViewModifier {
     
     private func saveContentToCard() {
         switch (currentContentType) {
-            case .Text:
-                let cardContentType = SheetCardContentText.getContent(text: formTextContent)
-                saveAction(cardContentType, createCardViewModel)
-            default:
-                {}()
+        case .Text:
+            let cardContentType = SheetCardContentText.getContent(text: formTextContent)
+            saveAction(cardContentType, createCardViewModel)
+        case .Image:
+            let cardContentType = CardContentType.IMAGE(content: try! ImageContent.makeImageContent(image: inputImage!))
+            saveAction(cardContentType, createCardViewModel)
         }
     }
     
