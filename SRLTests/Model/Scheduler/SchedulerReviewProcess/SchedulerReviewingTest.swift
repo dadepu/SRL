@@ -91,7 +91,7 @@ class SchedulerReviewingTest: XCTestCase {
             for: scheduler!.easeFactor,
             with: scheduler!.schedulePreset.lapseFactorModifier
         )
-        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.lapseSteps[0])
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.lapseStepsInSeconds[0])
         XCTAssertEqual(updatedScheduler.easeFactor, assertedReviewFactor)
         XCTAssertEqual(updatedScheduler.learningState, .LAPSE)
     }

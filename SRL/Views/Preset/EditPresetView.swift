@@ -38,10 +38,10 @@ struct EditPresetView: View {
             return
         }
         self._formPresetName = State<String>(wrappedValue: preset.name)
-        self._formLearningSteps = State<String>(wrappedValue: preset.learningSteps.map({(step: Double) in String(format: "%.0f", step)}).reduce("", {x, y in x + (x.isEmpty ? y : " " + y)}))
-        self._formGraduationInterval = State<String>(wrappedValue: String(format: "%.0f", preset.graduationInterval))
-        self._formLapseSteps = State<String>(wrappedValue: preset.lapseSteps.map({(step: Double) in String(format: "%.0f", step)}).reduce("", {x, y in x + (x.isEmpty ? y : " " + y)}))
-        self._formMinimumInterval = State<String>(wrappedValue: String(format: "%.0f", preset.minimumInterval))
+        self._formLearningSteps = State<String>(wrappedValue: preset.learningStepsInSeconds.map({(step: Double) in String(format: "%.0f", step)}).reduce("", {x, y in x + (x.isEmpty ? y : " " + y)}))
+        self._formGraduationInterval = State<String>(wrappedValue: String(format: "%.0f", preset.graduationIntervalInSeconds))
+        self._formLapseSteps = State<String>(wrappedValue: preset.lapseStepsInSeconds.map({(step: Double) in String(format: "%.0f", step)}).reduce("", {x, y in x + (x.isEmpty ? y : " " + y)}))
+        self._formMinimumInterval = State<String>(wrappedValue: String(format: "%.0f", preset.minimumIntervalInSeconds))
         self._formEaseFactor = State<Float>(wrappedValue: preset.easeFactor)
         self._formEasyModifier = State<Float>(wrappedValue: preset.easyFactorModifier)
         self._formNormalModifier = State<Float>(wrappedValue: preset.normalFactorModifier)
@@ -50,7 +50,7 @@ struct EditPresetView: View {
         self._formLapseSetbackModifier = State<Float>(wrappedValue: preset.lapseSetBackFactor)
         self._formEasyIntervalModifier = State<Float>(wrappedValue: preset.easyIntervalModifier)
         
-        print(preset.lapseSteps)
+        print(preset.lapseStepsInSeconds)
     }
     
     

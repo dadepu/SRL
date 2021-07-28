@@ -25,3 +25,8 @@ public struct ImageEncoder: Codable {
         return decodedImage
     }
 }
+
+enum ImageEncoderException: Error {
+    case EncodingError
+    case DecodingError
+}

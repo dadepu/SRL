@@ -14,3 +14,4 @@ enum SchedulePresetException: Error {
     case DefaultPresetNotDefined
     case DefaultPresetIsImmutable
 }
+

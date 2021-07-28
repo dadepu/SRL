@@ -12,15 +12,15 @@ class PresetEditorViewModel: ObservableObject {
     @Published private (set) var schedulePreset: SchedulePreset?
     
     @Published private (set) var nameInput: String = ""
-    @Published private (set) var nameFeedback: SchedulePresetFactoryException.NameValidation = .EMPTY
+    @Published private (set) var nameFeedback: .NameValidation = .EMPTY
     @Published private (set) var learningStepsInput: String = ""
-    @Published private (set) var learningStepsFeedback: SchedulePresetFactoryException.LearningStepsValidation = .OK
+    @Published private (set) var learningStepsFeedback: .LearningStepsValidation = .OK
     @Published private (set) var graduationIntervalInput: String = ""
-    @Published private (set) var graduationIntervalFeedback: SchedulePresetFactoryException.GraduationIntervalValidation = .EMPTY
+    @Published private (set) var graduationIntervalFeedback: .GraduationIntervalValidation = .EMPTY
     @Published private (set) var lapseStepsInput: String = ""
-    @Published private (set) var lapseStepsFeedback: SchedulePresetFactoryException.LapseStepsValidation = .OK
+    @Published private (set) var lapseStepsFeedback: .LapseStepsValidation = .OK
     @Published private (set) var minimumIntervalInput: String = ""
-    @Published private (set) var minimumIntervalFeedback: SchedulePresetFactoryException.MinimumIntervalValidation = .EMPTY
+    @Published private (set) var minimumIntervalFeedback: .MinimumIntervalValidation = .EMPTY
     
     @Published private (set) var isSaveAble: Bool = false
     
@@ -96,7 +96,7 @@ class PresetEditorViewModel: ObservableObject {
         self.schedulePreset = try SchedulePresetService().updatePreset(forId: preset.id, presetName: presetName, learningSteps: learningSteps, graduationInterval: graduationInterval, lapseSteps: lapseSteps, lapseSetBackFactor: lapseSetBackFactor, minimumInterval: minimumInterval, easeFactor: easeFactor, easyModifier: easyModifier, normalModifier: normalModifier, hardModifier: hardModifier, lapseModifier: lapseModifier, easyIntervalModifier: easyIntervalModifier)
     }
     
-    private func validateIsSaveAble(nameFeedback: SchedulePresetFactoryException.NameValidation, learningStepsFeedback: SchedulePresetFactoryException.LearningStepsValidation, graduationIntervalFeedback: SchedulePresetFactoryException.GraduationIntervalValidation, lapseStepsFeedback: SchedulePresetFactoryException.LapseStepsValidation, minimumIntervalFeedback: SchedulePresetFactoryException.MinimumIntervalValidation) -> Bool {
+    private func validateIsSaveAble(nameFeedback: .NameValidation, learningStepsFeedback: .LearningStepsValidation, graduationIntervalFeedback: .GraduationIntervalValidation, lapseStepsFeedback: .LapseStepsValidation, minimumIntervalFeedback: .MinimumIntervalValidation) -> Bool {
         guard nameFeedback == .OK else { return false }
         guard learningStepsFeedback == .OK else { return false }
         guard graduationIntervalFeedback == .OK else { return false }

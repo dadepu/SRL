@@ -15,7 +15,7 @@ fileprivate struct PresetTranslations {
     let negativeNumber = "Negative numbers are not permitted"
 }
 
-extension SchedulePresetFactoryException.NameValidation: CustomStringConvertible {
+extension .NameValidation: CustomStringConvertible {
     public var description: String {
         switch (self) {
         case .OK:
@@ -28,7 +28,7 @@ extension SchedulePresetFactoryException.NameValidation: CustomStringConvertible
     }
 }
 
-extension SchedulePresetFactoryException.LearningStepsValidation: CustomStringConvertible {
+extension .LearningStepsValidation: CustomStringConvertible {
     public var description: String {
         switch (self) {
         case .OK:
@@ -41,7 +41,7 @@ extension SchedulePresetFactoryException.LearningStepsValidation: CustomStringCo
     }
 }
 
-extension SchedulePresetFactoryException.GraduationIntervalValidation: CustomStringConvertible {
+extension .GraduationIntervalValidation: CustomStringConvertible {
     public var description: String {
         switch (self) {
         case .OK:
@@ -56,7 +56,7 @@ extension SchedulePresetFactoryException.GraduationIntervalValidation: CustomStr
     }
 }
 
-extension SchedulePresetFactoryException.LapseStepsValidation: CustomStringConvertible {
+extension .LapseStepsValidation: CustomStringConvertible {
     public var description: String {
         switch (self) {
         case .OK:
@@ -67,7 +67,7 @@ extension SchedulePresetFactoryException.LapseStepsValidation: CustomStringConve
     }
 }
 
-extension SchedulePresetFactoryException.MinimumIntervalValidation: CustomStringConvertible {
+extension .MinimumIntervalValidation: CustomStringConvertible {
     public var description: String {
         switch (self) {
         case .OK:

@@ -8,95 +8,121 @@
 import Foundation
 
 struct SchedulePreset: Identifiable, Codable {
+    private (set) static var defaultPresetName: String = "Default"
+    
     private (set) var id: UUID = UUID()
     private (set) var name: String
     
-    private (set) var learningSteps: Array<TimeInterval> = [64800, 496800, 1274400]         // 1d, 6d, 15d
-    private (set) var lapseSteps: Array<TimeInterval> = [64800, 496800]                     // 1d, 6d
-    private (set) var graduationInterval: TimeInterval = 2592000                            // 30d
-    private (set) var matureInterval: TimeInterval = 2419200
+    private (set) var matureInterval: MatureInterval = MatureInterval.makeFromTimeInterval(intervalSeconds: 2419200) 
+    private (set) var learningSteps: LearningSteps = LearningSteps.makeFromTimeInterval(stepsSeconds: [64800, 496800, 1274400]) // 1d, 6d, 15d
+    private (set) var graduationInterval: GraduationInterval = GraduationInterval.makeFromTimeInterval(intervalSeconds: 2592000) // 30d
     
-    private (set) var lapseSetBackFactor: Float = 0.5
-    private (set) var easeFactor: Float = 2.0
-    private (set) var easyFactorModifier: Float = 0.15
-    private (set) var normalFactorModifier: Float = 0.05
-    private (set) var hardFactorModifier: Float = -0.1
-    private (set) var lapseFactorModifier: Float = -0.2
-    private (set) var easyIntervalModifier: Float = 1.2
-    private (set) var minimumInterval: TimeInterval = 86400         //  1d
+    private (set) var lapseSteps: LapseSteps = LapseSteps.makeFromTimeInterval(stepsSeconds: [64800, 496800]) // 1d, 6d
+    private (set) var lapseSetbackFactor: LapseSetbackFactor = try! LapseSetbackFactor.makeFromFloat(modifier: 0.5)
+    private (set) var minimumInterval: MinimumInterval = MinimumInterval.makeFromTimeInterval(intervalSeconds: 86400) //  1d
+    
+    private (set) var easeFactor: EaseFactor = try! EaseFactor.makeFromFloat(easeFactor: 2.0)
+    private (set) var easyFactorModifier: EasyFactorModifier = try! EasyFactorModifier.makeFromFloat(modifier: 0.15)
+    private (set) var normalFactorModifier: NormalFactorModifier = try! NormalFactorModifier.makeFromFloat(modifier: 0.05)
+    private (set) var hardFactorModifier: HardFactorModifier = try! HardFactorModifier.makeFromFloat(modifier: -0.1)
+    private (set) var lapseFactorModifier: LapseFactorModifier = try! LapseFactorModifier.makeFromFloat(modifier: -0.2)
+    
+    private (set) var easyIntervalModifier: EasyIntervalModifier = try! EasyIntervalModifier.makeFromFloat(modifier: 1.2)
+
     
     var isDefaultPreset: Bool {
         get {
-            name == SchedulePresetConfig.defaultPresetName
+            name == SchedulePreset.defaultPresetName
         }
     }
     
     
-    init(name: String) {
+    static func makeDefaultPreset() -> SchedulePreset {
+        return SchedulePreset(defaultName: defaultPresetName)
+    }
+    
+    private init(defaultName: String) {
+        self.name = defaultName
+    }
+    
+    init(name: String) throws {
+        try SchedulePreset.validateNameNotDefault(name: name)
         self.name = name
     }
     
-    init(name: String, learningSteps: [TimeInterval], graduationInterval: TimeInterval, lapseSteps: [TimeInterval], lapseSetBackFactor: Float, minimumInterval: TimeInterval, easeFactor: Float, easyModifier: Float, normalModifier: Float, hardModifier: Float, lapseModifier: Float, easyIntervalModifier: Float) {
+    init(name: String, learningSteps: LearningSteps, graduationInterval: GraduationInterval, lapseSteps: LapseSteps, lapseSetbackFactor: LapseSetbackFactor, minimumInterval: MinimumInterval, easeFactor: EaseFactor, easyFactorModifier: EasyFactorModifier, normalFactorModifier: NormalFactorModifier, hardFactorModifier: HardFactorModifier, lapseFactorModifier: LapseFactorModifier, easyIntervalModifier: EasyIntervalModifier) throws {
+        try SchedulePreset.validateNameNotDefault(name: name)
         self.name = name
         self.learningSteps = learningSteps
         self.graduationInterval = graduationInterval
         self.lapseSteps = lapseSteps
-        self.lapseSetBackFactor = lapseSetBackFactor
+        self.lapseSetbackFactor = lapseSetbackFactor
         self.minimumInterval = minimumInterval
         self.easeFactor = easeFactor
-        self.easyFactorModifier = easyModifier
-        self.normalFactorModifier = normalModifier
-        self.hardFactorModifier = hardModifier
-        self.lapseFactorModifier = lapseModifier
+        self.easyFactorModifier = easyFactorModifier
+        self.normalFactorModifier = normalFactorModifier
+        self.hardFactorModifier = hardFactorModifier
+        self.lapseFactorModifier = lapseFactorModifier
         self.easyIntervalModifier = easyIntervalModifier
     }
     
-    init(_ preset: SchedulePreset, name: String, learningSteps: [TimeInterval], graduationInterval: TimeInterval, lapseSteps: [TimeInterval], lapseSetBackFactor: Float, minimumInterval: TimeInterval, easeFactor: Float, easyModifier: Float, normalModifier: Float, hardModifier: Float, lapseModifier: Float, easyIntervalModifier: Float) {
-        self = preset
+    init(schedulePreset: SchedulePreset, name: String, learningSteps: LearningSteps, graduationInterval: GraduationInterval, lapseSteps: LapseSteps, lapseSetbackFactor: LapseSetbackFactor, minimumInterval: MinimumInterval, easeFactor: EaseFactor, easyFactorModifier: EasyFactorModifier, normalFactorModifier: NormalFactorModifier, hardFactorModifier: HardFactorModifier, lapseFactorModifier: LapseFactorModifier, easyIntervalModifier: EasyIntervalModifier) throws {
+        try SchedulePreset.validateImmutableDefaultPreset(preset: schedulePreset)
+        self = schedulePreset
         self.name = name
         self.learningSteps = learningSteps
         self.graduationInterval = graduationInterval
         self.lapseSteps = lapseSteps
-        self.lapseSetBackFactor = lapseSetBackFactor
+        self.lapseSetbackFactor = lapseSetbackFactor
         self.minimumInterval = minimumInterval
         self.easeFactor = easeFactor
-        self.easyFactorModifier = easyModifier
-        self.normalFactorModifier = normalModifier
-        self.hardFactorModifier = hardModifier
-        self.lapseFactorModifier = lapseModifier
+        self.easyFactorModifier = easyFactorModifier
+        self.normalFactorModifier = normalFactorModifier
+        self.hardFactorModifier = hardFactorModifier
+        self.lapseFactorModifier = lapseFactorModifier
         self.easyIntervalModifier = easyIntervalModifier
     }
     
 
     
     func getNextLearningStep(learningIndex: Int) -> TimeInterval? {
-        if learningIndex < learningSteps.count {
-            return learningSteps[learningIndex]
-        } else if learningIndex == learningSteps.count {
-            return graduationInterval
+        if learningIndex < learningSteps.learningStepsSeconds.count {
+            return learningSteps.learningStepsSeconds[learningIndex]
+        } else if learningIndex == learningSteps.learningStepsSeconds.count {
+            return graduationInterval.intervalSeconds
         } else {
             return nil
         }
     }
-    
+
     func getNextLapseStep(lapseIndex: Int) -> TimeInterval? {
-        lapseIndex < lapseSteps.count ? lapseSteps[lapseIndex] : nil
+        lapseIndex < lapseSteps.lapseStepsSeconds.count ? lapseSteps.lapseStepsSeconds[lapseIndex] : nil
     }
-    
+
     mutating func rename(name: String) throws {
-        try validateOrThrowIsNotDefaultPreset()
+        try SchedulePreset.validateNameNotDefault(name: name)
         self.name = name
     }
-    
-    mutating func setLapseSteps(steps: Array<TimeInterval>) throws {
-        try validateOrThrowIsNotDefaultPreset()
-        lapseSteps = steps
+
+    mutating func setLapseSteps(steps: LapseSteps) throws {
+        try SchedulePreset.validateImmutableDefaultPreset(preset: self)
+        self.lapseSteps = steps
+    }
+
+    @discardableResult
+    private static func validateNameNotDefault(name: String) throws -> Bool {
+        guard name != SchedulePreset.defaultPresetName else {
+            throw SchedulePresetException.NameConflictsDefaultName
+        }
+        return true
     }
     
-    private func validateOrThrowIsNotDefaultPreset() throws {
-        if isDefaultPreset {
+    @discardableResult
+    private static func validateImmutableDefaultPreset(preset: SchedulePreset) throws -> Bool {
+        guard !preset.isDefaultPreset else {
             throw SchedulePresetException.DefaultPresetIsImmutable
         }
+        return true
     }
 }
 

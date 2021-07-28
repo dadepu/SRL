@@ -122,7 +122,7 @@ struct Scheduler: Identifiable, Codable {
                     baseInterval: scheduler.currentReviewInterval,
                     factor: scheduler.easeFactor,
                     considerMinimumInterval: true,
-                    minimumInterval: scheduler.schedulePreset.minimumInterval
+                    minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
             )
             scheduler = setNextReviewDate(for: scheduler, with: newInterval)
             scheduler.learningState = LearningState.REVIEW
@@ -141,7 +141,7 @@ struct Scheduler: Identifiable, Codable {
                 baseInterval: scheduler.currentReviewInterval,
                 factor: easeFactor,
                 considerMinimumInterval: true,
-                minimumInterval: scheduler.schedulePreset.minimumInterval
+                minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
         )
         scheduler.easeFactor = easeFactor
         return setNextReviewDate(for: scheduler, with: newInterval)
@@ -179,7 +179,7 @@ struct Scheduler: Identifiable, Codable {
             baseInterval: previousReviewInterval,
             intervalModifier: scheduler.schedulePreset.lapseSetBackFactor,
             considerMinimumInterval: true,
-            minimumInterval: scheduler.schedulePreset.minimumInterval
+            minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
         )
         if let newInterval = scheduler.schedulePreset.getNextLapseStep(lapseIndex: scheduler.lapseStepIndex) {
             scheduler = setNextReviewDate(for: scheduler, with: newInterval)
@@ -197,7 +197,7 @@ struct Scheduler: Identifiable, Codable {
         if let _ = scheduler.schedulePreset.getNextLearningStep(learningIndex: scheduler.learningStepIndex) {
             scheduler = setNextReviewDate(
                 for: scheduler,
-                with: scheduler.schedulePreset.graduationInterval
+                with: scheduler.schedulePreset.graduationIntervalInSeconds
             )
         } else {
             scheduler.easeFactor = calculateModifiedFactor(
@@ -209,7 +209,7 @@ struct Scheduler: Identifiable, Codable {
                 factor: scheduler.easeFactor,
                 intervalModifier: scheduler.schedulePreset.easyIntervalModifier,
                 considerMinimumInterval: true,
-                minimumInterval: scheduler.schedulePreset.minimumInterval
+                minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
             )
             scheduler = setNextReviewDate(for: scheduler, with: newInterval)
         }
@@ -229,7 +229,7 @@ struct Scheduler: Identifiable, Codable {
             factor: scheduler.easeFactor,
             intervalModifier: scheduler.schedulePreset.easyIntervalModifier,
             considerMinimumInterval: true,
-            minimumInterval: scheduler.schedulePreset.minimumInterval
+            minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
         )
         scheduler = setNextReviewDate(for: scheduler, with: newInterval)
         return scheduler
@@ -245,7 +245,7 @@ struct Scheduler: Identifiable, Codable {
             baseInterval: scheduler.lapseLastReviewInterval,
             intervalModifier: scheduler.schedulePreset.easyIntervalModifier,
             considerMinimumInterval: true,
-            minimumInterval: scheduler.schedulePreset.minimumInterval
+            minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
         )
         scheduler = setNextReviewDate(for: scheduler, with: newInterval)
         scheduler.learningState = LearningState.REVIEW
@@ -257,7 +257,7 @@ struct Scheduler: Identifiable, Codable {
         if let minimumStepInterval = scheduler.schedulePreset.getNextLearningStep(learningIndex: 0) {
             minimumInterval = minimumStepInterval
         } else {
-            minimumInterval = scheduler.schedulePreset.minimumInterval
+            minimumInterval = scheduler.schedulePreset.minimumIntervalInSeconds
         }
         let newInterval: Double = currentReviewInterval > minimumInterval ? currentReviewInterval : minimumInterval
         return setNextReviewDate(for: self, with: newInterval)

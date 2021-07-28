@@ -21,12 +21,12 @@ class SchedulerLearningTest: XCTestCase {
 
     func testMoveThroughLearningStepsToGraduation() throws {
         var updatedScheduler = scheduler!
-        for i in 0...updatedScheduler.schedulePreset.learningSteps.count - 1 {
-            XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.learningSteps[i])
+        for i in 0...updatedScheduler.schedulePreset.learningStepsInSeconds.count - 1 {
+            XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.learningStepsInSeconds[i])
             XCTAssertEqual(updatedScheduler.learningState, .LEARNING)
             updatedScheduler = updatedScheduler.processedReviewAction(as: .GOOD)
         }
-        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.graduationInterval)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.graduationIntervalInSeconds)
         XCTAssertEqual(updatedScheduler.easeFactor, scheduler!.schedulePreset.easeFactor)
         XCTAssertEqual(updatedScheduler.learningState, .LEARNING)
     }
@@ -34,21 +34,21 @@ class SchedulerLearningTest: XCTestCase {
     func testSkipLearningStepsToGraduation() throws {
         var updatedScheduler = scheduler!
         updatedScheduler = scheduler!.processedReviewAction(as: .EASY)
-        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.graduationInterval)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.graduationIntervalInSeconds)
         XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
         XCTAssertEqual(updatedScheduler.easeFactor, scheduler!.schedulePreset.easeFactor)
     }
 
     func testGraduateFromLearningToReview() throws {
         var updatedScheduler = scheduler!
-        for _ in 0...updatedScheduler.schedulePreset.learningSteps.count - 1 {
+        for _ in 0...updatedScheduler.schedulePreset.learningStepsInSeconds.count - 1 {
             updatedScheduler = updatedScheduler.processedReviewAction(as: .GOOD)
         }
-        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.graduationInterval)
+        XCTAssertEqual(updatedScheduler.currentReviewInterval, updatedScheduler.schedulePreset.graduationIntervalInSeconds)
         XCTAssertEqual(updatedScheduler.learningState, .LEARNING)
         updatedScheduler = updatedScheduler.processedReviewAction(as: .GOOD)
         XCTAssertEqual(updatedScheduler.learningState, .REVIEW)
-        XCTAssert(updatedScheduler.currentReviewInterval > updatedScheduler.schedulePreset.graduationInterval)
+        XCTAssert(updatedScheduler.currentReviewInterval > updatedScheduler.schedulePreset.graduationIntervalInSeconds)
     }
 
     func testRepeatLearningStep() throws {
