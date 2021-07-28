@@ -12,24 +12,22 @@ struct Scheduler: Identifiable, Codable {
     private (set) var schedulePreset: SchedulePreset
     
     private (set) var learningState: LearningState = LearningState.LEARNING
-    private (set) var lastReviewDate: Date = Date()
-    private (set) var nextReviewDate: Date = Date()
-    private (set) var currentReviewInterval: TimeInterval = 0
+    private (set) var lastReviewDate: ReviewDate = ReviewDate.makeFromCurrentDate()
+    private (set) var nextReviewDate: ReviewDate = ReviewDate.makeFromCurrentDate()
+    private (set) var currentReviewInterval: ReviewInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: 0)
     private (set) var reviewCount: Int = 0
-    private (set) var easeFactor: Float
+    private (set) var easeFactor: EaseFactor
     
-    private       var learningStepIndex: Int = 0
-    private       var lapseStepIndex: Int = 0
-    private       var lapseLastReviewInterval: TimeInterval = 0
+    private var learningStep: LearningStep = LearningStep.makeNew()
+    private var lapseStep: LapseStep?
     
     
     var remainingReviewInterval: TimeInterval {
         get {
-            if nextReviewDate > Date() {
-                return DateInterval(start: Date(), end: nextReviewDate).duration
-            } else {
-                return DateInterval(start: nextReviewDate, end: Date()).duration * -1
+            guard nextReviewDate.date > Date() else {
+                return DateInterval(start: nextReviewDate.date, end: Date()).duration * -1
             }
+            return DateInterval(start: Date(), end: nextReviewDate.date).duration
         }
     }
     var isDueForReview: Bool {
@@ -53,31 +51,22 @@ struct Scheduler: Identifiable, Codable {
     init(schedulePreset: SchedulePreset) {
         self.schedulePreset = schedulePreset
         self.easeFactor = schedulePreset.easeFactor
-        initializeCardSchedule(schedulePreset: schedulePreset)
-    }
-    
-    private mutating func initializeCardSchedule(schedulePreset: SchedulePreset) {
-        let interval = 0.0
-        self = setNextReviewDate(for: self, with: interval)
-        learningStepIndex = 0
-        easeFactor = schedulePreset.easeFactor
     }
     
     /**
         UNIT TESTING PURPOSE ONLY
      */
-    init(schedulePreset: SchedulePreset, easeFactor: Float, learningState: LearningState, lastReviewDate: Date,
-         nextReviewDate: Date, cardStudyCount: Int, learningStepIndex: Int, lapseStepIndex: Int,
-         currentReviewInterval: TimeInterval)
-    {
+    init(schedulePreset: SchedulePreset, easeFactor: EaseFactor, learningState: LearningState, lastReviewDate: ReviewDate,
+         nextReviewDate: ReviewDate, cardStudyCount: Int, learningStep: LearningStep, lapseStep: LapseStep,
+         currentReviewInterval: ReviewInterval) {
         self.schedulePreset = schedulePreset
         self.easeFactor = easeFactor
         self.learningState = learningState
         self.lastReviewDate = lastReviewDate
         self.nextReviewDate = nextReviewDate
         self.reviewCount = cardStudyCount
-        self.learningStepIndex = learningStepIndex
-        self.lapseStepIndex = lapseStepIndex
+        self.learningStep = learningStep
+        self.lapseStep = lapseStep
         self.currentReviewInterval = currentReviewInterval
     }
     
@@ -95,8 +84,10 @@ struct Scheduler: Identifiable, Codable {
             scheduler = handledReviewActionGoodLapse(scheduler)
         case (.REPEAT, .LEARNING):
             scheduler = handledReviewActionRepeatLearning(scheduler)
-        case (.REPEAT, .REVIEW), (.REPEAT, .LAPSE):
-            scheduler = handledReviewActionRepeatReviewLapse(scheduler)
+        case (.REPEAT, .REVIEW):
+            scheduler = handledReviewActionRepeatReview(scheduler)
+        case (.REPEAT, .LAPSE):
+            scheduler = handledReviewActionRepeatLapse(scheduler)
         case (.EASY, .LEARNING):
             scheduler = handledReviewActionEasyLearning(scheduler)
         case (.EASY, .REVIEW):
@@ -110,219 +101,152 @@ struct Scheduler: Identifiable, Codable {
         case (.CUSTOMINTERVAL(let interval), _):
             scheduler = handledReviewActionCustomIntervalAllStates(for: interval)
         }
-        return incrementReviewCount(for: scheduler, by: 1)
+        scheduler.reviewCount += 1
+        return scheduler
+    }
+    
+    private func setNextReviewDate(for previousScheduler : Scheduler, with interval: ReviewInterval) -> Scheduler {
+        var scheduler = previousScheduler
+        scheduler.currentReviewInterval = interval
+        scheduler.lastReviewDate = ReviewDate.makeFromCurrentDate()
+        scheduler.nextReviewDate = ReviewDate.makeFromInterval(interval: interval)
+        return scheduler
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    private func handledReviewActionEasyLearning(_ scheduler: Scheduler) -> Scheduler {
+        var scheduler = scheduler
+        scheduler.learningState = LearningState.REVIEW
+        guard let _ = scheduler.schedulePreset.getNextLearningStep(learningIndex: scheduler.learningStep.learningIndex) else {
+            scheduler.easeFactor = scheduler.easeFactor.appliedFactorModifierOrMinimum(modifier: scheduler.schedulePreset.easyFactorModifier)
+            let newInterval = scheduler.currentReviewInterval.nextReviewInterval(easeFactor: scheduler.easeFactor, intervalModifier: scheduler.schedulePreset.easyIntervalModifier, minimumInterval: scheduler.schedulePreset.minimumInterval)
+            return setNextReviewDate(for: scheduler, with: newInterval)
+        }
+        let graduationInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: scheduler.schedulePreset.graduationInterval.intervalSeconds)
+        return setNextReviewDate(for: scheduler, with: graduationInterval)
     }
     
     private func handledReviewActionGoodLearning(_ scheduler: Scheduler) -> Scheduler {
         var scheduler = scheduler
-        if let nextStepInterval = scheduler.schedulePreset.getNextLearningStep(learningIndex: scheduler.learningStepIndex) {
-            scheduler = setNextReviewDate(for: scheduler, with: nextStepInterval)
-        } else {
-            let newInterval = scheduler.calculateInterval(
-                    baseInterval: scheduler.currentReviewInterval,
-                    factor: scheduler.easeFactor,
-                    considerMinimumInterval: true,
-                    minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
-            )
-            scheduler = setNextReviewDate(for: scheduler, with: newInterval)
+        scheduler.learningStep = scheduler.learningStep.incrementedStep()
+        guard let nextStepSeconds = scheduler.schedulePreset.getNextLearningStep(learningIndex: scheduler.learningStep.learningIndex) else {
             scheduler.learningState = LearningState.REVIEW
+            let newGraduatedInterval = scheduler.currentReviewInterval.nextReviewInterval(easeFactor: scheduler.easeFactor)
+            return setNextReviewDate(for: scheduler, with: newGraduatedInterval)
         }
-        scheduler.learningStepIndex += 1
-        return scheduler
+        let nextStepInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: nextStepSeconds)
+        return setNextReviewDate(for: scheduler, with: nextStepInterval)
+    }
+    
+    private func handledReviewActionHardLearning(_ scheduler: Scheduler) -> Scheduler {
+        guard let minimumStepIndex = scheduler.schedulePreset.getNextLearningStep(learningIndex: 0) else {
+            let minimumInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: scheduler.schedulePreset.minimumInterval.intervalSeconds)
+            return scheduler.setNextReviewDate(for: scheduler, with: minimumInterval)
+        }
+        let newInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: minimumStepIndex)
+        return scheduler.setNextReviewDate(for: scheduler, with: newInterval)
+    }
+    
+    private func handledReviewActionRepeatLearning(_ scheduler: Scheduler) -> Scheduler {
+        var scheduler = scheduler
+        scheduler.learningStep = LearningStep.makeNew()
+        let newInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: scheduler.schedulePreset.getNextLearningStep(learningIndex: 0)!)
+        return setNextReviewDate(for: scheduler, with: newInterval)
+    }
+    
+    private func handledReviewActionEasyReview(_ scheduler: Scheduler) -> Scheduler {
+        var scheduler = scheduler
+        scheduler.easeFactor = scheduler.easeFactor.appliedFactorModifierOrMinimum(modifier: scheduler.schedulePreset.easyFactorModifier)
+        let newInterval = scheduler.currentReviewInterval.nextReviewInterval(easeFactor: scheduler.easeFactor, intervalModifier: scheduler.schedulePreset.easyIntervalModifier, minimumInterval: scheduler.schedulePreset.minimumInterval)
+        return setNextReviewDate(for: scheduler, with: newInterval)
     }
     
     private func handledReviewActionGoodReview(_ scheduler: Scheduler) -> Scheduler {
         var scheduler = scheduler
-        let easeFactor = scheduler.calculateModifiedFactor(
-                for: scheduler.easeFactor,
-                with: scheduler.schedulePreset.normalFactorModifier
-        )
-        let newInterval = scheduler.calculateInterval(
-                baseInterval: scheduler.currentReviewInterval,
-                factor: easeFactor,
-                considerMinimumInterval: true,
-                minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
-        )
-        scheduler.easeFactor = easeFactor
+        scheduler.easeFactor = scheduler.easeFactor.appliedFactorModifierOrMinimum(modifier: scheduler.schedulePreset.normalFactorModifier)
+        let newInterval = scheduler.currentReviewInterval.nextReviewInterval(easeFactor: scheduler.easeFactor, minimumInterval: scheduler.schedulePreset.minimumInterval)
+        return setNextReviewDate(for: scheduler, with: newInterval)
+    }
+    
+    private func handledReviewActionHardReviewLapse(_ scheduler: Scheduler) -> Scheduler {
+        var scheduler = self
+        scheduler.easeFactor = scheduler.easeFactor.appliedFactorModifierOrMinimum(modifier: scheduler.schedulePreset.hardFactorModifier)
+        let newInterval = scheduler.currentReviewInterval
+        return setNextReviewDate(for: scheduler, with: newInterval)
+    }
+    
+    private func handledReviewActionRepeatReview(_ scheduler: Scheduler) -> Scheduler {
+        var scheduler = self
+        scheduler.easeFactor = scheduler.easeFactor.appliedFactorModifierOrMinimum(modifier: scheduler.schedulePreset.lapseFactorModifier)
+        scheduler.lapseStep = LapseStep.makeNew(previousInterval: scheduler.currentReviewInterval, setbackFactor: scheduler.schedulePreset.lapseSetbackFactor, minimumInterval: scheduler.schedulePreset.minimumInterval)
+        guard let lapseStepSeconds = scheduler.schedulePreset.getNextLapseStep(lapseIndex: scheduler.lapseStep!.lapseIndex) else {
+            let newInterval = scheduler.lapseStep!.previousReviewIntervalSetbackIncluded
+            return setNextReviewDate(for: scheduler, with: newInterval)
+        }
+        scheduler.learningState = .LAPSE
+        let newStepInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: lapseStepSeconds)
+        return setNextReviewDate(for: scheduler, with: newStepInterval)
+    }
+    
+    private func handledReviewActionRepeatLapse(_ scheduler: Scheduler) -> Scheduler {
+        var scheduler = scheduler
+        scheduler.easeFactor = scheduler.easeFactor.appliedFactorModifierOrMinimum(modifier: scheduler.schedulePreset.lapseFactorModifier)
+        scheduler.lapseStep = LapseStep.makeNewFromPreviousStep(scheduler.lapseStep!, setbackFactor: scheduler.schedulePreset.lapseSetbackFactor, minimumInterval: scheduler.schedulePreset.minimumInterval)
+        guard let lapseStepSeconds = scheduler.schedulePreset.getNextLapseStep(lapseIndex: scheduler.lapseStep!.lapseIndex) else {
+            let newInterval = scheduler.lapseStep!.previousReviewIntervalSetbackIncluded
+            return setNextReviewDate(for: scheduler, with: newInterval)
+        }
+        let newStepInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: lapseStepSeconds)
+        return setNextReviewDate(for: scheduler, with: newStepInterval)
+    }
+    
+    private func handledReviewActionEasyLapse(_ scheduler: Scheduler) -> Scheduler {
+        var scheduler = scheduler
+        scheduler.learningState = LearningState.REVIEW
+        scheduler.easeFactor = scheduler.easeFactor.appliedFactorModifierOrMinimum(modifier: scheduler.schedulePreset.easyFactorModifier)
+        guard let lapseStep = scheduler.lapseStep else {
+            let minimumInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: scheduler.schedulePreset.minimumInterval.intervalSeconds)
+            return setNextReviewDate(for: scheduler, with: minimumInterval)
+        }
+        let newInterval = lapseStep.previousReviewIntervalSetbackIncluded.nextReviewInterval(easeFactor: scheduler.easeFactor, intervalModifier: scheduler.schedulePreset.easyIntervalModifier, minimumInterval: scheduler.schedulePreset.minimumInterval)
         return setNextReviewDate(for: scheduler, with: newInterval)
     }
     
     private func handledReviewActionGoodLapse(_ scheduler: Scheduler) -> Scheduler {
         var scheduler = scheduler
-        if let nextStepInterval = scheduler.schedulePreset.getNextLapseStep(lapseIndex: scheduler.lapseStepIndex) {
-            scheduler = setNextReviewDate(for: scheduler, with: nextStepInterval)
-        } else {
-            scheduler = setNextReviewDate(for: scheduler, with: lapseLastReviewInterval)
+        scheduler.lapseStep = scheduler.lapseStep!.incrementedStep()
+        guard let nextStepSeconds = scheduler.schedulePreset.getNextLapseStep(lapseIndex: scheduler.lapseStep!.lapseIndex) else {
             scheduler.learningState = LearningState.REVIEW
+            let newReviewInterval = scheduler.lapseStep!.previousReviewIntervalSetbackIncluded
+            return setNextReviewDate(for: scheduler, with: newReviewInterval)
         }
-        scheduler.lapseStepIndex += 1
-        return scheduler
-    }
-    
-    private func handledReviewActionRepeatLearning(_ scheduler: Scheduler) -> Scheduler {
-        var scheduler = scheduler
-        let newInterval: TimeInterval = scheduler.schedulePreset.getNextLearningStep(learningIndex: 0)!
-        scheduler.learningStepIndex = 1
-        scheduler = setNextReviewDate(for: scheduler, with: newInterval)
-        return scheduler
-    }
-    
-    private func handledReviewActionRepeatReviewLapse(_ scheduler: Scheduler) -> Scheduler {
-        var scheduler = scheduler
-        scheduler.lapseStepIndex = 0
-        scheduler.easeFactor = calculateModifiedFactor(
-            for: scheduler.easeFactor,
-            with: scheduler.schedulePreset.lapseFactorModifier
-        )
-        let previousReviewInterval = scheduler.learningState == .REVIEW ? scheduler.currentReviewInterval : scheduler.lapseLastReviewInterval
-        scheduler.lapseLastReviewInterval = calculateInterval(
-            baseInterval: previousReviewInterval,
-            intervalModifier: scheduler.schedulePreset.lapseSetBackFactor,
-            considerMinimumInterval: true,
-            minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
-        )
-        if let newInterval = scheduler.schedulePreset.getNextLapseStep(lapseIndex: scheduler.lapseStepIndex) {
-            scheduler = setNextReviewDate(for: scheduler, with: newInterval)
-            scheduler.learningState = LearningState.LAPSE
-        } else {
-            scheduler = setNextReviewDate(for: scheduler, with: scheduler.lapseLastReviewInterval)
-            scheduler.learningState = LearningState.REVIEW
-        }
-        scheduler.lapseStepIndex += 1
-        return scheduler
-    }
-    
-    private func handledReviewActionEasyLearning(_ scheduler: Scheduler) -> Scheduler {
-        var scheduler = scheduler
-        if let _ = scheduler.schedulePreset.getNextLearningStep(learningIndex: scheduler.learningStepIndex) {
-            scheduler = setNextReviewDate(
-                for: scheduler,
-                with: scheduler.schedulePreset.graduationIntervalInSeconds
-            )
-        } else {
-            scheduler.easeFactor = calculateModifiedFactor(
-                for: scheduler.easeFactor,
-                with: scheduler.schedulePreset.easyFactorModifier
-            )
-            let newInterval = calculateInterval(
-                baseInterval: scheduler.currentReviewInterval,
-                factor: scheduler.easeFactor,
-                intervalModifier: scheduler.schedulePreset.easyIntervalModifier,
-                considerMinimumInterval: true,
-                minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
-            )
-            scheduler = setNextReviewDate(for: scheduler, with: newInterval)
-        }
-        scheduler.learningStepIndex += 1
-        scheduler.learningState = LearningState.REVIEW
-        return scheduler
-    }
-    
-    private func handledReviewActionEasyReview(_ scheduler: Scheduler) -> Scheduler {
-        var scheduler = scheduler
-        scheduler.easeFactor = calculateModifiedFactor(
-            for: scheduler.easeFactor,
-            with: scheduler.schedulePreset.easyFactorModifier
-        )
-        let newInterval = calculateInterval(
-            baseInterval: scheduler.currentReviewInterval,
-            factor: scheduler.easeFactor,
-            intervalModifier: scheduler.schedulePreset.easyIntervalModifier,
-            considerMinimumInterval: true,
-            minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
-        )
-        scheduler = setNextReviewDate(for: scheduler, with: newInterval)
-        return scheduler
-    }
-    
-    private func handledReviewActionEasyLapse(_ scheduler: Scheduler) -> Scheduler {
-        var scheduler = scheduler
-        scheduler.easeFactor = calculateModifiedFactor(
-            for: scheduler.easeFactor,
-            with: scheduler.schedulePreset.easyFactorModifier
-        )
-        let newInterval = calculateInterval(
-            baseInterval: scheduler.lapseLastReviewInterval,
-            intervalModifier: scheduler.schedulePreset.easyIntervalModifier,
-            considerMinimumInterval: true,
-            minimumInterval: scheduler.schedulePreset.minimumIntervalInSeconds
-        )
-        scheduler = setNextReviewDate(for: scheduler, with: newInterval)
-        scheduler.learningState = LearningState.REVIEW
-        return scheduler
-    }
-    
-    private func handledReviewActionHardLearning(_ scheduler: Scheduler) -> Scheduler {
-        var minimumInterval: Double = 0.0
-        if let minimumStepInterval = scheduler.schedulePreset.getNextLearningStep(learningIndex: 0) {
-            minimumInterval = minimumStepInterval
-        } else {
-            minimumInterval = scheduler.schedulePreset.minimumIntervalInSeconds
-        }
-        let newInterval: Double = currentReviewInterval > minimumInterval ? currentReviewInterval : minimumInterval
-        return setNextReviewDate(for: self, with: newInterval)
-    }
-    
-    private func handledReviewActionHardReviewLapse(_ scheduler: Scheduler) -> Scheduler {
-        var scheduler = self
-        scheduler.easeFactor = calculateModifiedFactor(
-            for: scheduler.easeFactor,
-            with: scheduler.schedulePreset.hardFactorModifier
-        )
-        let newInterval = currentReviewInterval
-        return setNextReviewDate(for: scheduler, with: newInterval)
+        let nextLapseInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: nextStepSeconds)
+        return setNextReviewDate(for: scheduler, with: nextLapseInterval)
     }
     
     private func handledReviewActionCustomIntervalAllStates(for interval: TimeInterval) -> Scheduler{
         var scheduler = self
-        scheduler = setNextReviewDate(for: scheduler, with: interval)
+        let newInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: interval)
+        scheduler = setNextReviewDate(for: scheduler, with: newInterval)
         scheduler.learningState = LearningState.REVIEW
         return scheduler
     }
     
-    private func setNextReviewDate(for previousScheduler : Scheduler, with interval: TimeInterval) -> Scheduler {
-        var scheduler = previousScheduler
-        scheduler.currentReviewInterval = interval
-        scheduler.lastReviewDate = Date()
-        scheduler.nextReviewDate = DateInterval(start: Date(), duration: interval).end
-        return scheduler
+    
+
+    
+    mutating func setSchedulePreset(_ updatedPreset: SchedulePreset) {
+        self.schedulePreset = updatedPreset
     }
     
-    private func incrementReviewCount(for previousScheduler: Scheduler, by: Int) -> Scheduler {
-        var scheduler = previousScheduler
-        scheduler.reviewCount += by
-        return scheduler
-    }
-    
-    
-    
-    func calculateModifiedFactor(for baseFactor: Float, with modifier: Float) -> Float {
-        ((baseFactor + modifier) * 100).rounded() / 100
-    }
-    
-    func calculateInterval(baseInterval: TimeInterval, factor: Float = 1.0, intervalModifier: Float = 1.0,
-                           considerMinimumInterval: Bool = false, minimumInterval: TimeInterval = 0 ) -> TimeInterval
-    {
-        let newInterval = round(Double(baseInterval) * Double(factor) * Double(intervalModifier))
-        return newInterval < minimumInterval && considerMinimumInterval ? minimumInterval : newInterval
-    }
-    
-    
-    
-    func hasSetSchedulePreset(_ preset: SchedulePreset) -> Scheduler {
-        var scheduler = self
-        scheduler.schedulePreset = preset
-        return scheduler
-    }
-    
-    func replacedEaseFactor(factor: Float) throws -> Scheduler {
-        if factor < 1.45 || 3.0 < factor {
-            throw SchedulerException.IllegalArgument
-        }
-        
-        var scheduler = self
-        scheduler.easeFactor = (factor * 100).rounded() / 100
-        return scheduler
+    mutating func replaceEaseFactor(updatedFactor: EaseFactor) -> Scheduler {
+        self.easeFactor = updatedFactor
     }
     
     func resettedScheduler() -> Scheduler {

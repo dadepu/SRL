@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EasyIntervalModifier: InputValidation, Codable {
+struct EasyIntervalModifier: InputValidation, IntervalModifier, Codable {
     static private (set) var minimum: Float = 1.0
     static private (set) var maximum: Float = 1.5
     

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum LearningState {
     case LEARNING
     case REVIEW

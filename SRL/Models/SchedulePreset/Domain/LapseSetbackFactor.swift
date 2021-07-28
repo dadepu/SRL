@@ -11,11 +11,11 @@ struct LapseSetbackFactor: InputValidation, Codable {
     static private (set) var minimum: Float? = 0.0
     static private (set) var maximum: Float? = 1.0
     
-    private (set) var factorModifier: Float
+    private (set) var remainingInterval: Float
     
     
     private init(modifier: Float) {
-        self.factorModifier = modifier
+        self.remainingInterval = modifier
     }
     
     static func makeFromFloat(modifier: Float) throws -> LapseSetbackFactor {

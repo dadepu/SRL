@@ -120,6 +120,11 @@
 		87DA684F269CB983003F07A8 /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DA684E269CB983003F07A8 /* CardRepository.swift */; };
 		87DA6851269CB98D003F07A8 /* CardUserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DA6850269CB98D003F07A8 /* CardUserDefaultsRepository.swift */; };
 		87E3BB1426B1A04D000901FF /* FactorModifierException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E3BB1326B1A04D000901FF /* FactorModifierException.swift */; };
+		87E3BB1626B1A75D000901FF /* ReviewInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E3BB1526B1A75D000901FF /* ReviewInterval.swift */; };
+		87E3BB1826B1A886000901FF /* ReviewDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E3BB1726B1A886000901FF /* ReviewDate.swift */; };
+		87E3BB1A26B1AA67000901FF /* LearningStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E3BB1926B1AA67000901FF /* LearningStep.swift */; };
+		87E3BB1C26B1AA6E000901FF /* LapseStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E3BB1B26B1AA6E000901FF /* LapseStep.swift */; };
+		87E3BB1E26B1B797000901FF /* IntervalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E3BB1D26B1B797000901FF /* IntervalModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -259,6 +264,11 @@
 		87DA684E269CB983003F07A8 /* CardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRepository.swift; sourceTree = "<group>"; };
 		87DA6850269CB98D003F07A8 /* CardUserDefaultsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardUserDefaultsRepository.swift; sourceTree = "<group>"; };
 		87E3BB1326B1A04D000901FF /* FactorModifierException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactorModifierException.swift; sourceTree = "<group>"; };
+		87E3BB1526B1A75D000901FF /* ReviewInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewInterval.swift; sourceTree = "<group>"; };
+		87E3BB1726B1A886000901FF /* ReviewDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDate.swift; sourceTree = "<group>"; };
+		87E3BB1926B1AA67000901FF /* LearningStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningStep.swift; sourceTree = "<group>"; };
+		87E3BB1B26B1AA6E000901FF /* LapseStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapseStep.swift; sourceTree = "<group>"; };
+		87E3BB1D26B1B797000901FF /* IntervalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,20 +299,6 @@
 		8701854626AF1F2E00781CCF /* DomainPrimitives */ = {
 			isa = PBXGroup;
 			children = (
-				877B157926B16A13009FF1CC /* MatureInterval.swift */,
-				877B155D26B150D7009FF1CC /* LearningSteps.swift */,
-				877B157726B169AF009FF1CC /* GraduationInterval.swift */,
-				877B156326B156B2009FF1CC /* LapseSteps.swift */,
-				877B157526B1699C009FF1CC /* LapseSetbackFactor.swift */,
-				877B157326B16966009FF1CC /* MinimumInterval.swift */,
-				877B156926B1636A009FF1CC /* EaseFactor.swift */,
-				87C07D0B26B188D90077A540 /* FactorModifier.swift */,
-				87E3BB1326B1A04D000901FF /* FactorModifierException.swift */,
-				877B156B26B1684C009FF1CC /* EasyFactorModifier.swift */,
-				877B156D26B168CA009FF1CC /* NormalFactorModifier.swift */,
-				877B156F26B168F7009FF1CC /* HardFactorModifier.swift */,
-				877B157126B16933009FF1CC /* LapseFactorModifier.swift */,
-				877B156526B15C1F009FF1CC /* EasyIntervalModifier.swift */,
 				8701854726AF1F3E00781CCF /* ImageEncoder.swift */,
 				877B156726B1617D009FF1CC /* OutputRangeBuilder.swift */,
 				877B156126B152BB009FF1CC /* InputValidation.swift */,
@@ -371,6 +367,21 @@
 			isa = PBXGroup;
 			children = (
 				871F11A7268F05CD00BF9A51 /* SchedulePreset.swift */,
+				877B157926B16A13009FF1CC /* MatureInterval.swift */,
+				877B155D26B150D7009FF1CC /* LearningSteps.swift */,
+				877B157726B169AF009FF1CC /* GraduationInterval.swift */,
+				877B156326B156B2009FF1CC /* LapseSteps.swift */,
+				877B157526B1699C009FF1CC /* LapseSetbackFactor.swift */,
+				877B157326B16966009FF1CC /* MinimumInterval.swift */,
+				877B156926B1636A009FF1CC /* EaseFactor.swift */,
+				87C07D0B26B188D90077A540 /* FactorModifier.swift */,
+				87E3BB1D26B1B797000901FF /* IntervalModifier.swift */,
+				87E3BB1326B1A04D000901FF /* FactorModifierException.swift */,
+				877B156B26B1684C009FF1CC /* EasyFactorModifier.swift */,
+				877B156D26B168CA009FF1CC /* NormalFactorModifier.swift */,
+				877B156F26B168F7009FF1CC /* HardFactorModifier.swift */,
+				877B157126B16933009FF1CC /* LapseFactorModifier.swift */,
+				877B156526B15C1F009FF1CC /* EasyIntervalModifier.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -844,6 +855,10 @@
 			children = (
 				87541C8E265CE2C8009E805D /* Scheduler.swift */,
 				87A110C9265ED23A00F0D4B6 /* LearningState.swift */,
+				87E3BB1526B1A75D000901FF /* ReviewInterval.swift */,
+				87E3BB1726B1A886000901FF /* ReviewDate.swift */,
+				87E3BB1926B1AA67000901FF /* LearningStep.swift */,
+				87E3BB1B26B1AA6E000901FF /* LapseStep.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1003,6 +1018,7 @@
 				873259B326A9EE2E00F3178F /* CardContentTypeContainer.swift in Sources */,
 				87DA684D269CB976003F07A8 /* CardService.swift in Sources */,
 				875392B226AA762D008CFCC4 /* CardContentSheet.swift in Sources */,
+				87E3BB1A26B1AA67000901FF /* LearningStep.swift in Sources */,
 				8757BBC726ADBDE900B6C7B1 /* ReviewCustomIntervalSheet.swift in Sources */,
 				875392B926AA9E37008CFCC4 /* ContentTypeMapper.swift in Sources */,
 				877B156226B152BB009FF1CC /* InputValidation.swift in Sources */,
@@ -1024,8 +1040,11 @@
 				871F11A6268F05C200BF9A51 /* SchedulePresetService.swift in Sources */,
 				876840BB26AB0BD7008384B3 /* CardContentException.swift in Sources */,
 				877B157A26B16A13009FF1CC /* MatureInterval.swift in Sources */,
+				87E3BB1E26B1B797000901FF /* IntervalModifier.swift in Sources */,
+				87E3BB1826B1A886000901FF /* ReviewDate.swift in Sources */,
 				877B157826B169AF009FF1CC /* GraduationInterval.swift in Sources */,
 				877B157226B16933009FF1CC /* LapseFactorModifier.swift in Sources */,
+				87E3BB1626B1A75D000901FF /* ReviewInterval.swift in Sources */,
 				87541C57265CDF03009E805D /* SRLApp.swift in Sources */,
 				87B480C1269066A200887C6A /* TypingCard.swift in Sources */,
 				8795D2152663E175007C99D9 /* DeckView.swift in Sources */,
@@ -1093,6 +1112,7 @@
 				87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */,
 				877B156426B156B2009FF1CC /* LapseSteps.swift in Sources */,
 				87C4971826AC791D0015823E /* CardException.swift in Sources */,
+				87E3BB1C26B1AA6E000901FF /* LapseStep.swift in Sources */,
 				87B480BB269064B000887C6A /* CardType.swift in Sources */,
 				87B480BD269064F600887C6A /* CardContentType.swift in Sources */,
 				8757BBC926ADD87800B6C7B1 /* CustomStudyViewModel.swift in Sources */,

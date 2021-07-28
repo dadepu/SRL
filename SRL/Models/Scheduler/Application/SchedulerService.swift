@@ -17,10 +17,10 @@ struct SchedulerService {
     
     
     func getScheduler(forId id: UUID) throws -> Scheduler {
-        if let scheduler = schedulerRepository.getScheduler(forId: id) {
-            return scheduler
+        guard let scheduler = schedulerRepository.getScheduler(forId: id) else {
+            throw SchedulerException.EntityNotFound
         }
-        throw SchedulerException.EntityNotFound
+        return scheduler
     }
     
     func setPreset(forId id: UUID, withId presetId: UUID) {

@@ -33,9 +33,22 @@ struct EaseFactor: InputValidation, Codable {
         return EaseFactorException.OK
     }
     
-//    func applyFactorModifier(modifier: FactorModifier) -> EaseFactor {
-//
-//    }
+    func appliedFactorModifier(modifier: FactorModifier) throws -> EaseFactor {
+        var updatedEaseFactor = self
+        updatedEaseFactor.easeFactor = ((self.easeFactor + modifier.factorModifier) * 100).rounded() / 100
+        let feedback = EaseFactor.validateEaseFactor(factor: updatedEaseFactor.easeFactor)
+        guard feedback == .OK else {
+            throw feedback
+        }
+        return updatedEaseFactor
+    }
+    
+    func appliedFactorModifierOrMinimum(modifier: FactorModifier) -> EaseFactor {
+        guard let updatedFactor = try? appliedFactorModifier(modifier: modifier) else {
+            return EaseFactor(modifier: EaseFactor.minimum)
+        }
+        return updatedFactor
+    }
 }
 
 enum EaseFactorException: Error {
