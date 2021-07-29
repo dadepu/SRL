@@ -10,3 +10,12 @@ import Foundation
 enum CardException: Error {
     case EntityNotFound
 }
+
+enum CardTypeException: Error {
+    case UnsupportedCardType
+    case ContainsInvalidCardContentType
+}
+
+enum CardContentException: Error {
+    case IllegalArgument
+}

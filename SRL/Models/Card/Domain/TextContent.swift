@@ -15,18 +15,10 @@ struct TextContent: Codable {
         self.text = text
     }
     
-    
-    static func makeTextContentFromString(text: String) throws -> TextContent {
-        if try validate(text: text) {
-            return TextContent(text)
-        }
-        throw CardContentException.IllegalArgument
-    }
-    
-    private static func validate(text: String) throws -> Bool {
-        if text.isEmpty {
+    static func makeTextContent(text: String) throws -> TextContent {
+        guard !text.isEmpty else {
             throw CardContentException.IllegalArgument
         }
-        return true
+        return TextContent(text)
     }
 }

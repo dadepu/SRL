@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct PresetView: View {
+struct Presets: View {
     @ObservedObject private var presetViewModel = PresetViewModel()
     @ObservedObject private var deckViewModel: DeckViewModel
     
-    @State private var opacityBottomUpSheets: Double = 0
-    @State private var isShowingAddPresetSheet: BottomSheetPosition = .hidden
+    @State private var isShowingNewPresetSheet: Bool = false
     
     
     init(deck: Deck) {
@@ -22,9 +21,9 @@ struct PresetView: View {
     var body: some View {
         List {
             Section(header: Text("Presets")) {
-                ForEach(presetViewModel.presets) { (preset: SchedulePreset) in
+                ForEach(presetViewModel.orderedPresets) { (preset: SchedulePreset) in
                     NavigationLink(
-                        destination: EditPresetView(preset: preset, presetViewModel: presetViewModel),
+                        destination: EditPreset(preset: preset),
                         label: {
                             Text(preset.name)
                         })
@@ -32,15 +31,16 @@ struct PresetView: View {
             }
             Section {
                 Button(action: {
-                    opacityBottomUpSheets = 1
-                    isShowingAddPresetSheet = .top
+                    isShowingNewPresetSheet = true
                 }, label: {
-                    Text("Add Preset")
+                    Text("New Preset")
                 })
             }
         }
         .listStyle(GroupedListStyle())
-        .modifier(AddPresetSheet(isShowingBottomSheet: $isShowingAddPresetSheet, opacityBottomSheet: $opacityBottomUpSheets))
+        .sheet(isPresented: $isShowingNewPresetSheet, content: {
+            NewPreset(isShowingSheet: $isShowingNewPresetSheet)
+        })
         .navigationBarTitle("Presets", displayMode: .inline)
     }
 }

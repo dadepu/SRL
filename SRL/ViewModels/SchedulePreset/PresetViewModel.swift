@@ -9,47 +9,34 @@ import Foundation
 import Combine
 
 class PresetViewModel: ObservableObject {
+    @Published private (set) var orderedPresets: [SchedulePreset] = []
+    @Published private (set) var presetOrder: (SchedulePreset, SchedulePreset) -> Bool = PresetViewModel.sortByNameDefaultFirst()
+    
     private let schedulePresetService = SchedulePresetService()
     private var schedulePresetObserver: AnyCancellable?
     
-    @Published private (set) var presets: [SchedulePreset] = [SchedulePreset]()
-    
     
     init() {
-        presets = getPresetsInOrder(schedulePresetService.getAllSchedulePresets())
-        schedulePresetObserver = schedulePresetService.getModelPublisher().sink(receiveValue: updateLocalPresets)
-    }
-    
-    
-    func getPreset(forIndex index: Int) -> SchedulePreset? {
-        return presets[index]
-    }
-    
-    func getPresetIndexOrDefault(forId id: UUID) -> Int {
-        if let index: Int = presets.firstIndex(where: {preset in preset.id == id}) {
-            return index
+        initializeSortedPresets(schedulePresetService.getAllSchedulePresets(), sortOrder: presetOrder)
+        schedulePresetObserver = schedulePresetService.getModelPublisher().sink { schedulePresets in
+            self.initializeSortedPresets(schedulePresets, sortOrder: self.presetOrder)
         }
-        return 0
+    }
+    
+    private func initializeSortedPresets(_ presets: [UUID:SchedulePreset], sortOrder: (SchedulePreset, SchedulePreset) -> Bool) {
+        orderedPresets = presets.map { key, value in value }.sorted(by: sortOrder)
+    }
+    
+    func getPresetOrDefaultIndex(forId id: UUID) -> Int {
+        guard let presetIndex = orderedPresets.firstIndex(where: {preset in preset.id == id}) else {
+            return orderedPresets.firstIndex { preset in preset.isDefaultPreset }!
+        }
+        return presetIndex
     }
     
     
     
-    private func updateLocalPresets(schedulePresets presets: [UUID : SchedulePreset]) {
-        self.presets = getPresetsInOrder(presets)
-    }
-    
-    private func getPresetsInOrder(_ presets: [UUID : SchedulePreset]) -> [SchedulePreset] {
-        let defaultPreset: SchedulePreset = try! presets.first(where: { (_: UUID, preset: SchedulePreset) throws -> Bool in
-            preset.isDefaultPreset
-        })!.value
-        var namedPresets: [SchedulePreset] = []
-        for (_, preset) in presets {
-            if !preset.isDefaultPreset {
-                namedPresets.append(preset)
-            }
-        }
-        return [defaultPreset] + namedPresets.sorted() { (lhs:SchedulePreset, rhs:SchedulePreset) -> Bool in
-            lhs.name < rhs.name
-        }
+    private static func sortByNameDefaultFirst() -> (SchedulePreset, SchedulePreset) -> Bool {
+        { lhs, rhs in lhs.isDefaultPreset || lhs.name < rhs.name && !rhs.isDefaultPreset }
     }
 }

@@ -59,7 +59,7 @@ struct DeckView: View {
             }
             Section(header: Text("Deck")) {
                 NavigationLink(
-                    destination: PresetView(deck: deckViewModel.deck),
+                    destination: Presets(deck: deckViewModel.deck),
                     label: {
                         Text("Presets")
                     })
@@ -82,6 +82,6 @@ struct DeckView: View {
     
     private func refreshEditDeckFormValues() {
         formDeckName = deckViewModel.deck.name
-        formPresetIndex = presetViewModel.getPresetIndexOrDefault(forId: deckViewModel.deck.schedulePreset.id)
+        formPresetIndex = presetViewModel.getPresetOrDefaultIndex(forId: deckViewModel.deck.schedulePreset.id)
     }
 }

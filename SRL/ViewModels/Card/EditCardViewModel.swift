@@ -11,7 +11,7 @@ import Combine
 class EditCardViewModel: AbstractCardViewModel {
     @Published private (set) var card: Card
     @Published private (set) var changedDeckId: UUID?
-    @Published private (set) var changedEaseFactor: Float?
+    @Published private (set) var changedEaseFactor: EaseFactor?
     
     private var cardObserver: AnyCancellable?
     
@@ -41,14 +41,15 @@ class EditCardViewModel: AbstractCardViewModel {
     }
     
     func saveCardChanges() {
-        if cardIsSaveable, let cardType = try? createCardType() {
-            try? CardService().replaceContent(cardId: card.id, cardContent: cardType)
-            if let newDeckId = changedDeckId, newDeckId != deck.id {
-                try? DeckService().transferCard(fromDeckId: deck.id, toDeckId: newDeckId, cardId: card.id)
-            }
-            if let newEaseFactor = changedEaseFactor, newEaseFactor != card.scheduler.easeFactor {
-                try? SchedulerService().changeEaseFactor(forId: card.scheduler.id, with: newEaseFactor)
-            }
+        guard cardIsSaveable, let cardType = try? createCardType() else {
+            return
+        }
+        try? CardService().replaceContent(cardId: card.id, cardContent: cardType)
+        if let newDeckId = changedDeckId, newDeckId != deck.id {
+            try? DeckService().transferCard(fromDeckId: deck.id, toDeckId: newDeckId, cardId: card.id)
+        }
+        if let newEaseFactor = changedEaseFactor, newEaseFactor != card.scheduler.easeFactor {
+            try? SchedulerService().changeEaseFactor(forId: card.scheduler.id, with: newEaseFactor)
         }
     }
     
@@ -69,6 +70,6 @@ class EditCardViewModel: AbstractCardViewModel {
     }
     
     func setUpdatedEaseFactor(factor: Float) {
-        self.changedEaseFactor = factor
+        self.changedEaseFactor = try! EaseFactor.makeFromFloat(easeFactor: factor)
     }
 }

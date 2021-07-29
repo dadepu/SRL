@@ -16,9 +16,4 @@ struct TypingCard: Codable {
         self.questionContent = questions
         self.answerContent = answers
     }
-    
-    func validateAnswer(input: String) -> Bool {
-        // TODO
-        return false
-    }
 }

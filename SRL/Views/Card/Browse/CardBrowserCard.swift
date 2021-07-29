@@ -57,7 +57,7 @@ struct CardBrowserCard: View {
         let currentInterval = scheduler.currentReviewInterval
         let remainingInterval = scheduler.remainingReviewInterval
         
-        return "\(getFormattedTimeInterval(remainingInterval)) / \(getFormattedTimeInterval(currentInterval))"
+        return "\(getFormattedTimeInterval(remainingInterval)) / \(getFormattedTimeInterval(currentInterval.intervalSeconds))"
     }
     
     private func getCardDateDue(_ scheduler: Scheduler) -> String {
@@ -65,7 +65,7 @@ struct CardBrowserCard: View {
         dateFormatter.timeZone = .current
         dateFormatter.locale = .current
         dateFormatter.dateFormat = "dd.MM.yyyy"
-        return dateFormatter.string(from: scheduler.nextReviewDate)
+        return dateFormatter.string(from: scheduler.nextReviewDate.date)
     }
      
     private func getFormattedTimeInterval(_ time: TimeInterval) -> String {

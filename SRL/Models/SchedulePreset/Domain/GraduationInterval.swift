@@ -40,6 +40,10 @@ struct GraduationInterval: InputValidation, Codable {
         }
         return GraduationIntervalException.OK
     }
+    
+    func toStringMinutes() -> String {
+        String(format: "%.0f", intervalSeconds / 60)
+    }
 }
 
 enum GraduationIntervalException: Error {

@@ -10,6 +10,7 @@ import Foundation
 struct NormalFactorModifier: InputValidation, FactorModifier, Codable {
     static private (set) var minimum: Float? = -0.1
     static private (set) var maximum: Float? = 0.2
+    static private (set) var displayRange: [Float] = [-0.1, -0.05, 0.0, 0.05, 0.1, 0.15, 0.2]
     
     private (set) var factorModifier: Float
     
@@ -27,7 +28,7 @@ struct NormalFactorModifier: InputValidation, FactorModifier, Codable {
     }
     
     static func validateFactorModifier(modifier: Float) -> ModifierFactorException {
-        guard validateInsideRange(value: modifier, min: minimum, max: maximum) else {
+        guard validateRange(value: modifier, min: minimum, max: maximum) else {
             return ModifierFactorException.OUT_OF_RANGE
         }
         return ModifierFactorException.OK

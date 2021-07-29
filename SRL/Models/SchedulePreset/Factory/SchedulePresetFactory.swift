@@ -7,6 +7,20 @@
 
 import Foundation
 
+struct SchedulePresetFactory {
+    private var schedulePresetRepository = SchedulePresetRepository.getInstance()
+    
+    func validatePresetName(name: String) -> SchedulePresetNameValidation {
+        guard !name.isEmpty else {
+            return SchedulePresetNameValidation.EMPTY
+        }
+        guard !schedulePresetRepository.getAllSchedulePresets().contains(where: { (_, preset) in preset.name == name }) else {
+            return SchedulePresetNameValidation.CONFLICTS_DEFAULT
+        }
+        return SchedulePresetNameValidation.OK
+    }
+}
+
 //struct SchedulePresetFactory {
 //    
 //    private (set) var learningStepsRegEx = #"^(\d)+(\s(\d)+)*"#

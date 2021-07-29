@@ -50,6 +50,15 @@ struct LapseSteps: InputValidation, Codable {
         }
         return LapseStepsException.OK
     }
+    
+    func toStringMinutes() -> String {
+        lapseStepsSeconds.map( { (step: Double) in
+            String(format: "%.0f", step / 60)
+        })
+        .reduce("", {initial, step in
+            initial + (initial.isEmpty ? step : " " + step)
+        })
+    }
 }
 
 enum LapseStepsException: Error {

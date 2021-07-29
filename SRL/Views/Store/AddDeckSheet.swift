@@ -36,8 +36,8 @@ struct AddDeckSheet: ViewModifier {
                 TextField("Deck Name", text: $formDeckName)
                     .disableAutocorrection(true)
                 Picker(selection: $formPresetIndex, label: Text("Preset")) {
-                    ForEach(0 ..< presetViewModel.presets.count) {
-                        Text(self.presetViewModel.presets[$0].name)
+                    ForEach(0 ..< presetViewModel.orderedPresets.count) {
+                        Text(self.presetViewModel.orderedPresets[$0].name)
                     }
                 }
                 Section {
@@ -63,7 +63,7 @@ struct AddDeckSheet: ViewModifier {
     }
     
     private func createNewDeckInModel(name: String, presetIndex: Int) {
-        let presetId = presetViewModel.getPreset(forIndex: presetIndex)!.id
+        let presetId = presetViewModel.orderedPresets[presetIndex].id
         storeViewModel.makeDeck(name: name, presetId: presetId)
     }
 }

@@ -84,13 +84,12 @@ struct CreateCardView: View {
         
         var body: some View {
             Picker(selection: $presetIndex, label: Text("Scheduler Preset")) {
-                ForEach(0 ..< presetViewModel.presets.count) {
-                    Text(self.presetViewModel.presets[$0].name)
+                ForEach(0 ..< presetViewModel.orderedPresets.count) {
+                    Text(self.presetViewModel.orderedPresets[$0].name)
                 }
             }.onChange(of: presetIndex, perform: { (value: Int) in
-                if let preset = presetViewModel.getPreset(forIndex: value) {
-                    createCardViewModel.changeSchedulePreset(presetId: preset.id)
-                }
+                let preset = presetViewModel.orderedPresets[value]
+                createCardViewModel.changeSchedulePreset(presetId: preset.id)
             })
         }
     }

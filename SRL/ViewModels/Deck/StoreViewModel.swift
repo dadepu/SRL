@@ -19,15 +19,14 @@ class StoreViewModel: ObservableObject {
     init() {
         let hashedDecks: [UUID:Deck] = deckService.getAllDecks()
         decks = getDecksOrderedByNameDesc(hashedDecks)
-        reviewQueues = fetchReviewQueues(hashedDecks)
+        reviewQueues = makeRegularReviewQueues(hashedDecks)
         
         deckObserver = deckService.getModelPublisher().sink { (decks: [UUID:Deck]) in
             self.decks = self.getDecksOrderedByNameDesc(decks)
-            self.reviewQueues = self.fetchReviewQueues(decks)
+            self.reviewQueues = self.makeRegularReviewQueues(decks)
         }
     }
 
-    
     func makeDeck(name: String, presetId: UUID) {
         deckService.makeDeck(deckName: name, presetId: presetId)
     }
@@ -39,21 +38,18 @@ class StoreViewModel: ObservableObject {
 
     
     
-    
     private func getDecksOrderedByNameDesc(_ decks: [UUID:Deck]) -> [Deck] {
         return decks.map({ (_: UUID, deck: Deck) -> Deck in
-            deck
-        }).sorted() { (lhs:Deck, rhs:Deck) -> Bool in
-            lhs.name < rhs.name
-        }
+                deck
+            }).sorted() { (lhs:Deck, rhs:Deck) -> Bool in
+                lhs.name < rhs.name
+            }
     }
     
-    private func fetchReviewQueues(_ decks: [UUID:Deck]) -> [UUID:ReviewQueue] {
-        var reviewQueue = [UUID:ReviewQueue]()
-        for (_, deck) in decks {
-            reviewQueue[deck.id] = StoreViewModel.getDefaultReviewQueue(deck: deck)
+    private func makeRegularReviewQueues(_ decks: [UUID:Deck]) -> [UUID:ReviewQueue] {
+        return decks.mapValues { deck in
+            StoreViewModel.getDefaultReviewQueue(deck: deck)
         }
-        return reviewQueue
     }
     
     private static func getDefaultReviewQueue(deck: Deck) -> ReviewQueue {

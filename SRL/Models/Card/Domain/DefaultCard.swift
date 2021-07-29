@@ -19,25 +19,22 @@ struct DefaultCard: Codable {
         self.hint = hint
     }
     
-    
-    
-    static func makeDefaultCard(questions: [CardContentTypeContainer], answers: [CardContentTypeContainer], hint: TextContent?) throws -> DefaultCard {
-        if try validate(content: questions), try validate(content: answers) {
-            return DefaultCard(questions: questions, answers: answers, hint: hint)
-        }
-        throw CardTypeException.ContainsInvalidCardContentType
+    static func makeDefaultCard(questions: [CardContentTypeContainer], answers: [CardContentTypeContainer], hint: TextContent? = nil) throws -> DefaultCard {
+        let _ = try validateContainingCardContentTypes(content: questions)
+        let _ = try validateContainingCardContentTypes(content: answers)
+        return DefaultCard(questions: questions, answers: answers, hint: hint)
     }
     
-    private static func validate(content: [CardContentTypeContainer]) throws -> Bool {
+    private static func validateContainingCardContentTypes(content: [CardContentTypeContainer]) throws -> Bool {
         for cardContentContainer in content {
-            if !validate(cardContent: cardContentContainer.content) {
+            guard isPermittedType(cardContent: cardContentContainer.content) else {
                 throw CardTypeException.ContainsInvalidCardContentType
             }
         }
         return true
     }
     
-    private static func validate(cardContent: CardContentType) -> Bool {
+    private static func isPermittedType(cardContent: CardContentType) -> Bool {
         switch (cardContent) {
             case .TEXT(_): return true
             case .IMAGE(_): return true

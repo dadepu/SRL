@@ -25,7 +25,6 @@ struct Card: Identifiable, Codable {
         self.scheduler = scheduler
     }
     
-    
     func replacedContent(content: CardType) -> Card {
         var card = self
         card.content = content

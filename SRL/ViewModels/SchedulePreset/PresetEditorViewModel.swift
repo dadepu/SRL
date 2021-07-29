@@ -11,25 +11,20 @@ import Combine
 class PresetEditorViewModel: ObservableObject {
     @Published private (set) var schedulePreset: SchedulePreset?
     
-    @Published private (set) var nameInput: String = ""
-    @Published private (set) var nameFeedback: .NameValidation = .EMPTY
-    @Published private (set) var learningStepsInput: String = ""
-    @Published private (set) var learningStepsFeedback: .LearningStepsValidation = .OK
-    @Published private (set) var graduationIntervalInput: String = ""
-    @Published private (set) var graduationIntervalFeedback: .GraduationIntervalValidation = .EMPTY
-    @Published private (set) var lapseStepsInput: String = ""
-    @Published private (set) var lapseStepsFeedback: .LapseStepsValidation = .OK
-    @Published private (set) var minimumIntervalInput: String = ""
-    @Published private (set) var minimumIntervalFeedback: .MinimumIntervalValidation = .EMPTY
+    @Published private (set) var nameFeedback: SchedulePresetNameValidation = .OK
+    @Published private (set) var learningStepsFeedback: LearningStepsException = .OK
+    @Published private (set) var graduationIntervalFeedback: GraduationIntervalException = .OK
+    @Published private (set) var lapseStepsFeedback: LapseStepsException = .OK
+    @Published private (set) var minimumIntervalFeedback: MinimumIntervalException = .OK
     
     @Published private (set) var isSaveAble: Bool = false
     
     private var presetObserver: AnyCancellable?
-    private var nameInputObserver: AnyCancellable?
-    private var learningStepsInputObserver: AnyCancellable?
-    private var graduationIntervalInputObserver: AnyCancellable?
-    private var lapseStepsInputObserver: AnyCancellable?
-    private var minimumIntervalInputObserver: AnyCancellable?
+    private var nameFeedbackObserver: AnyCancellable?
+    private var learningStepsFeedbackObserver: AnyCancellable?
+    private var graduationIntervalFeedbackObserver: AnyCancellable?
+    private var lapseStepsFeedbackObserver: AnyCancellable?
+    private var minimumIntervalFeedbackObserver: AnyCancellable?
     
     
     init(preset: SchedulePreset? = nil) {
@@ -43,65 +38,74 @@ class PresetEditorViewModel: ObservableObject {
             }
             self.schedulePreset = updatedPreset
         }
-        self.nameInputObserver = $nameInput.sink { name in
-            self.nameFeedback = SchedulePresetFactory().validatePresetName(name: name)
-            self.isSaveAble = self.validateIsSaveAble(nameFeedback: self.nameFeedback, learningStepsFeedback: self.learningStepsFeedback, graduationIntervalFeedback: self.graduationIntervalFeedback, lapseStepsFeedback: self.lapseStepsFeedback, minimumIntervalFeedback: self.minimumIntervalFeedback)
-        }
-        self.learningStepsInputObserver = $learningStepsInput.sink { steps in
-            self.learningStepsFeedback = SchedulePresetFactory().validateLearningSteps(inputSteps: steps)
-            self.isSaveAble = self.validateIsSaveAble(nameFeedback: self.nameFeedback, learningStepsFeedback: self.learningStepsFeedback, graduationIntervalFeedback: self.graduationIntervalFeedback, lapseStepsFeedback: self.lapseStepsFeedback, minimumIntervalFeedback: self.minimumIntervalFeedback)
-        }
-        self.graduationIntervalInputObserver = $graduationIntervalInput.sink { interval in
-            self.graduationIntervalFeedback = SchedulePresetFactory().validateGraduationInterval(inputInterval: interval)
-            self.isSaveAble = self.validateIsSaveAble(nameFeedback: self.nameFeedback, learningStepsFeedback: self.learningStepsFeedback, graduationIntervalFeedback: self.graduationIntervalFeedback, lapseStepsFeedback: self.lapseStepsFeedback, minimumIntervalFeedback: self.minimumIntervalFeedback)
-        }
-        self.lapseStepsInputObserver = $lapseStepsInput.sink { steps in
-            self.lapseStepsFeedback = SchedulePresetFactory().validateLapseSteps(inputSteps: steps)
-            self.isSaveAble = self.validateIsSaveAble(nameFeedback: self.nameFeedback, learningStepsFeedback: self.learningStepsFeedback, graduationIntervalFeedback: self.graduationIntervalFeedback, lapseStepsFeedback: self.lapseStepsFeedback, minimumIntervalFeedback: self.minimumIntervalFeedback)
-        }
-        self.minimumIntervalInputObserver = $minimumIntervalInput.sink { interval in
-            self.minimumIntervalFeedback = SchedulePresetFactory().validateMinimumInterval(inputInterval: interval)
-            self.isSaveAble = self.validateIsSaveAble(nameFeedback: self.nameFeedback, learningStepsFeedback: self.learningStepsFeedback, graduationIntervalFeedback: self.graduationIntervalFeedback, lapseStepsFeedback: self.lapseStepsFeedback, minimumIntervalFeedback: self.minimumIntervalFeedback)
-        }
+        self.nameFeedbackObserver = $nameFeedback.sink { feedback in self.initializeIsSaveAble(nameFeedback: feedback) }
+        self.learningStepsFeedbackObserver = $learningStepsFeedback.sink { feedback in self.initializeIsSaveAble(learningStepsFeedback: feedback) }
+        self.graduationIntervalFeedbackObserver = $graduationIntervalFeedback.sink { feedback in self.initializeIsSaveAble(graduationIntervalFeedback: feedback) }
+        self.lapseStepsFeedbackObserver = $lapseStepsFeedback.sink { feedback in self.initializeIsSaveAble(lapseStepsFeedback: feedback) }
+        self.minimumIntervalFeedbackObserver = $minimumIntervalFeedback.sink { feedback in self.initializeIsSaveAble(minimumIntervalFeedback: feedback) }
     }
     
-    func setNameInput(name: String) {
-        self.nameInput = name
+    func initializePresetNameFeedback(name: String) {
+        nameFeedback = SchedulePresetFactory().validatePresetName(name: name)
     }
     
-    func setLearningStepsInput(steps: String) {
-        self.learningStepsInput = steps
+    func initializeLearningStepsFeedback(steps: String) {
+        learningStepsFeedback = LearningSteps.validateLearningSteps(inputSteps: steps)
     }
     
-    func setGraduationIntervalInput(interval: String) {
-        self.graduationIntervalInput = interval
+    func initializeGraduationIntervalFeedback(interval: String) {
+        graduationIntervalFeedback = GraduationInterval.validateGraduationInterval(interval: interval)
     }
     
-    func setLapseStepsInput(steps: String) {
-        self.lapseStepsInput = steps
+    func initializeLapseStepsFeedback(steps: String) {
+        lapseStepsFeedback = LapseSteps.validateLapseSteps(inputSteps: steps)
     }
     
-    func setMinimumIntervalInput(interval: String) {
-        self.minimumIntervalInput = interval
+    func initializeMinimumIntervalFeedback(interval: String) {
+        minimumIntervalFeedback = MinimumInterval.validateMinimumInterval(interval: interval)
+    }
+    
+    func initializeIsSaveAble(nameFeedback: SchedulePresetNameValidation? = nil, learningStepsFeedback: LearningStepsException? = nil, graduationIntervalFeedback: GraduationIntervalException? = nil, lapseStepsFeedback: LapseStepsException? = nil, minimumIntervalFeedback: MinimumIntervalException? = nil) {
+        let nameFeedback = nameFeedback != nil ? nameFeedback : self.nameFeedback
+        let learningStepsFeedback = learningStepsFeedback != nil ? learningStepsFeedback : self.learningStepsFeedback
+        let graduationIntervalFeedback = graduationIntervalFeedback != nil ? graduationIntervalFeedback : self.graduationIntervalFeedback
+        let lapseStepsFeedback = lapseStepsFeedback != nil ? lapseStepsFeedback : self.lapseStepsFeedback
+        let minimumIntervalFeedback = minimumIntervalFeedback != nil ? minimumIntervalFeedback : self.minimumIntervalFeedback
+        
+        if nameFeedback == .OK, learningStepsFeedback == .OK, graduationIntervalFeedback == .OK,  lapseStepsFeedback == .OK, minimumIntervalFeedback == .OK {
+            self.isSaveAble = true
+        } else {
+            self.isSaveAble = false
+        }
     }
     
     func savePreset(presetName: String, learningSteps: String, graduationInterval: String, lapseSteps: String, lapseSetBackFactor: Float, minimumInterval: String, easeFactor: Float, easyModifier: Float, normalModifier: Float, hardModifier: Float, lapseModifier: Float, easyIntervalModifier: Float) throws {
-        let _ = try SchedulePresetService().makePreset(presetName: presetName, learningSteps: learningSteps, graduationInterval: graduationInterval, lapseSteps: lapseSteps, lapseSetBackFactor: lapseSetBackFactor, minimumInterval: minimumInterval, easeFactor: easeFactor, easyModifier: easyModifier, normalModifier: normalModifier, hardModifier: hardModifier, lapseModifier: lapseModifier, easyIntervalModifier: easyIntervalModifier)
+        let learningSteps = try LearningSteps.makeFromString(stepsMinutes: learningSteps)
+        let graduationInterval = try GraduationInterval.makeFromString(intervalMinutes: graduationInterval)
+        let lapseSteps = try LapseSteps.makeFromString(stepsMinutes: lapseSteps)
+        let lapseSetbackFactor = try LapseSetbackFactor.makeFromFloat(modifier: lapseSetBackFactor)
+        let minimumInterval = try MinimumInterval.makeFromString(intervalMinutes: minimumInterval)
+        let easeFactor = try EaseFactor.makeFromFloat(easeFactor: easeFactor)
+        let easyModifier = try EasyFactorModifier.makeFromFloat(modifier: easyModifier)
+        let normalModifier = try NormalFactorModifier.makeFromFloat(modifier: normalModifier)
+        let hardModifier = try HardFactorModifier.makeFromFloat(modifier: hardModifier)
+        let lapseModifier = try LapseFactorModifier.makeFromFloat(modifier: lapseModifier)
+        let easyIntervalModifier = try EasyIntervalModifier.makeFromFloat(modifier: easyIntervalModifier)
+        self.schedulePreset = try SchedulePresetService().makePreset(presetName: presetName, learningSteps: learningSteps, graduationInterval: graduationInterval, lapseSteps: lapseSteps, lapseSetbackFactor: lapseSetbackFactor, minimumInterval: minimumInterval, easeFactor: easeFactor, easyFactorModifier: easyModifier, normalFactorModifier: normalModifier, hardFactorModifier: hardModifier, lapseFactorModifier: lapseModifier, easyIntervalModifier: easyIntervalModifier)
     }
     
-    func updatePreset(presetName: String, learningSteps: String, graduationInterval: String, lapseSteps: String, lapseSetBackFactor: Float, minimumInterval: String, easeFactor: Float, easyModifier: Float, normalModifier: Float, hardModifier: Float, lapseModifier: Float, easyIntervalModifier: Float) throws {
-        guard let preset = self.schedulePreset else {
-            throw SchedulePresetException.EntityNotFound
-        }
-        self.schedulePreset = try SchedulePresetService().updatePreset(forId: preset.id, presetName: presetName, learningSteps: learningSteps, graduationInterval: graduationInterval, lapseSteps: lapseSteps, lapseSetBackFactor: lapseSetBackFactor, minimumInterval: minimumInterval, easeFactor: easeFactor, easyModifier: easyModifier, normalModifier: normalModifier, hardModifier: hardModifier, lapseModifier: lapseModifier, easyIntervalModifier: easyIntervalModifier)
-    }
-    
-    private func validateIsSaveAble(nameFeedback: .NameValidation, learningStepsFeedback: .LearningStepsValidation, graduationIntervalFeedback: .GraduationIntervalValidation, lapseStepsFeedback: .LapseStepsValidation, minimumIntervalFeedback: .MinimumIntervalValidation) -> Bool {
-        guard nameFeedback == .OK else { return false }
-        guard learningStepsFeedback == .OK else { return false }
-        guard graduationIntervalFeedback == .OK else { return false }
-        guard lapseStepsFeedback == .OK else { return false }
-        guard minimumIntervalFeedback == .OK else { return false }
-        return true
+    func updatePreset(presetId: UUID, presetName: String, learningSteps: String, graduationInterval: String, lapseSteps: String, lapseSetBackFactor: Float, minimumInterval: String, easeFactor: Float, easyModifier: Float, normalModifier: Float, hardModifier: Float, lapseModifier: Float, easyIntervalModifier: Float) throws {
+        let learningSteps = try LearningSteps.makeFromString(stepsMinutes: learningSteps)
+        let graduationInterval = try GraduationInterval.makeFromString(intervalMinutes: graduationInterval)
+        let lapseSteps = try LapseSteps.makeFromString(stepsMinutes: lapseSteps)
+        let lapseSetbackFactor = try LapseSetbackFactor.makeFromFloat(modifier: lapseSetBackFactor)
+        let minimumInterval = try MinimumInterval.makeFromString(intervalMinutes: minimumInterval)
+        let easeFactor = try EaseFactor.makeFromFloat(easeFactor: easeFactor)
+        let easyModifier = try EasyFactorModifier.makeFromFloat(modifier: easyModifier)
+        let normalModifier = try NormalFactorModifier.makeFromFloat(modifier: normalModifier)
+        let hardModifier = try HardFactorModifier.makeFromFloat(modifier: hardModifier)
+        let lapseModifier = try LapseFactorModifier.makeFromFloat(modifier: lapseModifier)
+        let easyIntervalModifier = try EasyIntervalModifier.makeFromFloat(modifier: easyIntervalModifier)
+        self.schedulePreset = try SchedulePresetService().updatePreset(forId:presetId, presetName: presetName, learningSteps: learningSteps, graduationInterval: graduationInterval, lapseSteps: lapseSteps, lapseSetbackFactor: lapseSetbackFactor, minimumInterval: minimumInterval, easeFactor: easeFactor, easyFactorModifier: easyModifier, normalFactorModifier: normalModifier, hardFactorModifier: hardModifier, lapseFactorModifier: lapseModifier, easyIntervalModifier: easyIntervalModifier)
     }
 }

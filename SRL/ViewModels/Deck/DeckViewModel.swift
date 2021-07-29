@@ -12,6 +12,7 @@ class DeckViewModel: ObservableObject {
     @Published private (set) var deck: Deck
     @Published private (set) var reviewQueue: ReviewQueue
     @Published private (set) var orderedCards: [Card] = []
+    @Published private (set) var cardSorting: (Card, Card) -> Bool = DeckViewModel.sortByDatedCreatedDesc()
     
     private let deckService = DeckService()
     private var deckObserver: AnyCancellable?
@@ -20,24 +21,22 @@ class DeckViewModel: ObservableObject {
     init(deck: Deck) {
         self.deck = deck
         self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: deck)
-        initializeSortedCards(cards: deck.cards, sort: DeckViewModel.sortByDateCardCreatedNewToOld)
+        initializeSortedCards(cards: deck.cards, sortOrder: cardSorting)
         
         deckObserver = deckService.getModelPublisher().sink { decks in
-            if let updatedDeck  = self.deckService.getDeck(inDictionary: decks, forKey: self.deck.id) {
-                self.deck = updatedDeck
-                self.initializeSortedCards(cards: updatedDeck.cards, sort: DeckViewModel.sortByDateCardCreatedNewToOld)
-                self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: updatedDeck)
-            } else {
+            guard let updatedDeck  = self.deckService.getDeck(inDictionary: decks, forKey: self.deck.id) else {
                 self.deckObserver?.cancel()
+                return
             }
+            self.deck = updatedDeck
+            self.initializeSortedCards(cards: updatedDeck.cards, sortOrder: self.cardSorting)
+            self.reviewQueue = DeckViewModel.getDefaultReviewQueue(deck: updatedDeck)
         }
     }
 
 
-    func initializeSortedCards(cards: [UUID:Card], sort: (Card, Card) -> Bool) {
-        orderedCards = cards.map { (key: UUID, value: Card) in
-            value
-        }.sorted(by: sort)
+    func initializeSortedCards(cards: [UUID:Card], sortOrder: (Card, Card) -> Bool) {
+        orderedCards = cards.map { (key: UUID, value: Card) in value }.sorted(by: sortOrder)
     }
     
     func editDeck(name: String, presetId: UUID) {
@@ -54,18 +53,19 @@ class DeckViewModel: ObservableObject {
     }
     
     func deleteCards(indexSet: IndexSet) {
-        for index in indexSet {
-            deckService.deleteCard(forDeckId: deck.id, withCardId: self.orderedCards[index].id)
-            orderedCards.remove(at: index)
+        indexSet.map { (index: Int) in
+            self.orderedCards[index]
+        }.forEach { (card: Card) in
+            orderedCards.removeAll { currentCard in currentCard.id == card.id }
+            deckService.deleteCard(forDeckId: deck.id, withCardId: card.id)
         }
     }
-
     
     private static func getDefaultReviewQueue(deck: Deck) -> ReviewQueue {
         ReviewQueueService().makeTransientQueue(deckIds: [deck.id], reviewType: .REGULAR)
     }
     
-    static func sortByDateCardCreatedNewToOld(lhs: Card, rhs: Card) -> Bool {
-        lhs.dateCreated > rhs.dateCreated
+    private static func sortByDatedCreatedDesc() -> (Card, Card) -> Bool {
+        { (lhs, rhs) in lhs.dateCreated > rhs.dateCreated }
     }
 }

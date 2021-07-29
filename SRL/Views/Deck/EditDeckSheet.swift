@@ -36,8 +36,8 @@ struct EditDeckSheet: ViewModifier {
                 TextField("Deck Name", text: $formDeckName)
                     .disableAutocorrection(true)
                 Picker(selection: $formPresetIndex, label: Text("Preset")) {
-                    ForEach(0 ..< presetViewModel.presets.count) {
-                        Text(presetViewModel.presets[$0].name)
+                    ForEach(0 ..< presetViewModel.orderedPresets.count) {
+                        Text(presetViewModel.orderedPresets[$0].name)
                     }
                 }
                 Section {
@@ -58,15 +58,14 @@ struct EditDeckSheet: ViewModifier {
     }
     
     private func editDeckAction(deckName: String, presetIndex: Int) {
-        if let preset: SchedulePreset = presetViewModel.getPreset(forIndex: presetIndex) {
-            deckViewModel.editDeck(name: deckName, presetId: preset.id)
-        }
+        let preset: SchedulePreset = presetViewModel.orderedPresets[presetIndex]
+        deckViewModel.editDeck(name: deckName, presetId: preset.id)
         refreshEditDeckFormValues()
         isShowingBottomSheet = .hidden
     }
     
     private func refreshEditDeckFormValues() {
         formDeckName = deckViewModel.deck.name
-        formPresetIndex = presetViewModel.getPresetIndexOrDefault(forId: deckViewModel.deck.schedulePreset.id)
+        formPresetIndex = presetViewModel.getPresetOrDefaultIndex(forId: deckViewModel.deck.schedulePreset.id)
     }
 }

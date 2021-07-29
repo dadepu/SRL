@@ -35,7 +35,7 @@ struct EditCardView: View {
         self.deckViewModel = deckViewModel
         self.presetViewModel = presetViewModel
         self.editCardViewModel = EditCardViewModel(deck: deck, card: card)
-        self._formEaseFactor = State<Float>(initialValue: card.scheduler.easeFactor)
+        self._formEaseFactor = State<Float>(initialValue: card.scheduler.easeFactor.easeFactor)
         self._formDeckIndex = State<UUID>(initialValue: deck.id)
     }
     
@@ -109,7 +109,7 @@ struct EditCardView: View {
         @ObservedObject var editCardViewModel: EditCardViewModel
         
         var body: some View {
-            ListRowHorizontalSeparated(textLeft: {"Current Interval"}, textRight: {getFormattedTimeInterval(editCardViewModel.card.scheduler.currentReviewInterval)})
+            ListRowHorizontalSeparated(textLeft: {"Current Interval"}, textRight: {getFormattedTimeInterval(editCardViewModel.card.scheduler.currentReviewInterval.intervalSeconds)})
         }
     }
     
@@ -126,7 +126,7 @@ struct EditCardView: View {
         }
         
         var body: some View {
-            ListRowHorizontalSeparated(textLeft: {"Next Review"}, textRight: {formatter.string(from: editCardViewModel.card.scheduler.nextReviewDate)})
+            ListRowHorizontalSeparated(textLeft: {"Next Review"}, textRight: {formatter.string(from: editCardViewModel.card.scheduler.nextReviewDate.date)})
         }
     }
     
@@ -155,13 +155,13 @@ struct EditCardView: View {
         
         var body: some View {
             Picker(selection: $presetIndex, label: Text("Scheduler Preset")) {
-                ForEach(0 ..< presetViewModel.presets.count) {
-                    Text(self.presetViewModel.presets[$0].name)
+                ForEach(0 ..< presetViewModel.orderedPresets.count) {
+                    Text(self.presetViewModel.orderedPresets[$0].name)
                 }
             }.onChange(of: presetIndex, perform: { (value: Int) in
-                if let _ = presetViewModel.getPreset(forIndex: value) {
-                    
-                }
+//                if let _ = presetViewModel.getPreset(forIndex: value) {
+//                    
+//                }
             })
         }
     }

@@ -8,8 +8,9 @@
 import Foundation
 
 struct LapseSetbackFactor: InputValidation, Codable {
-    static private (set) var minimum: Float? = 0.0
-    static private (set) var maximum: Float? = 1.0
+    static private (set) var minimum: Float = 0.1
+    static private (set) var maximum: Float = 1.0
+    static private (set) var displayRange: [Float] = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     
     private (set) var remainingInterval: Float
     
@@ -27,7 +28,7 @@ struct LapseSetbackFactor: InputValidation, Codable {
     }
     
     static func validateLapseSetbackFactor(factor: Float) -> LapseSetbackFactorException {
-        guard validateInsideRange(value: factor, min: minimum, max: maximum) else {
+        guard validateRange(value: factor, min: minimum, max: maximum) else {
             return LapseSetbackFactorException.OUT_OF_RANGE
         }
         return LapseSetbackFactorException.OK

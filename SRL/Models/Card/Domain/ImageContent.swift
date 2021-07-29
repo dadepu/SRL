@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 struct ImageContent: Codable {
-    private var imageCodable: ImageEncoder
+    private var imageContainer: ImageEncoder
     
     
-    private init(_ imageCodable: ImageEncoder) {
-        self.imageCodable = imageCodable
+    private init(_ imageContainer: ImageEncoder) {
+        self.imageContainer = imageContainer
     }
     
     static func makeImageContent(image: UIImage) throws -> ImageContent {
@@ -22,6 +22,6 @@ struct ImageContent: Codable {
     }
     
     func getImage() throws -> UIImage {
-        try imageCodable.getImage()
+        try imageContainer.getImage()
     }
 }

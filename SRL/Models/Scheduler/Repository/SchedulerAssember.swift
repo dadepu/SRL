@@ -11,10 +11,12 @@ struct SchedulerAssembler {
     private let schedulePresetService = SchedulePresetService()
     
     func refreshScheduler(_ scheduler: Scheduler, withSchedulePresets presets: [UUID:SchedulePreset]) -> Scheduler {
+        var scheduler = scheduler
         if let updatedSchedulePreset = presets[scheduler.schedulePreset.id] {
-            return scheduler.hasSetSchedulePreset(updatedSchedulePreset)
+            scheduler.setSchedulePreset(updatedSchedulePreset)
         } else {
-            return scheduler.hasSetSchedulePreset(schedulePresetService.getDefaultSchedulePreset())
+            scheduler.setSchedulePreset(schedulePresetService.getDefaultSchedulePreset())
         }
+        return scheduler
     }
 }

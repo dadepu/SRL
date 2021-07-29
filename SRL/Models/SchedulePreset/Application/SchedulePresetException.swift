@@ -15,3 +15,8 @@ enum SchedulePresetException: Error {
     case DefaultPresetIsImmutable
 }
 
+enum SchedulePresetNameValidation: Error {
+    case OK
+    case EMPTY
+    case CONFLICTS_DEFAULT
+}

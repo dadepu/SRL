@@ -9,7 +9,7 @@ import Foundation
 
 protocol InputValidation {
     static func validateRegEx(input: String, pattern: () -> String) -> Bool
-    static func validateInsideRange<A: Comparable>(value: A, min: A?, max: A?) -> Bool
+    static func validateRange<A: Comparable>(value: A, min: A?, max: A?) -> Bool
 }
 
 extension InputValidation {
@@ -22,12 +22,16 @@ extension InputValidation {
         return true
     }
     
-    static func validateInsideRange<A: Comparable>(value: A, min: A?, max: A?) -> Bool {
-        guard let minimum = min, minimum <= value else {
-            return false
+    static func validateRange<A: Comparable>(value: A, min: A?, max: A?) -> Bool {
+        if let minimum = min {
+            guard minimum <= value else {
+                return false
+            }
         }
-        guard let maximum = max, value <= maximum else {
-            return false
+        if let maximum = max {
+            guard value <= maximum else {
+                return false
+            }
         }
         return true
     }

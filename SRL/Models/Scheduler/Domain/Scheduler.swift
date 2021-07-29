@@ -245,7 +245,7 @@ struct Scheduler: Identifiable, Codable {
         self.schedulePreset = updatedPreset
     }
     
-    mutating func replaceEaseFactor(updatedFactor: EaseFactor) -> Scheduler {
+    mutating func replaceEaseFactor(_ updatedFactor: EaseFactor) {
         self.easeFactor = updatedFactor
     }
     

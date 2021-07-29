@@ -10,6 +10,7 @@ import Foundation
 struct EaseFactor: InputValidation, Codable {
     static private (set) var minimum: Float = 1.5
     static private (set) var maximum: Float?
+    static private (set) var displayRange: [Float] = [1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
     
     private (set) var easeFactor: Float
     
@@ -27,7 +28,7 @@ struct EaseFactor: InputValidation, Codable {
     }
     
     static func validateEaseFactor(factor: Float) -> EaseFactorException {
-        guard validateInsideRange(value: factor, min: minimum, max: maximum) else {
+        guard validateRange(value: factor, min: minimum, max: maximum) else {
             return EaseFactorException.OUT_OF_RANGE
         }
         return EaseFactorException.OK
@@ -48,6 +49,13 @@ struct EaseFactor: InputValidation, Codable {
             return EaseFactor(modifier: EaseFactor.minimum)
         }
         return updatedFactor
+    }
+}
+
+extension EaseFactor: Equatable {
+    static func == (lhs: EaseFactor, rhs: EaseFactor) -> Bool {
+        return
+            lhs.easeFactor == rhs.easeFactor
     }
 }
 

@@ -41,6 +41,10 @@ struct MinimumInterval: InputValidation, Codable {
         }
         return MinimumIntervalException.OK
     }
+    
+    func toStringMinutes() -> String {
+        String(format: "%.0f", intervalSeconds / 60)
+    }
 }
 
 enum MinimumIntervalException: Error {

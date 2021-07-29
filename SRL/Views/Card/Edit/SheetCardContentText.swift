@@ -25,6 +25,6 @@ struct SheetCardContentText: View {
     }
     
     static func getContent(text: String) -> CardContentType {
-        CardContentType.TEXT(content: try! TextContent.makeTextContentFromString(text: text))
+        CardContentType.TEXT(content: try! TextContent.makeTextContent(text: text))
     }
 }
