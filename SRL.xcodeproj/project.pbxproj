@@ -23,7 +23,7 @@
 		871F75AC26A14019006431B8 /* SchedulerAssember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F75AB26A14019006431B8 /* SchedulerAssember.swift */; };
 		871F75AE26A14379006431B8 /* CardAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F75AD26A14379006431B8 /* CardAssembler.swift */; };
 		871F75B026A148EB006431B8 /* DeckAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F75AF26A148EB006431B8 /* DeckAssembler.swift */; };
-		872ADF2E2692DDF6007C601A /* NewDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ADF2D2692DDF6007C601A /* NewDeck.swift */; };
+		872ADF2E2692DDF6007C601A /* DeckForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ADF2D2692DDF6007C601A /* DeckForm.swift */; };
 		873259B326A9EE2E00F3178F /* CardContentTypeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873259B226A9EE2E00F3178F /* CardContentTypeContainer.swift */; };
 		873259B626A9FA6200F3178F /* EditCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873259B526A9FA6200F3178F /* EditCardViewModel.swift */; };
 		873D4F952690D0D700A4F128 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F912690D0D700A4F128 /* BottomSheet.swift */; };
@@ -36,8 +36,7 @@
 		8745A6C926AAE7C800529587 /* SheetCardContentText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745A6C826AAE7C800529587 /* SheetCardContentText.swift */; };
 		8750A3C926919C2A00837E24 /* CustomStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3C826919C2A00837E24 /* CustomStudyView.swift */; };
 		8750A3CB2691B92800837E24 /* PresetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CA2691B92800837E24 /* PresetViewModel.swift */; };
-		8750A3CF2691E97A00837E24 /* DeleteDeckSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CE2691E97A00837E24 /* DeleteDeckSheet.swift */; };
-		8750A3D12691EA4F00837E24 /* EditDeckSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3D02691EA4F00837E24 /* EditDeckSheet.swift */; };
+		8750A3CF2691E97A00837E24 /* DeleteDeckBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CE2691E97A00837E24 /* DeleteDeckBottomSheet.swift */; };
 		875392B226AA762D008CFCC4 /* CardContentSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875392B126AA762D008CFCC4 /* CardContentSheet.swift */; };
 		875392B626AA8348008CFCC4 /* CreateCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875392B526AA8348008CFCC4 /* CreateCardViewModel.swift */; };
 		875392B926AA9E37008CFCC4 /* ContentTypeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875392B826AA9E37008CFCC4 /* ContentTypeMapper.swift */; };
@@ -106,6 +105,8 @@
 		87B480CB26906E8600887C6A /* TypingContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480CA26906E8600887C6A /* TypingContent.swift */; };
 		87BAFEB8269D8F9D003B3C71 /* ReviewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BAFEB7269D8F9D003B3C71 /* ReviewType.swift */; };
 		87BAFEC0269DD9A0003B3C71 /* ReviewQueueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BAFEBF269DD9A0003B3C71 /* ReviewQueueService.swift */; };
+		87BF1D7326B3AE7E00230F97 /* NewDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF1D7226B3AE7E00230F97 /* NewDeck.swift */; };
+		87BF1D7526B3B16D00230F97 /* EditDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF1D7426B3B16D00230F97 /* EditDeck.swift */; };
 		87C07D0C26B188D90077A540 /* FactorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C07D0B26B188D90077A540 /* FactorModifier.swift */; };
 		87C4971226AC33DB0015823E /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C4971126AC33DB0015823E /* ReviewView.swift */; };
 		87C4971426AC33E50015823E /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C4971326AC33E50015823E /* ReviewViewModel.swift */; };
@@ -160,7 +161,7 @@
 		871F75AB26A14019006431B8 /* SchedulerAssember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerAssember.swift; sourceTree = "<group>"; };
 		871F75AD26A14379006431B8 /* CardAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAssembler.swift; sourceTree = "<group>"; };
 		871F75AF26A148EB006431B8 /* DeckAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckAssembler.swift; sourceTree = "<group>"; };
-		872ADF2D2692DDF6007C601A /* NewDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDeck.swift; sourceTree = "<group>"; };
+		872ADF2D2692DDF6007C601A /* DeckForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckForm.swift; sourceTree = "<group>"; };
 		873259B226A9EE2E00F3178F /* CardContentTypeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentTypeContainer.swift; sourceTree = "<group>"; };
 		873259B526A9FA6200F3178F /* EditCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewModel.swift; sourceTree = "<group>"; };
 		873D4F912690D0D700A4F128 /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
@@ -173,8 +174,7 @@
 		8745A6C826AAE7C800529587 /* SheetCardContentText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCardContentText.swift; sourceTree = "<group>"; };
 		8750A3C826919C2A00837E24 /* CustomStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStudyView.swift; sourceTree = "<group>"; };
 		8750A3CA2691B92800837E24 /* PresetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetViewModel.swift; sourceTree = "<group>"; };
-		8750A3CE2691E97A00837E24 /* DeleteDeckSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeckSheet.swift; sourceTree = "<group>"; };
-		8750A3D02691EA4F00837E24 /* EditDeckSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDeckSheet.swift; sourceTree = "<group>"; };
+		8750A3CE2691E97A00837E24 /* DeleteDeckBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeckBottomSheet.swift; sourceTree = "<group>"; };
 		875392B126AA762D008CFCC4 /* CardContentSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentSheet.swift; sourceTree = "<group>"; };
 		875392B526AA8348008CFCC4 /* CreateCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardViewModel.swift; sourceTree = "<group>"; };
 		875392B826AA9E37008CFCC4 /* ContentTypeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTypeMapper.swift; sourceTree = "<group>"; };
@@ -249,6 +249,8 @@
 		87B480CA26906E8600887C6A /* TypingContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingContent.swift; sourceTree = "<group>"; };
 		87BAFEB7269D8F9D003B3C71 /* ReviewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewType.swift; sourceTree = "<group>"; };
 		87BAFEBF269DD9A0003B3C71 /* ReviewQueueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQueueService.swift; sourceTree = "<group>"; };
+		87BF1D7226B3AE7E00230F97 /* NewDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDeck.swift; sourceTree = "<group>"; };
+		87BF1D7426B3B16D00230F97 /* EditDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDeck.swift; sourceTree = "<group>"; };
 		87C07D0B26B188D90077A540 /* FactorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactorModifier.swift; sourceTree = "<group>"; };
 		87C4971126AC33DB0015823E /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		87C4971326AC33E50015823E /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
@@ -454,8 +456,8 @@
 			isa = PBXGroup;
 			children = (
 				8795D2142663E175007C99D9 /* DeckView.swift */,
-				8750A3D02691EA4F00837E24 /* EditDeckSheet.swift */,
-				8750A3CE2691E97A00837E24 /* DeleteDeckSheet.swift */,
+				87BF1D7426B3B16D00230F97 /* EditDeck.swift */,
+				8750A3CE2691E97A00837E24 /* DeleteDeckBottomSheet.swift */,
 			);
 			path = Deck;
 			sourceTree = "<group>";
@@ -473,7 +475,8 @@
 			isa = PBXGroup;
 			children = (
 				8795D2122663E135007C99D9 /* DeckList.swift */,
-				872ADF2D2692DDF6007C601A /* NewDeck.swift */,
+				87BF1D7226B3AE7E00230F97 /* NewDeck.swift */,
+				872ADF2D2692DDF6007C601A /* DeckForm.swift */,
 			);
 			path = DeckList;
 			sourceTree = "<group>";
@@ -1045,12 +1048,12 @@
 				87B480C1269066A200887C6A /* TypingCard.swift in Sources */,
 				8795D2152663E175007C99D9 /* DeckView.swift in Sources */,
 				877B156626B15C1F009FF1CC /* EasyIntervalModifier.swift in Sources */,
-				8750A3D12691EA4F00837E24 /* EditDeckSheet.swift in Sources */,
 				87DA6851269CB98D003F07A8 /* CardUserDefaultsRepository.swift in Sources */,
 				87BAFEC0269DD9A0003B3C71 /* ReviewQueueService.swift in Sources */,
 				8750A3C926919C2A00837E24 /* CustomStudyView.swift in Sources */,
 				877B157026B168F7009FF1CC /* HardFactorModifier.swift in Sources */,
-				872ADF2E2692DDF6007C601A /* NewDeck.swift in Sources */,
+				872ADF2E2692DDF6007C601A /* DeckForm.swift in Sources */,
+				87BF1D7326B3AE7E00230F97 /* NewDeck.swift in Sources */,
 				8762CFF226ABEBC500CBEA2F /* CardDeletionService.swift in Sources */,
 				871F75AC26A14019006431B8 /* SchedulerAssember.swift in Sources */,
 				871F1187268ED0C400BF9A51 /* DeckService.swift in Sources */,
@@ -1112,7 +1115,8 @@
 				87B480BD269064F600887C6A /* CardContentType.swift in Sources */,
 				8757BBC926ADD87800B6C7B1 /* CustomStudyViewModel.swift in Sources */,
 				877B156A26B1636A009FF1CC /* EaseFactor.swift in Sources */,
-				8750A3CF2691E97A00837E24 /* DeleteDeckSheet.swift in Sources */,
+				8750A3CF2691E97A00837E24 /* DeleteDeckBottomSheet.swift in Sources */,
+				87BF1D7526B3B16D00230F97 /* EditDeck.swift in Sources */,
 				876840BD26AB0EB6008384B3 /* CardCreationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

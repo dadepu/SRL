@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DeleteDeckSheet: ViewModifier {
+struct DeleteDeckBottomSheet: ViewModifier {
     @Binding var presentationMode: PresentationMode
     @Binding var isShowingBottomSheet: BottomSheetPosition
     
@@ -16,8 +16,7 @@ struct DeleteDeckSheet: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .bottomSheet(bottomSheetPosition: $isShowingBottomSheet, options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss, .noBottomPosition],
-                         headerContent: sheetHeader, mainContent: sheetContent)
+            .bottomSheet(bottomSheetPosition: $isShowingBottomSheet, options: [.allowContentDrag, .swipeToDismiss, .tapToDissmiss, .noBottomPosition, .notResizeable], headerContent: sheetHeader, mainContent: sheetContent)
     }
     
     private func sheetHeader() -> some View {

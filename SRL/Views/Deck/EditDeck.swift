@@ -1,5 +1,5 @@
 //
-//  NewDeck.swift
+//  EditDeck.swift
 //  SRL
 //
 //  Created by Daniel Koellgen on 30.07.21.
@@ -7,34 +7,34 @@
 
 import SwiftUI
 
-struct NewDeck: View {
+struct EditDeck: View {
+    @ObservedObject var deckViewModel: DeckViewModel
     @ObservedObject var presetViewModel: PresetViewModel
-    @ObservedObject var storeViewModel: StoreViewModel
     
     @Binding var isShowingBottomSheet: Bool
     
     var body: some View {
         NavigationView {
-            DeckForm<NewDeckButton>(presetViewModel: presetViewModel, formDeckName: "", formPresetId: PresetViewModel.getDefaultPreset().id,
+            DeckForm<EditDeckButton>(presetViewModel: presetViewModel, formDeckName: deckViewModel.deck.name, formPresetId: deckViewModel.deck.schedulePreset.id,
                 FormButton: { deckForm in
-                    NewDeckButton(storeViewModel: storeViewModel, formDeckName: deckForm.$formDeckName, formPresetId: deckForm.$formPresetId, isShowingBottomSheet: $isShowingBottomSheet)
+                    EditDeckButton(deckViewModel: deckViewModel, formDeckName: deckForm.$formDeckName, formPresetId: deckForm.$formPresetId, isShowingBottomSheet: $isShowingBottomSheet)
                 })
-            .navigationBarTitle(Text("New Deck"))
+            .navigationBarTitle(Text("Edit Deck"))
         }
     }
     
-    struct NewDeckButton: View {
-        var storeViewModel: StoreViewModel
+    struct EditDeckButton: View {
+        var deckViewModel: DeckViewModel
         
         @Binding var formDeckName: String
         @Binding var formPresetId: UUID
-        
+    
         @Binding var isShowingBottomSheet: Bool
         
         var body: some View {
             Button(action: {
                 if validInput() {
-                    storeViewModel.makeDeck(name: formDeckName, presetId: formPresetId)
+                    deckViewModel.editDeck(name: formDeckName, presetId: formPresetId)
                     isShowingBottomSheet = false
                 }
             }, label: {

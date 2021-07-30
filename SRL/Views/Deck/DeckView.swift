@@ -11,12 +11,9 @@ struct DeckView: View {
     @ObservedObject private var deckViewModel: DeckViewModel
     @ObservedObject private var presetViewModel: PresetViewModel
     
-    @State private var bottomSheetEditPosition: BottomSheetPosition = .hidden
+    @State private var isShowingBottomSheet: Bool = false
     @State private var bottomSheetRemovePosition: BottomSheetPosition = .hidden
     @State private var navLinkDueCards: Bool = false
-    
-    @State private var formDeckName: String = ""
-    @State private var formPresetIndex: Int = 0
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -36,9 +33,8 @@ struct DeckView: View {
                     label: {
                         ListRowHorizontalSeparated(textLeft: {"Review"}, textRight: {"\(deckViewModel.reviewQueue.getReviewableCardCount())"})
                     }).simultaneousGesture(TapGesture().onEnded {
-                        ReviewQueueService().makeReviewQueue(deckIds: [deckViewModel.deck.id], reviewType: .REGULAR)
-                        navLinkDueCards = true
-                    }).disabled(deckViewModel.reviewQueue.getReviewableCardCount() == 0)
+                        openReviewQueue()
+                    }).disabled(!validateDeckHasReviewableCards())
                 NavigationLink(
                     destination: CustomStudyView(deckViewModel: deckViewModel),
                     label: {
@@ -55,7 +51,7 @@ struct DeckView: View {
                     destination: CardBrowser(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
                     label: {
                         Text("Browse Cards")
-                    }).disabled(deckViewModel.orderedCards.count == 0)
+                    }).disabled(!validateDeckHasCards())
             }
             Section(header: Text("Deck")) {
                 NavigationLink(
@@ -64,8 +60,7 @@ struct DeckView: View {
                         Text("Presets")
                     })
                 Button("Edit") {
-                    refreshEditDeckFormValues()
-                    bottomSheetEditPosition = .middle
+                    isShowingBottomSheet = true
                 }
                 Button("Delete") {
                     bottomSheetRemovePosition = .middle
@@ -73,15 +68,24 @@ struct DeckView: View {
             }
         }
         .listStyle(GroupedListStyle())
-        .modifier(EditDeckSheet(deckViewModel: deckViewModel, presetViewModel: presetViewModel, isShowingBottomSheet: $bottomSheetEditPosition, formDeckName: $formDeckName, formPresetIndex: $formPresetIndex))
-        .modifier(DeleteDeckSheet(presentationMode: presentationMode, isShowingBottomSheet: $bottomSheetRemovePosition, deckViewModel: deckViewModel))
+        .modifier(DeleteDeckBottomSheet(presentationMode: presentationMode, isShowingBottomSheet: $bottomSheetRemovePosition, deckViewModel: deckViewModel))
+        .sheet(isPresented: $isShowingBottomSheet, content: {
+            EditDeck(deckViewModel: deckViewModel, presetViewModel: presetViewModel, isShowingBottomSheet: $isShowingBottomSheet)
+        })
         .navigationBarTitle(deckViewModel.deck.name, displayMode: .inline)
     }
     
     
+    private func openReviewQueue() {
+        ReviewQueueService().makeReviewQueue(deckIds: [deckViewModel.deck.id], reviewType: .REGULAR)
+        navLinkDueCards = true
+    }
     
-    private func refreshEditDeckFormValues() {
-        formDeckName = deckViewModel.deck.name
-        formPresetIndex = presetViewModel.getPresetOrDefaultIndex(forId: deckViewModel.deck.schedulePreset.id)
+    private func validateDeckHasCards() -> Bool {
+        deckViewModel.orderedCards.count > 0
+    }
+    
+    private func validateDeckHasReviewableCards() -> Bool {
+        deckViewModel.reviewQueue.getReviewableCardCount() > 0
     }
 }
