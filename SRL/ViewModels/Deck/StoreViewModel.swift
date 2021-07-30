@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class StoreViewModel: ObservableObject {
-    @Published private (set) var decks: [Deck] = []
+    @Published private (set) var orderedDecks: [Deck] = []
     @Published private (set) var reviewQueues: [UUID:ReviewQueue] = [:]
     
     private var deckService = DeckService()
@@ -18,11 +18,11 @@ class StoreViewModel: ObservableObject {
     
     init() {
         let hashedDecks: [UUID:Deck] = deckService.getAllDecks()
-        decks = getDecksOrderedByNameDesc(hashedDecks)
+        orderedDecks = getDecksOrderedByNameDesc(hashedDecks)
         reviewQueues = makeRegularReviewQueues(hashedDecks)
         
         deckObserver = deckService.getModelPublisher().sink { (decks: [UUID:Deck]) in
-            self.decks = self.getDecksOrderedByNameDesc(decks)
+            self.orderedDecks = self.getDecksOrderedByNameDesc(decks)
             self.reviewQueues = self.makeRegularReviewQueues(decks)
         }
     }
@@ -33,7 +33,16 @@ class StoreViewModel: ObservableObject {
     
     func dropDeck(id: UUID) {
         deckService.deleteDeck(forId: id)
-        decks.removeAll(where: { deck in deck.id == id })
+        orderedDecks.removeAll(where: { deck in deck.id == id })
+    }
+    
+    func dropDecks(indices: IndexSet) {
+        indices.map { (index: Int) in
+            self.orderedDecks[index]
+        }.forEach { (deck: Deck) in
+            orderedDecks.removeAll { currentDeck in currentDeck.id == deck.id }
+            deckService.deleteDeck(forId: deck.id)
+        }
     }
 
     

@@ -34,6 +34,10 @@ class PresetViewModel: ObservableObject {
         return presetIndex
     }
     
+    static func getDefaultPreset() -> SchedulePreset {
+        SchedulePresetService().getDefaultSchedulePreset()
+    }
+    
     
     
     private static func sortByNameDefaultFirst() -> (SchedulePreset, SchedulePreset) -> Bool {

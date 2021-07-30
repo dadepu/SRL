@@ -20,11 +20,3 @@ struct ListRowHorizontalSeparated: View {
         }
     }
 }
-
-
-
-//struct DeckRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DeckRow()
-//    }
-//}

@@ -23,7 +23,7 @@
 		871F75AC26A14019006431B8 /* SchedulerAssember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F75AB26A14019006431B8 /* SchedulerAssember.swift */; };
 		871F75AE26A14379006431B8 /* CardAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F75AD26A14379006431B8 /* CardAssembler.swift */; };
 		871F75B026A148EB006431B8 /* DeckAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871F75AF26A148EB006431B8 /* DeckAssembler.swift */; };
-		872ADF2E2692DDF6007C601A /* AddDeckSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ADF2D2692DDF6007C601A /* AddDeckSheet.swift */; };
+		872ADF2E2692DDF6007C601A /* NewDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872ADF2D2692DDF6007C601A /* NewDeck.swift */; };
 		873259B326A9EE2E00F3178F /* CardContentTypeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873259B226A9EE2E00F3178F /* CardContentTypeContainer.swift */; };
 		873259B626A9FA6200F3178F /* EditCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873259B526A9FA6200F3178F /* EditCardViewModel.swift */; };
 		873D4F952690D0D700A4F128 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873D4F912690D0D700A4F128 /* BottomSheet.swift */; };
@@ -36,7 +36,6 @@
 		8745A6C926AAE7C800529587 /* SheetCardContentText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745A6C826AAE7C800529587 /* SheetCardContentText.swift */; };
 		8750A3C926919C2A00837E24 /* CustomStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3C826919C2A00837E24 /* CustomStudyView.swift */; };
 		8750A3CB2691B92800837E24 /* PresetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CA2691B92800837E24 /* PresetViewModel.swift */; };
-		8750A3CD2691E19B00837E24 /* DeckListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CC2691E19B00837E24 /* DeckListSection.swift */; };
 		8750A3CF2691E97A00837E24 /* DeleteDeckSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3CE2691E97A00837E24 /* DeleteDeckSheet.swift */; };
 		8750A3D12691EA4F00837E24 /* EditDeckSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8750A3D02691EA4F00837E24 /* EditDeckSheet.swift */; };
 		875392B226AA762D008CFCC4 /* CardContentSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875392B126AA762D008CFCC4 /* CardContentSheet.swift */; };
@@ -92,7 +91,7 @@
 		878ABC8E26AFD5F90031AB39 /* PresetEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878ABC8D26AFD5F90031AB39 /* PresetEditorViewModel.swift */; };
 		878ABC9226AFD8360031AB39 /* PresetErrorDescriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878ABC9126AFD8360031AB39 /* PresetErrorDescriptions.swift */; };
 		87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87946B68268F996600CEAA98 /* SchedulePresetRepository.swift */; };
-		8795D2132663E135007C99D9 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795D2122663E135007C99D9 /* StoreView.swift */; };
+		8795D2132663E135007C99D9 /* DeckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795D2122663E135007C99D9 /* DeckList.swift */; };
 		8795D2152663E175007C99D9 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8795D2142663E175007C99D9 /* DeckView.swift */; };
 		87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A110C9265ED23A00F0D4B6 /* LearningState.swift */; };
 		87B480AC26901F7B00887C6A /* DeckRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B480AB26901F7B00887C6A /* DeckRepository.swift */; };
@@ -161,7 +160,7 @@
 		871F75AB26A14019006431B8 /* SchedulerAssember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerAssember.swift; sourceTree = "<group>"; };
 		871F75AD26A14379006431B8 /* CardAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAssembler.swift; sourceTree = "<group>"; };
 		871F75AF26A148EB006431B8 /* DeckAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckAssembler.swift; sourceTree = "<group>"; };
-		872ADF2D2692DDF6007C601A /* AddDeckSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeckSheet.swift; sourceTree = "<group>"; };
+		872ADF2D2692DDF6007C601A /* NewDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDeck.swift; sourceTree = "<group>"; };
 		873259B226A9EE2E00F3178F /* CardContentTypeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentTypeContainer.swift; sourceTree = "<group>"; };
 		873259B526A9FA6200F3178F /* EditCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewModel.swift; sourceTree = "<group>"; };
 		873D4F912690D0D700A4F128 /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
@@ -174,7 +173,6 @@
 		8745A6C826AAE7C800529587 /* SheetCardContentText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetCardContentText.swift; sourceTree = "<group>"; };
 		8750A3C826919C2A00837E24 /* CustomStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStudyView.swift; sourceTree = "<group>"; };
 		8750A3CA2691B92800837E24 /* PresetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetViewModel.swift; sourceTree = "<group>"; };
-		8750A3CC2691E19B00837E24 /* DeckListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckListSection.swift; sourceTree = "<group>"; };
 		8750A3CE2691E97A00837E24 /* DeleteDeckSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDeckSheet.swift; sourceTree = "<group>"; };
 		8750A3D02691EA4F00837E24 /* EditDeckSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDeckSheet.swift; sourceTree = "<group>"; };
 		875392B126AA762D008CFCC4 /* CardContentSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentSheet.swift; sourceTree = "<group>"; };
@@ -236,7 +234,7 @@
 		878ABC8D26AFD5F90031AB39 /* PresetEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditorViewModel.swift; sourceTree = "<group>"; };
 		878ABC9126AFD8360031AB39 /* PresetErrorDescriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetErrorDescriptions.swift; sourceTree = "<group>"; };
 		87946B68268F996600CEAA98 /* SchedulePresetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresetRepository.swift; sourceTree = "<group>"; };
-		8795D2122663E135007C99D9 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
+		8795D2122663E135007C99D9 /* DeckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckList.swift; sourceTree = "<group>"; };
 		8795D2142663E175007C99D9 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		87A110C9265ED23A00F0D4B6 /* LearningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningState.swift; sourceTree = "<group>"; };
 		87B480AB26901F7B00887C6A /* DeckRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckRepository.swift; sourceTree = "<group>"; };
@@ -466,20 +464,18 @@
 			isa = PBXGroup;
 			children = (
 				8701854426AF10CA00781CCF /* ImagePicker.swift */,
-				87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */,
 				873D4F902690D0C700A4F128 /* BottomSheet */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		8750A3D42691EAF300837E24 /* Store */ = {
+		8750A3D42691EAF300837E24 /* DeckList */ = {
 			isa = PBXGroup;
 			children = (
-				8795D2122663E135007C99D9 /* StoreView.swift */,
-				8750A3CC2691E19B00837E24 /* DeckListSection.swift */,
-				872ADF2D2692DDF6007C601A /* AddDeckSheet.swift */,
+				8795D2122663E135007C99D9 /* DeckList.swift */,
+				872ADF2D2692DDF6007C601A /* NewDeck.swift */,
 			);
-			path = Store;
+			path = DeckList;
 			sourceTree = "<group>";
 		};
 		875392B726AA9BE0008CFCC4 /* Review */ = {
@@ -581,13 +577,14 @@
 		87541C83265CE020009E805D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8750A3D42691EAF300837E24 /* Store */,
+				8750A3D42691EAF300837E24 /* DeckList */,
 				8750A3D22691EA5800837E24 /* Deck */,
 				8773255E26A9A91500CAD727 /* Custom Study */,
 				877BF8C9269216AD00710AD2 /* Preset */,
 				875392C026AAC8F6008CFCC4 /* Card */,
 				87C4970E26AC332E0015823E /* Review */,
 				8750A3D32691EA8600837E24 /* Shared */,
+				87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1025,7 +1022,6 @@
 				87E3BB1426B1A04D000901FF /* FactorModifierException.swift in Sources */,
 				8745A6C726AAE5CB00529587 /* CardContent.swift in Sources */,
 				871F11AD268F09E300BF9A51 /* SchedulePresetUserDefaultsRepository.swift in Sources */,
-				8750A3CD2691E19B00837E24 /* DeckListSection.swift in Sources */,
 				87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */,
 				877BF8CD26921CC300710AD2 /* NewPreset.swift in Sources */,
 				877B156C26B1684C009FF1CC /* EasyFactorModifier.swift in Sources */,
@@ -1054,7 +1050,7 @@
 				87BAFEC0269DD9A0003B3C71 /* ReviewQueueService.swift in Sources */,
 				8750A3C926919C2A00837E24 /* CustomStudyView.swift in Sources */,
 				877B157026B168F7009FF1CC /* HardFactorModifier.swift in Sources */,
-				872ADF2E2692DDF6007C601A /* AddDeckSheet.swift in Sources */,
+				872ADF2E2692DDF6007C601A /* NewDeck.swift in Sources */,
 				8762CFF226ABEBC500CBEA2F /* CardDeletionService.swift in Sources */,
 				871F75AC26A14019006431B8 /* SchedulerAssember.swift in Sources */,
 				871F1187268ED0C400BF9A51 /* DeckService.swift in Sources */,
@@ -1091,7 +1087,7 @@
 				87B480AC26901F7B00887C6A /* DeckRepository.swift in Sources */,
 				878ABC8E26AFD5F90031AB39 /* PresetEditorViewModel.swift in Sources */,
 				87BAFEB8269D8F9D003B3C71 /* ReviewType.swift in Sources */,
-				8795D2132663E135007C99D9 /* StoreView.swift in Sources */,
+				8795D2132663E135007C99D9 /* DeckList.swift in Sources */,
 				87DA684F269CB983003F07A8 /* CardRepository.swift in Sources */,
 				8745A6C926AAE7C800529587 /* SheetCardContentText.swift in Sources */,
 				8773256826A9B3D700CAD727 /* CardTypeMapper.swift in Sources */,

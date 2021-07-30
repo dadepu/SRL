@@ -173,7 +173,7 @@ struct EditCardView: View {
         
         var body: some View {
             Picker(selection: $deckIndex, label: Text("Deck")) {
-                ForEach(storeViewModel.decks) { deck in
+                ForEach(storeViewModel.orderedDecks) { deck in
                     Text(deck.name)
                 }
             }.onChange(of: deckIndex, perform: { deckId in
