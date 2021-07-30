@@ -51,6 +51,9 @@ class EditCardViewModel: AbstractCardViewModel {
         if let newEaseFactor = changedEaseFactor, newEaseFactor != card.scheduler.easeFactor {
             try? SchedulerService().changeEaseFactor(forId: card.scheduler.id, with: newEaseFactor)
         }
+        if schedulePreset.id != card.scheduler.schedulePreset.id {
+            try! SchedulerService().setPreset(forId: card.scheduler.id, withId: schedulePreset.id)
+        }
     }
     
     func graduateScheduler() {

@@ -43,12 +43,13 @@ struct DeckView: View {
             }
             Section(header: Text("Actions")) {
                 NavigationLink(
-                    destination: CreateCardView(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
+                    destination: NewCard(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
+                        // CreateCardView(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
                     label: {
                         Text("Add Cards")
                     })
                 NavigationLink(
-                    destination: CardBrowser(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
+                    destination: CardBrowseView(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
                     label: {
                         Text("Browse Cards")
                     }).disabled(!validateDeckHasCards())

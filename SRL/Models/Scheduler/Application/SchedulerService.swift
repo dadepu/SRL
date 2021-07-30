@@ -40,11 +40,13 @@ struct SchedulerService {
         let scheduler = try getScheduler(forId: id)
         let updatedScheduler = try scheduler.graduatedScheduler()
         schedulerRepository.saveScheduler(updatedScheduler)
+        ReviewQueueService().resetReviewQueue()
     }
     
     func resetScheduler(forId id: UUID) throws {
         let scheduler = try getScheduler(forId: id)
         let updatedScheduler = scheduler.resettedScheduler()
         schedulerRepository.saveScheduler(updatedScheduler)
+        ReviewQueueService().resetReviewQueue()
     }
 }

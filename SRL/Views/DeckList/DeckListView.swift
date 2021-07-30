@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct DeckList: View {
-    @ObservedObject private var presetViewModel: PresetViewModel = PresetViewModel()
-    @ObservedObject private var storeViewModel: StoreViewModel = StoreViewModel()
+struct DeckListView: View {
+    @ObservedObject var presetViewModel: PresetViewModel
+    @ObservedObject var storeViewModel: StoreViewModel
     
     @State private var isShowingNewDeckSheet: Bool = false
     
@@ -19,10 +19,19 @@ struct DeckList: View {
             List {
                 ForEach(storeViewModel.orderedDecks) { deck in
                     NavigationLink(destination: DeckView(deck: deck, presetViewModel: presetViewModel)) {
-                        ListRowHorizontalSeparated(textLeft: {deck.name}, textRight: {"\(storeViewModel.reviewQueues[deck.id]!.getReviewableCardCount())"})
+//                        ListRowHorizontalSeparatedDirect(textLeft: deck.name, textRight: "\(storeViewModel.reviewQueues[deck.id]!.getReviewableCardCount())")
+                        HStack {
+                            Text(deck.name)
+                            Spacer()
+                            Text("\(storeViewModel.reviewQueues[deck.id]!.getReviewableCardCount())")
+                                .padding(.horizontal)
+                        }
                     }
                 }
                 .onDelete(perform: storeViewModel.dropDecks)
+                ForEach(storeViewModel.reviewQueues.map{ _, queue in queue }) { queue in
+                    Text("\(queue.getReviewableCardCount())")
+                }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("Decks", displayMode: .inline)

@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct SRLApp: App {
+    
+    @ObservedObject private var presetViewModel: PresetViewModel = PresetViewModel()
+    @ObservedObject private var storeViewModel: StoreViewModel = StoreViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            DeckList()
+            DeckListView(presetViewModel: presetViewModel, storeViewModel: storeViewModel)
+                .environmentObject(storeViewModel)
         }
     }
 }

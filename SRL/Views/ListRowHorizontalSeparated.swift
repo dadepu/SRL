@@ -20,3 +20,20 @@ struct ListRowHorizontalSeparated: View {
         }
     }
 }
+
+
+struct ListRowHorizontalSeparatedDirect: View {
+    @EnvironmentObject var storeViewModel: StoreViewModel
+    
+    var textLeft: String
+    var textRight: String
+    
+    var body: some View {
+        HStack {
+            Text(textLeft)
+            Spacer()
+            Text(textRight)
+                .padding(.horizontal)
+        }
+    }
+}

@@ -50,6 +50,7 @@ class DeckViewModel: ObservableObject {
 
     func dropDeck(id: UUID) {
         deckService.deleteDeck(forId: id)
+        print("delete deck \(id)")
     }
     
     func deleteCards(indexSet: IndexSet) {

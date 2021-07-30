@@ -49,17 +49,6 @@ struct CreateCardView: View {
             Section {
                 SaveCardButton(createCardViewModel: createCardViewModel)
             }
-//            VStack {
-//                if image != nil {
-//                    image?
-//                        .resizable()
-//                        .scaledToFit()
-//                } else {
-//                    Text("Tap to select a picture")
-//                }
-//            }.onTapGesture {
-//                self.showingImagePicker = true
-//            }
         }
         .listStyle(GroupedListStyle())
         .modifier(CardFrontContentSheet(createCardViewModel: createCardViewModel, isShowingBottomSheet: $isShowingBottomSheetAddContentFront, opacityBottomSheet: $opacityBottomUpSheets, image: $image, showingImagePicker: $showingImagePicker, inputImage: $inputImage))

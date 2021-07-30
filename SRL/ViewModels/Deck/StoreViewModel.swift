@@ -20,6 +20,7 @@ class StoreViewModel: ObservableObject {
         let hashedDecks: [UUID:Deck] = deckService.getAllDecks()
         orderedDecks = getDecksOrderedByNameDesc(hashedDecks)
         reviewQueues = makeRegularReviewQueues(hashedDecks)
+
         
         deckObserver = deckService.getModelPublisher().sink { (decks: [UUID:Deck]) in
             self.orderedDecks = self.getDecksOrderedByNameDesc(decks)
