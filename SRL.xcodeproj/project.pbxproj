@@ -55,7 +55,6 @@
 		8757BBBD26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBBC26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift */; };
 		8757BBC026AD4F4F00B6C7B1 /* MakeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBBF26AD4F4F00B6C7B1 /* MakeCard.swift */; };
 		8757BBC526AD94C500B6C7B1 /* SchedulerException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBC426AD94C500B6C7B1 /* SchedulerException.swift */; };
-		8757BBC726ADBDE900B6C7B1 /* ReviewCustomIntervalSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBC626ADBDE900B6C7B1 /* ReviewCustomIntervalSheet.swift */; };
 		8757BBC926ADD87800B6C7B1 /* CustomStudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBC826ADD87800B6C7B1 /* CustomStudyViewModel.swift */; };
 		8762CFF226ABEBC500CBEA2F /* CardDeletionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8762CFF126ABEBC500CBEA2F /* CardDeletionService.swift */; };
 		8762CFF426ABFD6900CBEA2F /* EditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8762CFF326ABFD6900CBEA2F /* EditCardView.swift */; };
@@ -107,6 +106,9 @@
 		87BAFEC0269DD9A0003B3C71 /* ReviewQueueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BAFEBF269DD9A0003B3C71 /* ReviewQueueService.swift */; };
 		87BF1D7326B3AE7E00230F97 /* NewDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF1D7226B3AE7E00230F97 /* NewDeck.swift */; };
 		87BF1D7526B3B16D00230F97 /* EditDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF1D7426B3B16D00230F97 /* EditDeck.swift */; };
+		87BF1D7D26B3BFC800230F97 /* ReviewDefaultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF1D7C26B3BFC800230F97 /* ReviewDefaultCard.swift */; };
+		87BF1D7F26B3BFD800230F97 /* ReviewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF1D7E26B3BFD800230F97 /* ReviewFooter.swift */; };
+		87BF1D8126B3CE4000230F97 /* ReviewTypingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BF1D8026B3CE4000230F97 /* ReviewTypingCard.swift */; };
 		87C07D0C26B188D90077A540 /* FactorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C07D0B26B188D90077A540 /* FactorModifier.swift */; };
 		87C4971226AC33DB0015823E /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C4971126AC33DB0015823E /* ReviewView.swift */; };
 		87C4971426AC33E50015823E /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C4971326AC33E50015823E /* ReviewViewModel.swift */; };
@@ -199,7 +201,6 @@
 		8757BBBC26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestCoreCardBuilder.swift; sourceTree = "<group>"; };
 		8757BBBF26AD4F4F00B6C7B1 /* MakeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeCard.swift; sourceTree = "<group>"; };
 		8757BBC426AD94C500B6C7B1 /* SchedulerException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerException.swift; sourceTree = "<group>"; };
-		8757BBC626ADBDE900B6C7B1 /* ReviewCustomIntervalSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCustomIntervalSheet.swift; sourceTree = "<group>"; };
 		8757BBC826ADD87800B6C7B1 /* CustomStudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStudyViewModel.swift; sourceTree = "<group>"; };
 		8762CFF126ABEBC500CBEA2F /* CardDeletionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeletionService.swift; sourceTree = "<group>"; };
 		8762CFF326ABFD6900CBEA2F /* EditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardView.swift; sourceTree = "<group>"; };
@@ -251,6 +252,9 @@
 		87BAFEBF269DD9A0003B3C71 /* ReviewQueueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQueueService.swift; sourceTree = "<group>"; };
 		87BF1D7226B3AE7E00230F97 /* NewDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDeck.swift; sourceTree = "<group>"; };
 		87BF1D7426B3B16D00230F97 /* EditDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDeck.swift; sourceTree = "<group>"; };
+		87BF1D7C26B3BFC800230F97 /* ReviewDefaultCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDefaultCard.swift; sourceTree = "<group>"; };
+		87BF1D7E26B3BFD800230F97 /* ReviewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewFooter.swift; sourceTree = "<group>"; };
+		87BF1D8026B3CE4000230F97 /* ReviewTypingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTypingCard.swift; sourceTree = "<group>"; };
 		87C07D0B26B188D90077A540 /* FactorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactorModifier.swift; sourceTree = "<group>"; };
 		87C4971126AC33DB0015823E /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		87C4971326AC33E50015823E /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				8701854426AF10CA00781CCF /* ImagePicker.swift */,
+				87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */,
 				873D4F902690D0C700A4F128 /* BottomSheet */,
 			);
 			path = Shared;
@@ -587,7 +592,6 @@
 				875392C026AAC8F6008CFCC4 /* Card */,
 				87C4970E26AC332E0015823E /* Review */,
 				8750A3D32691EA8600837E24 /* Shared */,
-				87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -759,7 +763,9 @@
 			isa = PBXGroup;
 			children = (
 				87C4971126AC33DB0015823E /* ReviewView.swift */,
-				8757BBC626ADBDE900B6C7B1 /* ReviewCustomIntervalSheet.swift */,
+				87BF1D7C26B3BFC800230F97 /* ReviewDefaultCard.swift */,
+				87BF1D8026B3CE4000230F97 /* ReviewTypingCard.swift */,
+				87BF1D7E26B3BFD800230F97 /* ReviewFooter.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -1019,11 +1025,12 @@
 				87DA684D269CB976003F07A8 /* CardService.swift in Sources */,
 				875392B226AA762D008CFCC4 /* CardContentSheet.swift in Sources */,
 				87E3BB1A26B1AA67000901FF /* LearningStep.swift in Sources */,
-				8757BBC726ADBDE900B6C7B1 /* ReviewCustomIntervalSheet.swift in Sources */,
 				875392B926AA9E37008CFCC4 /* ContentTypeMapper.swift in Sources */,
 				877B156226B152BB009FF1CC /* InputValidation.swift in Sources */,
 				87E3BB1426B1A04D000901FF /* FactorModifierException.swift in Sources */,
 				8745A6C726AAE5CB00529587 /* CardContent.swift in Sources */,
+				87BF1D8126B3CE4000230F97 /* ReviewTypingCard.swift in Sources */,
+				87BF1D7F26B3BFD800230F97 /* ReviewFooter.swift in Sources */,
 				871F11AD268F09E300BF9A51 /* SchedulePresetUserDefaultsRepository.swift in Sources */,
 				87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */,
 				877BF8CD26921CC300710AD2 /* NewPreset.swift in Sources */,
@@ -1067,6 +1074,7 @@
 				87C4971226AC33DB0015823E /* ReviewView.swift in Sources */,
 				873259B626A9FA6200F3178F /* EditCardViewModel.swift in Sources */,
 				875392BD26AAC8CF008CFCC4 /* CardBackContentSheet.swift in Sources */,
+				87BF1D7D26B3BFC800230F97 /* ReviewDefaultCard.swift in Sources */,
 				873D4F952690D0D700A4F128 /* BottomSheet.swift in Sources */,
 				873D4F962690D0D700A4F128 /* ViewExtension.swift in Sources */,
 				877BF8CB26921AF800710AD2 /* EditPreset.swift in Sources */,
