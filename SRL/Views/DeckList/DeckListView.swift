@@ -15,6 +15,8 @@ struct DeckListView: View {
     @State private var isShowingNewDeckSheet: Bool = false
     @State private var isShowingNotificationSheet: Bool = false
     
+    @State private var image: UIImage?
+    
 
     var body: some View {
         NavigationView {

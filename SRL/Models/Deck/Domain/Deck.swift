@@ -14,8 +14,6 @@ struct Deck: Identifiable, Codable {
     private (set) var cards: [UUID: Card] = [UUID: Card]()
     private (set) var schedulePreset: SchedulePreset
     
-    var reviewQueue: ReviewQueue?
-    
     
     init(name: String, schedulePreset: SchedulePreset) {
         self.name = name

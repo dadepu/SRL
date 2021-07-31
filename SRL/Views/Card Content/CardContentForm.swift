@@ -32,26 +32,24 @@ struct CardContentForm<ActionButton: View>: View {
                 case .Text:
                     TextContentView(formTextContent: $formTextContent)
                 case .Image:
-                    ImageContentView(formImage: $formImage, isShowingImagePicker: $isShowingImagePicker)
+                    ImageContentView(inputImage: $inputImage, formImage: $formImage, isShowingImagePicker: $isShowingImagePicker)
                 }
+                
             }
+            .onChange(of: inputImage, perform: { value in
+                if inputImage != nil {
+                    formImage = Image(uiImage: inputImage!)
+                }
+            })
             Section {
                 FormButton(self)
             }
         }
         .listStyle(GroupedListStyle())
-//        .listStyle(InsetGroupedListStyle())
-        .sheet(isPresented: $isShowingImagePicker, onDismiss: loadImage, content: {
-            ImagePicker(image: self.$inputImage)
-        })
+        .sheet(isPresented: $isShowingImagePicker, content: { ImagePicker(image: self.$inputImage) })
         
     }
-    
-    
-    func loadImage() {
-        guard let inputImage = inputImage else { return }
-        formImage = Image(uiImage: inputImage)
-    }
+
     
     func validateContent() -> Bool {
         switch (formSelectedContentType) {
@@ -71,7 +69,7 @@ struct CardContentForm<ActionButton: View>: View {
         }
     }
     
-    struct TextContentView: View {
+    private struct TextContentView: View {
         @Binding var formTextContent: String
         
         var body: some View {
@@ -80,26 +78,44 @@ struct CardContentForm<ActionButton: View>: View {
         }
     }
     
-    struct ImageContentView: View {
+    private struct ImageContentView: View {
+        @Binding var inputImage: UIImage?
         @Binding var formImage: Image?
         @Binding var isShowingImagePicker: Bool
+        @State private var pasteboard = UIPasteboard.general
+        @State private var alertShowing: Bool = false
         
         var body: some View {
-            VStack {
-                if formImage != nil {
-                    formImage!
-                        .resizable()
-                        .scaledToFit()
-                        .onTapGesture {
-                            self.isShowingImagePicker = true
-                        }
-                } else {
-                    Button(action: {
+            if formImage != nil {
+                formImage!
+                    .resizable()
+                    .scaledToFit()
+                    .onTapGesture {
                         self.isShowingImagePicker = true
-                    }, label: {
-                        Text("From Gallery")
-                    })
-                }
+                    }
+            }
+            Button(action: {
+                self.isShowingImagePicker = true
+            }, label: {
+                Text("From Gallery")
+            })
+            Button(action: loadImageFromPasteboard, label: {
+                Text("From Pasteboard")
+            })
+            .alert(isPresented:$alertShowing) {
+                Alert(
+                    title: Text("No Image found"),
+                    message: Text("To paste an image from your pasteboard, you have to copy an image in the first place."),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+        }
+        
+        private func loadImageFromPasteboard() {
+            if pasteboard.hasImages {
+                inputImage = pasteboard.image
+            } else {
+                alertShowing = true
             }
         }
     }
