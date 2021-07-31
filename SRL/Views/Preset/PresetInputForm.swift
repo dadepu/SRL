@@ -131,7 +131,9 @@ struct PresetInputForm<SaveButton: View>: View {
                 }
             }
             FormButton(self)
-        }.listStyle(InsetGroupedListStyle())
+        }
+        .listStyle(GroupedListStyle())
+//        .listStyle(InsetGroupedListStyle())
     }
     
     private func displaySectionError(_ messages: [String]) -> some View {

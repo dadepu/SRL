@@ -31,6 +31,7 @@ struct DeckForm<SaveButton: View>: View {
                 FormButton(self)
             }
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(GroupedListStyle())
+//        .listStyle(InsetGroupedListStyle())
     }
 }

@@ -42,10 +42,10 @@ struct CardContentPicker: View {
                 isShowing = false
             }, label: {
                 HStack {
-                    Spacer()
+//                    Spacer()
                     Text("Save")
                         .bold()
-                    Spacer()
+//                    Spacer()
                 }
             })
             .disabled(!cardContentForm.validateContent())

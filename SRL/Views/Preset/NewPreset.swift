@@ -32,10 +32,10 @@ struct NewPreset: View {
                 } catch {}
             }, label: {
                 HStack {
-                    Spacer()
+//                    Spacer()
                     Text("Save Preset")
                         .bold()
-                    Spacer()
+//                    Spacer()
                 }
             })
         }

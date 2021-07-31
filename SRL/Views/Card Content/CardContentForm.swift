@@ -39,7 +39,8 @@ struct CardContentForm<ActionButton: View>: View {
                 FormButton(self)
             }
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(GroupedListStyle())
+//        .listStyle(InsetGroupedListStyle())
         .sheet(isPresented: $isShowingImagePicker, onDismiss: loadImage, content: {
             ImagePicker(image: self.$inputImage)
         })
