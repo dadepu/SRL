@@ -13,6 +13,7 @@ struct CardContentForm<ActionButton: View>: View {
     @State var formImage: Image? = nil
 
     @State private var inputImage: UIImage?
+    @State private var imagePickerSourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var isShowingImagePicker: Bool = false
     
     
@@ -32,7 +33,7 @@ struct CardContentForm<ActionButton: View>: View {
                 case .Text:
                     TextContentView(formTextContent: $formTextContent)
                 case .Image:
-                    ImageContentView(inputImage: $inputImage, formImage: $formImage, isShowingImagePicker: $isShowingImagePicker)
+                    ImageContentView(inputImage: $inputImage, formImage: $formImage, imagePickerSourceType: $imagePickerSourceType, isShowingImagePicker: $isShowingImagePicker)
                 }
                 
             }
@@ -46,8 +47,7 @@ struct CardContentForm<ActionButton: View>: View {
             }
         }
         .listStyle(GroupedListStyle())
-        .sheet(isPresented: $isShowingImagePicker, content: { ImagePicker(image: self.$inputImage) })
-        
+        .sheet(isPresented: $isShowingImagePicker, content: { ImagePicker(image: self.$inputImage, sourceType: imagePickerSourceType) })
     }
 
     
@@ -81,6 +81,7 @@ struct CardContentForm<ActionButton: View>: View {
     private struct ImageContentView: View {
         @Binding var inputImage: UIImage?
         @Binding var formImage: Image?
+        @Binding var imagePickerSourceType: UIImagePickerController.SourceType
         @Binding var isShowingImagePicker: Bool
         @State private var pasteboard = UIPasteboard.general
         @State private var alertShowing: Bool = false
@@ -95,12 +96,19 @@ struct CardContentForm<ActionButton: View>: View {
                     }
             }
             Button(action: {
-                self.isShowingImagePicker = true
+                imagePickerSourceType = .photoLibrary
+                isShowingImagePicker = true
             }, label: {
                 Text("From Gallery")
             })
             Button(action: loadImageFromPasteboard, label: {
                 Text("From Pasteboard")
+            })
+            Button(action: {
+                imagePickerSourceType = .camera
+                isShowingImagePicker = true
+            }, label: {
+                Text("From Camera")
             })
             .alert(isPresented:$alertShowing) {
                 Alert(

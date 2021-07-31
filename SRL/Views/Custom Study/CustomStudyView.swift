@@ -20,6 +20,7 @@ struct CustomStudyView: View {
     init(deckViewModel: DeckViewModel) {
         self.deckViewModel = deckViewModel
         self.customStudyViewModel = CustomStudyViewModel(deckIds: [deckViewModel.deck.id])
+        
     }
     
     var body: some View {
