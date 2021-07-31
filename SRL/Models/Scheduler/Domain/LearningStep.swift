@@ -15,10 +15,14 @@ struct LearningStep: Codable {
     }
     
     static func makeNew() -> LearningStep {
-        return LearningStep(stepIndex: 0)
+        LearningStep(stepIndex: 0)
+    }
+    
+    static func makeNewUnitTestOnly(index: Int) -> LearningStep {
+        LearningStep(stepIndex: index)
     }
     
     func incrementedStep() -> LearningStep {
-        return LearningStep(stepIndex: self.learningIndex + 1)
+        LearningStep(stepIndex: self.learningIndex + 1)
     }
 }

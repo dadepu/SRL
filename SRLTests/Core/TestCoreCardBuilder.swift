@@ -1,5 +1,5 @@
 //
-//  UnitTestCoreCardBuilder.swift
+//  TestCoreCardBuilder.swift
 //  SRLTests
 //
 //  Created by Daniel Koellgen on 25.07.21.
@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 @testable import SRL
 
-struct UnitTestCoreCardBuilder {
+struct TestCoreCardBuilder {
     
     func generateRandomDefaultCardContent() -> CardType {
         let textContentQuestion1 = try! TextContent.makeTextContent(text: "UnitTest \(UUID())")

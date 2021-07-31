@@ -69,8 +69,7 @@
 		87541C95265CF1E4009E805D /* ReviewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C94265CF1E4009E805D /* ReviewAction.swift */; };
 		87541CA0265D5646009E805D /* DeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87541C9F265D5646009E805D /* DeckViewModel.swift */; };
 		8757BBB726AD384B00B6C7B1 /* ReviewQueueInternalInitializationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBB626AD384B00B6C7B1 /* ReviewQueueInternalInitializationTest.swift */; };
-		8757BBBD26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBBC26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift */; };
-		8757BBC026AD4F4F00B6C7B1 /* MakeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBBF26AD4F4F00B6C7B1 /* MakeCard.swift */; };
+		8757BBBD26AD418200B6C7B1 /* TestCoreCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBBC26AD418200B6C7B1 /* TestCoreCardBuilder.swift */; };
 		8757BBC526AD94C500B6C7B1 /* SchedulerException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBC426AD94C500B6C7B1 /* SchedulerException.swift */; };
 		8757BBC926ADD87800B6C7B1 /* CustomStudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8757BBC826ADD87800B6C7B1 /* CustomStudyViewModel.swift */; };
 		8762CFF226ABEBC500CBEA2F /* CardDeletionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8762CFF126ABEBC500CBEA2F /* CardDeletionService.swift */; };
@@ -80,7 +79,7 @@
 		876840C126AB12AF008384B3 /* CardBrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876840C026AB12AF008384B3 /* CardBrowseView.swift */; };
 		876840C526AB18C4008384B3 /* CardPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876840C426AB18C4008384B3 /* CardPreview.swift */; };
 		8772F2A726B2A8A0008795AB /* PresetInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8772F2A626B2A8A0008795AB /* PresetInputForm.swift */; };
-		8772F2A926B2B120008795AB /* ResetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8772F2A826B2B120008795AB /* ResetData.swift */; };
+		8772F2A926B2B120008795AB /* TestResetPersistentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8772F2A826B2B120008795AB /* TestResetPersistentData.swift */; };
 		8773256226A9A96D00CAD727 /* CreateCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8773256126A9A96D00CAD727 /* CreateCardView.swift */; };
 		8773256426A9ACC400CAD727 /* AbstractCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8773256326A9ACC400CAD727 /* AbstractCardViewModel.swift */; };
 		8773256826A9B3D700CAD727 /* CardTypeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8773256726A9B3D700CAD727 /* CardTypeMapper.swift */; };
@@ -240,8 +239,7 @@
 		87541C94265CF1E4009E805D /* ReviewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewAction.swift; sourceTree = "<group>"; };
 		87541C9F265D5646009E805D /* DeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewModel.swift; sourceTree = "<group>"; };
 		8757BBB626AD384B00B6C7B1 /* ReviewQueueInternalInitializationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQueueInternalInitializationTest.swift; sourceTree = "<group>"; };
-		8757BBBC26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestCoreCardBuilder.swift; sourceTree = "<group>"; };
-		8757BBBF26AD4F4F00B6C7B1 /* MakeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeCard.swift; sourceTree = "<group>"; };
+		8757BBBC26AD418200B6C7B1 /* TestCoreCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreCardBuilder.swift; sourceTree = "<group>"; };
 		8757BBC426AD94C500B6C7B1 /* SchedulerException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerException.swift; sourceTree = "<group>"; };
 		8757BBC826ADD87800B6C7B1 /* CustomStudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStudyViewModel.swift; sourceTree = "<group>"; };
 		8762CFF126ABEBC500CBEA2F /* CardDeletionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeletionService.swift; sourceTree = "<group>"; };
@@ -251,7 +249,7 @@
 		876840C026AB12AF008384B3 /* CardBrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBrowseView.swift; sourceTree = "<group>"; };
 		876840C426AB18C4008384B3 /* CardPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPreview.swift; sourceTree = "<group>"; };
 		8772F2A626B2A8A0008795AB /* PresetInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetInputForm.swift; sourceTree = "<group>"; };
-		8772F2A826B2B120008795AB /* ResetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetData.swift; sourceTree = "<group>"; };
+		8772F2A826B2B120008795AB /* TestResetPersistentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResetPersistentData.swift; sourceTree = "<group>"; };
 		8773256126A9A96D00CAD727 /* CreateCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardView.swift; sourceTree = "<group>"; };
 		8773256326A9ACC400CAD727 /* AbstractCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractCardViewModel.swift; sourceTree = "<group>"; };
 		8773256726A9B3D700CAD727 /* CardTypeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTypeMapper.swift; sourceTree = "<group>"; };
@@ -628,7 +626,6 @@
 				87541C83265CE020009E805D /* Views */,
 				87541C84265CE02B009E805D /* ViewModels */,
 				87541C82265CE019009E805D /* Models */,
-				8757BBBE26AD4F4800B6C7B1 /* Debug */,
 				87541C56265CDF03009E805D /* SRLApp.swift */,
 				87541C5A265CDF04009E805D /* Assets.xcassets */,
 				87541C5F265CDF04009E805D /* Info.plist */,
@@ -728,25 +725,10 @@
 		8757BBBA26AD413C00B6C7B1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				8757BBBB26AD414100B6C7B1 /* CardBuilder */,
+				8772F2A826B2B120008795AB /* TestResetPersistentData.swift */,
+				8757BBBC26AD418200B6C7B1 /* TestCoreCardBuilder.swift */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		8757BBBB26AD414100B6C7B1 /* CardBuilder */ = {
-			isa = PBXGroup;
-			children = (
-				8757BBBC26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift */,
-			);
-			path = CardBuilder;
-			sourceTree = "<group>";
-		};
-		8757BBBE26AD4F4800B6C7B1 /* Debug */ = {
-			isa = PBXGroup;
-			children = (
-				8757BBBF26AD4F4F00B6C7B1 /* MakeCard.swift */,
-			);
-			path = Debug;
 			sourceTree = "<group>";
 		};
 		875E21A6265E272B00D973C2 /* Model */ = {
@@ -761,7 +743,6 @@
 		875E21A9265E276300D973C2 /* SchedulerReviewProcess */ = {
 			isa = PBXGroup;
 			children = (
-				8772F2A826B2B120008795AB /* ResetData.swift */,
 				871957D02660F43E00AA06CC /* SchedulerFunctionalityTest.swift */,
 				871957C72660EAA800AA06CC /* SchedulerLearningTest.swift */,
 				871957CC2660EF0B00AA06CC /* SchedulerReviewingTest.swift */,
@@ -1189,7 +1170,6 @@
 				876840C526AB18C4008384B3 /* CardPreview.swift in Sources */,
 				87541C8F265CE2C8009E805D /* Scheduler.swift in Sources */,
 				87B480CB26906E8600887C6A /* TypingContent.swift in Sources */,
-				8757BBC026AD4F4F00B6C7B1 /* MakeCard.swift in Sources */,
 				87BF1D8E26B3F34C00230F97 /* CardContentForm.swift in Sources */,
 				87B480AE2690221300887C6A /* DeckUserDefaultsRepository.swift in Sources */,
 				87C4971226AC33DB0015823E /* ReviewView.swift in Sources */,
@@ -1267,12 +1247,12 @@
 			files = (
 				87541C69265CDF04009E805D /* SRLTests.swift in Sources */,
 				871957CD2660EF0B00AA06CC /* SchedulerReviewingTest.swift in Sources */,
-				8757BBBD26AD418200B6C7B1 /* UnitTestCoreCardBuilder.swift in Sources */,
+				8757BBBD26AD418200B6C7B1 /* TestCoreCardBuilder.swift in Sources */,
 				8757BBB726AD384B00B6C7B1 /* ReviewQueueInternalInitializationTest.swift in Sources */,
 				871957CF2660EF2200AA06CC /* SchedulerLapsingTest.swift in Sources */,
 				871957D12660F43E00AA06CC /* SchedulerFunctionalityTest.swift in Sources */,
 				871957C82660EAA800AA06CC /* SchedulerLearningTest.swift in Sources */,
-				8772F2A926B2B120008795AB /* ResetData.swift in Sources */,
+				8772F2A926B2B120008795AB /* TestResetPersistentData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

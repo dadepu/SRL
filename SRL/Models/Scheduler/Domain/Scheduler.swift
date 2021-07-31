@@ -18,8 +18,8 @@ struct Scheduler: Identifiable, Codable {
     private (set) var reviewCount: Int = 0
     private (set) var easeFactor: EaseFactor
     
-    private var learningStep: LearningStep = LearningStep.makeNew()
-    private var lapseStep: LapseStep?
+    private (set) var learningStep: LearningStep = LearningStep.makeNew()
+    private (set) var lapseStep: LapseStep?
     
     
     var remainingReviewInterval: TimeInterval {
@@ -57,8 +57,7 @@ struct Scheduler: Identifiable, Codable {
         UNIT TESTING PURPOSE ONLY
      */
     init(schedulePreset: SchedulePreset, easeFactor: EaseFactor, learningState: LearningState, lastReviewDate: ReviewDate,
-         nextReviewDate: ReviewDate, cardStudyCount: Int, learningStep: LearningStep, lapseStep: LapseStep,
-         currentReviewInterval: ReviewInterval) {
+         nextReviewDate: ReviewDate, cardStudyCount: Int, learningStep: LearningStep, lapseStep: LapseStep?, currentReviewInterval: ReviewInterval) {
         self.schedulePreset = schedulePreset
         self.easeFactor = easeFactor
         self.learningState = learningState
@@ -113,10 +112,7 @@ struct Scheduler: Identifiable, Codable {
         return scheduler
     }
     
-    
-    
-    
-    
+
     
     
     
@@ -144,13 +140,8 @@ struct Scheduler: Identifiable, Codable {
         return setNextReviewDate(for: scheduler, with: nextStepInterval)
     }
     
-    private func handledReviewActionHardLearning(_ scheduler: Scheduler) -> Scheduler {
-        guard let minimumStepIndex = scheduler.schedulePreset.getNextLearningStep(learningIndex: 0) else {
-            let minimumInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: scheduler.schedulePreset.minimumInterval.intervalSeconds)
-            return scheduler.setNextReviewDate(for: scheduler, with: minimumInterval)
-        }
-        let newInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: minimumStepIndex)
-        return scheduler.setNextReviewDate(for: scheduler, with: newInterval)
+    private func handledReviewActionHardLearning(_ scheduler: Scheduler) -> Scheduler {      
+        scheduler.setNextReviewDate(for: scheduler, with: scheduler.currentReviewInterval)
     }
     
     private func handledReviewActionRepeatLearning(_ scheduler: Scheduler) -> Scheduler {
@@ -211,6 +202,7 @@ struct Scheduler: Identifiable, Codable {
         scheduler.learningState = LearningState.REVIEW
         scheduler.easeFactor = scheduler.easeFactor.appliedFactorModifierOrMinimum(modifier: scheduler.schedulePreset.easyFactorModifier)
         guard let lapseStep = scheduler.lapseStep else {
+            // error case that should not exist
             let minimumInterval = ReviewInterval.makeFromTimeInterval(intervalSeconds: scheduler.schedulePreset.minimumInterval.intervalSeconds)
             return setNextReviewDate(for: scheduler, with: minimumInterval)
         }

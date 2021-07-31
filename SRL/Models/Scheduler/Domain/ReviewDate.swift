@@ -15,7 +15,11 @@ struct ReviewDate: Codable {
     }
     
     static func makeFromCurrentDate() -> ReviewDate {
-        return ReviewDate(date: Date())
+        ReviewDate(date: Date())
+    }
+    
+    static func makeFromDate(date: Date) -> ReviewDate {
+        ReviewDate(date: date)
     }
     
     static func makeFromInterval(interval: ReviewInterval) -> ReviewDate {

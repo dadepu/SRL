@@ -15,7 +15,7 @@ struct ReviewInterval: Codable {
     }
     
     static func makeFromTimeInterval(intervalSeconds: TimeInterval) -> ReviewInterval {
-        return ReviewInterval(intervalSeconds: intervalSeconds)
+        ReviewInterval(intervalSeconds: intervalSeconds)
     }
     
     func nextReviewInterval(easeFactor: EaseFactor, intervalModifier: IntervalModifier? = nil, minimumInterval: MinimumInterval? = nil) -> ReviewInterval {
