@@ -23,8 +23,15 @@ class StoreViewModel: ObservableObject {
 
         
         deckObserver = deckService.getModelPublisher().sink { (decks: [UUID:Deck]) in
-            self.orderedDecks = self.getDecksOrderedByNameDesc(decks)
-            self.reviewQueues = self.makeRegularReviewQueues(decks)
+            let newdecks = self.getDecksOrderedByNameDesc(decks)
+            let newqueues = self.makeRegularReviewQueues(decks)
+            
+            self.reviewQueues = newqueues
+            self.orderedDecks = newdecks.map { deck in
+                var updatedDeck = deck
+                updatedDeck.reviewQueue = newqueues[deck.id]
+                return updatedDeck
+            }
         }
     }
 

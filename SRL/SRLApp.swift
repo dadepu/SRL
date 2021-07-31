@@ -17,6 +17,7 @@ struct SRLApp: App {
         WindowGroup {
             DeckListView(presetViewModel: presetViewModel, storeViewModel: storeViewModel)
                 .environmentObject(storeViewModel)
+                .environmentObject(presetViewModel)
         }
     }
 }

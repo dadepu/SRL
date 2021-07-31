@@ -23,11 +23,11 @@ struct Presets: View {
             Section(header: Text("Presets")) {
                 ForEach(presetViewModel.orderedPresets) { (preset: SchedulePreset) in
                     NavigationLink(
-                        destination: EditPreset(preset: preset),
+                        destination: EditPreset(presetViewModel: presetViewModel, preset: preset),
                         label: {
                             Text(preset.name)
                         })
-                }
+                }.onDelete(perform: presetViewModel.deletePresets)
             }
             Section {
                 Button(action: {

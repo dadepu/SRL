@@ -34,6 +34,21 @@ class PresetViewModel: ObservableObject {
         return presetIndex
     }
     
+    func deletePresets(indexSet: IndexSet) {
+        let presets = self.orderedPresets
+        
+        do {
+            try indexSet.map { (index: Int) in
+                presets[index]
+            }.forEach { (preset: SchedulePreset) in
+                self.orderedPresets.removeAll { x in x.id == preset.id }
+                try SchedulePresetService().deleteSchedulePreset(forId: preset.id)
+            }
+        } catch {
+            self.orderedPresets = presets
+        }
+    }
+    
     static func getDefaultPreset() -> SchedulePreset {
         SchedulePresetService().getDefaultSchedulePreset()
     }

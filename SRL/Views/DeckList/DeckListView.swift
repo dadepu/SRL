@@ -19,19 +19,10 @@ struct DeckListView: View {
             List {
                 ForEach(storeViewModel.orderedDecks) { deck in
                     NavigationLink(destination: DeckView(deck: deck, presetViewModel: presetViewModel)) {
-//                        ListRowHorizontalSeparatedDirect(textLeft: deck.name, textRight: "\(storeViewModel.reviewQueues[deck.id]!.getReviewableCardCount())")
-                        HStack {
-                            Text(deck.name)
-                            Spacer()
-                            Text("\(storeViewModel.reviewQueues[deck.id]!.getReviewableCardCount())")
-                                .padding(.horizontal)
-                        }
+                        ListRowHorizontalSeparated(textLeft: {"\(deck.name)"}, textRight: {""})
                     }
                 }
                 .onDelete(perform: storeViewModel.dropDecks)
-                ForEach(storeViewModel.reviewQueues.map{ _, queue in queue }) { queue in
-                    Text("\(queue.getReviewableCardCount())")
-                }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("Decks", displayMode: .inline)

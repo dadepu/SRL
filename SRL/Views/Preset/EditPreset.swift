@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EditPreset: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var presetViewModel: PresetViewModel
     var preset: SchedulePreset
     
     
