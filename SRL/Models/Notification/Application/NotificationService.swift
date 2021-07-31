@@ -9,18 +9,28 @@ import Foundation
 import UserNotifications
 
 struct NotificationService {
+    private let notificationRepository = NotificationRepository.getInstance()
 
-    func scheduleDemoNotification() {
-        let demo = DemoNotification()
-        requestPermission() { response in }
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: demo.content, trigger: demo.trigger)
-        UNUserNotificationCenter.current().add(request)
+    func getModelPublisher() -> Published<Notifications>.Publisher {
+        notificationRepository.$notifications
     }
     
     
-    private func requestPermission(_ callback: @escaping (Bool) -> ()) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { response, error in
-            callback(response)
+    func getNotifications() -> Notifications {
+        notificationRepository.notifications
+    }
+    
+    func scheduleDemoNotification() {
+        NotificationLauncherService(notificationRepository: notificationRepository).launchDemoNotification(DemoNotification())
+    }
+    
+    func updateNotificationActivation(type: NotificationType, status: Bool) {
+        let notificationLauncherService = NotificationLauncherService(notificationRepository: notificationRepository)
+        if status {
+            let notification = Notification(type: type)
+            notificationLauncherService.launchNotification(type: type, notification: notification)
+        } else {
+            notificationLauncherService.purgeNotification(type: type)
         }
     }
 }

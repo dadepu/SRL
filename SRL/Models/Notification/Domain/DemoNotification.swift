@@ -31,5 +31,4 @@ struct DemoNotification {
             UNTimeIntervalNotificationTrigger(timeInterval: self.interval, repeats: self.repeatInterval)
         }
     }
-    
 }
