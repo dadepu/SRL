@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct DeckListView: View {
+    @ObservedObject var notificationViewModel = NotificationViewModel()
     @ObservedObject var presetViewModel: PresetViewModel
     @ObservedObject var storeViewModel: StoreViewModel
     
     @State private var isShowingNewDeckSheet: Bool = false
+    @State private var isShowingNotificationSheet: Bool = false
     
 
     var body: some View {
@@ -26,9 +28,13 @@ struct DeckListView: View {
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("Decks", displayMode: .inline)
-            .navigationBarItems(leading: NavButtonAddDeck(isShowingNewDeckSheet: $isShowingNewDeckSheet))
+            .navigationBarItems(leading: NavButtonAddDeck(isShowingNewDeckSheet: $isShowingNewDeckSheet), trailing: NotificationButton(isShowingNotificationSheet: $isShowingNotificationSheet))
+        
             .sheet(isPresented: $isShowingNewDeckSheet, content: {
                 NewDeck(presetViewModel: presetViewModel, storeViewModel: storeViewModel, isShowingBottomSheet: $isShowingNewDeckSheet)
+            })
+            .sheet(isPresented: $isShowingNotificationSheet, content: {
+                ManageNotifications(notificationViewModel: notificationViewModel, isShowingBottomSheet: $isShowingNotificationSheet)
             })
         }.navigationViewStyle(StackNavigationViewStyle())
     }
@@ -41,6 +47,18 @@ struct DeckListView: View {
                 isShowingNewDeckSheet = true
             }, label: {
                 Image(systemName: "plus").imageScale(.large)
+            })
+        }
+    }
+    
+    struct NotificationButton: View {
+        @Binding var isShowingNotificationSheet: Bool
+        
+        var body: some View {
+            Button(action: {
+                isShowingNotificationSheet = true
+            }, label: {
+                Image(systemName: "bell").imageScale(.large)
             })
         }
     }

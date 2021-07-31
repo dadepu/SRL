@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		8701854526AF10CA00781CCF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701854426AF10CA00781CCF /* ImagePicker.swift */; };
 		8701854826AF1F3E00781CCF /* ImageEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701854726AF1F3E00781CCF /* ImageEncoder.swift */; };
+		870F473626B512DC00BCEEC9 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870F473526B512DC00BCEEC9 /* NotificationService.swift */; };
+		870F473B26B51A0900BCEEC9 /* ManageNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870F473A26B51A0900BCEEC9 /* ManageNotifications.swift */; };
+		870F473D26B51B1700BCEEC9 /* NotificationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870F473C26B51B1700BCEEC9 /* NotificationForm.swift */; };
+		870F473F26B51DDE00BCEEC9 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870F473E26B51DDE00BCEEC9 /* NotificationViewModel.swift */; };
+		870F474526B523C700BCEEC9 /* DemoNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870F474426B523C700BCEEC9 /* DemoNotification.swift */; };
+		870F474726B5268200BCEEC9 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870F474626B5268200BCEEC9 /* Notification.swift */; };
 		871957C82660EAA800AA06CC /* SchedulerLearningTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871957C72660EAA800AA06CC /* SchedulerLearningTest.swift */; };
 		871957CD2660EF0B00AA06CC /* SchedulerReviewingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871957CC2660EF0B00AA06CC /* SchedulerReviewingTest.swift */; };
 		871957CF2660EF2200AA06CC /* SchedulerLapsingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871957CE2660EF2200AA06CC /* SchedulerLapsingTest.swift */; };
@@ -163,6 +169,12 @@
 /* Begin PBXFileReference section */
 		8701854426AF10CA00781CCF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8701854726AF1F3E00781CCF /* ImageEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEncoder.swift; sourceTree = "<group>"; };
+		870F473526B512DC00BCEEC9 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		870F473A26B51A0900BCEEC9 /* ManageNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageNotifications.swift; sourceTree = "<group>"; };
+		870F473C26B51B1700BCEEC9 /* NotificationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationForm.swift; sourceTree = "<group>"; };
+		870F473E26B51DDE00BCEEC9 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		870F474426B523C700BCEEC9 /* DemoNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNotification.swift; sourceTree = "<group>"; };
+		870F474626B5268200BCEEC9 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		871957C72660EAA800AA06CC /* SchedulerLearningTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerLearningTest.swift; sourceTree = "<group>"; };
 		871957CC2660EF0B00AA06CC /* SchedulerReviewingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerReviewingTest.swift; sourceTree = "<group>"; };
 		871957CE2660EF2200AA06CC /* SchedulerLapsingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerLapsingTest.swift; sourceTree = "<group>"; };
@@ -338,6 +350,37 @@
 			path = DomainPrimitives;
 			sourceTree = "<group>";
 		};
+		870F473926B519F100BCEEC9 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				870F473E26B51DDE00BCEEC9 /* NotificationViewModel.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		870F474226B522D600BCEEC9 /* View Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				87BF1D8326B3EB2400230F97 /* ExtensionLearningState.swift */,
+				878ABC9126AFD8360031AB39 /* ExtensionSchedulePresetExceptions.swift */,
+				87BF1D8526B3EC8900230F97 /* ExtensionDefaultCard.swift */,
+				87BF1D8726B3ED9100230F97 /* ExtensionReviewDate.swift */,
+				87BF1D8926B3EEDD00230F97 /* ExtensionReviewInterval.swift */,
+				87BF1D8B26B3EFCA00230F97 /* ExtensionTimeInterval.swift */,
+				873B914226B4517900456D0E /* ExtensionEaseFactor.swift */,
+			);
+			path = "View Extensions";
+			sourceTree = "<group>";
+		};
+		870F474326B522F600BCEEC9 /* View Type Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				8773256726A9B3D700CAD727 /* CardTypeMapper.swift */,
+				875392B826AA9E37008CFCC4 /* ContentTypeMapper.swift */,
+			);
+			path = "View Type Mapper";
+			sourceTree = "<group>";
+		};
 		871F117F268ECF5D00BF9A51 /* Deck */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,12 +537,14 @@
 			path = Deck;
 			sourceTree = "<group>";
 		};
-		8750A3D32691EA8600837E24 /* Shared */ = {
+		8750A3D32691EA8600837E24 /* Generic Views */ = {
 			isa = PBXGroup;
 			children = (
+				8701854426AF10CA00781CCF /* ImagePicker.swift */,
+				87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */,
 				873D4F902690D0C700A4F128 /* BottomSheet */,
 			);
-			path = Shared;
+			path = "Generic Views";
 			sourceTree = "<group>";
 		};
 		8750A3D42691EAF300837E24 /* DeckList */ = {
@@ -508,6 +553,8 @@
 				8795D2122663E135007C99D9 /* DeckListView.swift */,
 				87BF1D7226B3AE7E00230F97 /* NewDeck.swift */,
 				872ADF2D2692DDF6007C601A /* DeckForm.swift */,
+				870F473A26B51A0900BCEEC9 /* ManageNotifications.swift */,
+				870F473C26B51B1700BCEEC9 /* NotificationForm.swift */,
 			);
 			path = DeckList;
 			sourceTree = "<group>";
@@ -625,18 +672,9 @@
 				87BF1D8226B3D02800230F97 /* Card Browsing */,
 				875392C026AAC8F6008CFCC4 /* Card Content */,
 				87C4970E26AC332E0015823E /* Review */,
-				8750A3D32691EA8600837E24 /* Shared */,
-				87BF1D8326B3EB2400230F97 /* ExtensionLearningState.swift */,
-				878ABC9126AFD8360031AB39 /* ExtensionSchedulePresetExceptions.swift */,
-				87BF1D8526B3EC8900230F97 /* ExtensionDefaultCard.swift */,
-				87BF1D8726B3ED9100230F97 /* ExtensionReviewDate.swift */,
-				87BF1D8926B3EEDD00230F97 /* ExtensionReviewInterval.swift */,
-				87BF1D8B26B3EFCA00230F97 /* ExtensionTimeInterval.swift */,
-				873B914226B4517900456D0E /* ExtensionEaseFactor.swift */,
-				8773256726A9B3D700CAD727 /* CardTypeMapper.swift */,
-				875392B826AA9E37008CFCC4 /* ContentTypeMapper.swift */,
-				87D3D05D2669FC6900D2B4DB /* ListRowHorizontalSeparated.swift */,
-				8701854426AF10CA00781CCF /* ImagePicker.swift */,
+				8750A3D32691EA8600837E24 /* Generic Views */,
+				870F474226B522D600BCEEC9 /* View Extensions */,
+				870F474326B522F600BCEEC9 /* View Type Mapper */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -644,6 +682,7 @@
 		87541C84265CE02B009E805D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				870F473926B519F100BCEEC9 /* Notifications */,
 				873259B826A9FB0500F3178F /* SchedulePreset */,
 				873259B726A9FB0200F3178F /* Deck */,
 				873259B426A9FA4B00F3178F /* Card */,
@@ -734,6 +773,7 @@
 		877B155826B136DB009FF1CC /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				870F473526B512DC00BCEEC9 /* NotificationService.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -741,6 +781,8 @@
 		877B155926B136DE009FF1CC /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				870F474626B5268200BCEEC9 /* Notification.swift */,
+				870F474426B523C700BCEEC9 /* DemoNotification.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1071,6 +1113,7 @@
 				87DA684D269CB976003F07A8 /* CardService.swift in Sources */,
 				875392B226AA762D008CFCC4 /* CardContentSheet.swift in Sources */,
 				87E3BB1A26B1AA67000901FF /* LearningStep.swift in Sources */,
+				870F473B26B51A0900BCEEC9 /* ManageNotifications.swift in Sources */,
 				875392B926AA9E37008CFCC4 /* ContentTypeMapper.swift in Sources */,
 				877B156226B152BB009FF1CC /* InputValidation.swift in Sources */,
 				87E3BB1426B1A04D000901FF /* FactorModifierException.swift in Sources */,
@@ -1151,6 +1194,7 @@
 				878ABC8E26AFD5F90031AB39 /* PresetEditorViewModel.swift in Sources */,
 				87BAFEB8269D8F9D003B3C71 /* ReviewType.swift in Sources */,
 				8795D2132663E135007C99D9 /* DeckListView.swift in Sources */,
+				870F474526B523C700BCEEC9 /* DemoNotification.swift in Sources */,
 				873B913726B436BE00456D0E /* CardTypePicker.swift in Sources */,
 				87DA684F269CB983003F07A8 /* CardRepository.swift in Sources */,
 				8745A6C926AAE7C800529587 /* SheetCardContentText.swift in Sources */,
@@ -1159,16 +1203,19 @@
 				877B157426B16966009FF1CC /* MinimumInterval.swift in Sources */,
 				876840C126AB12AF008384B3 /* CardBrowseView.swift in Sources */,
 				87B480BF2690669C00887C6A /* DefaultCard.swift in Sources */,
+				870F473626B512DC00BCEEC9 /* NotificationService.swift in Sources */,
 				871F11A8268F05CD00BF9A51 /* SchedulePreset.swift in Sources */,
 				871F75AE26A14379006431B8 /* CardAssembler.swift in Sources */,
 				87DA6847269CB93E003F07A8 /* SchedulerRepository.swift in Sources */,
 				877B155E26B150D7009FF1CC /* LearningSteps.swift in Sources */,
+				870F473F26B51DDE00BCEEC9 /* NotificationViewModel.swift in Sources */,
 				87BF1D8426B3EB2400230F97 /* ExtensionLearningState.swift in Sources */,
 				8701854526AF10CA00781CCF /* ImagePicker.swift in Sources */,
 				871F11B2268F245F00BF9A51 /* SchedulePresetException.swift in Sources */,
 				8762CFF426ABFD6900CBEA2F /* EditCardView.swift in Sources */,
 				878ABC9226AFD8360031AB39 /* ExtensionSchedulePresetExceptions.swift in Sources */,
 				871F75B026A148EB006431B8 /* DeckAssembler.swift in Sources */,
+				870F473D26B51B1700BCEEC9 /* NotificationForm.swift in Sources */,
 				87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */,
 				877B156426B156B2009FF1CC /* LapseSteps.swift in Sources */,
 				87C4971826AC791D0015823E /* CardException.swift in Sources */,
@@ -1179,6 +1226,7 @@
 				873B913F26B4389D00456D0E /* CardFormContentListing.swift in Sources */,
 				8757BBC926ADD87800B6C7B1 /* CustomStudyViewModel.swift in Sources */,
 				877B156A26B1636A009FF1CC /* EaseFactor.swift in Sources */,
+				870F474726B5268200BCEEC9 /* Notification.swift in Sources */,
 				8750A3CF2691E97A00837E24 /* DeleteDeckBottomSheet.swift in Sources */,
 				87BF1D7526B3B16D00230F97 /* EditDeck.swift in Sources */,
 				876840BD26AB0EB6008384B3 /* CardCreationService.swift in Sources */,
