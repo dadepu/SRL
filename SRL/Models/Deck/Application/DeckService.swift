@@ -39,7 +39,6 @@ struct DeckService {
         let preset = SchedulePresetService().getSchedulePresetOrDefault(forId: presetId)
         let newDeck = Deck(name: deckName, schedulePreset: preset)
         deckRepository.saveDeck(deck: newDeck)
-        ReviewQueueService().resetReviewQueue()
         return newDeck
     }
     
@@ -48,7 +47,7 @@ struct DeckService {
         if let deck = try? getDeck(forId: id) {
             cardDeletionService.deleteCards(forIds: deck.cards.map { key, value in key })
             deckRepository.deleteDeck(forId: deck.id)
-            ReviewQueueService().resetReviewQueue()
+            ReviewQueueService().resetReviewQueue(forDeckId: id)
         }
     }
     
@@ -72,7 +71,7 @@ struct DeckService {
             let newPersistentCard = cardCreationService.makeCard(cardType: cardType, schedulePresetId: schedulePresetId)
             let updatedDeck = deck.addedCard(card: newPersistentCard)
             deckRepository.saveDeck(deck: updatedDeck)
-            ReviewQueueService().resetReviewQueue()
+            ReviewQueueService().resetReviewQueue(forDeckId: deckId)
         }
         throw DeckException.EntityNotFound
     }

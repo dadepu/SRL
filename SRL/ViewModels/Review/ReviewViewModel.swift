@@ -10,36 +10,32 @@ import Combine
 
 class ReviewViewModel: ObservableObject {
     @Published private (set) var reviewQueue: ReviewQueue
-    private (set) var deckIds: [UUID]
+    private (set) var deckId: UUID
     private (set) var reviewType: ReviewType
     
     private var reviewQueueObserver: AnyCancellable?
     
     
-    init(deckIds: [UUID], reviewType: ReviewType) {
-        do {
-            self.reviewQueue = try ReviewQueueService().getReviewQueue()
-        } catch {
-            self.reviewQueue = ReviewQueueService().makeReviewQueue(deckIds: deckIds, reviewType: reviewType)
-        }
-        self.deckIds = deckIds
+    init(deckId: UUID, reviewType: ReviewType) {
+        self.reviewQueue = ReviewQueueService().makeReviewQueue(deckId: deckId, reviewType: reviewType)
+        self.deckId = deckId
         self.reviewType = reviewType
         
-        self.reviewQueueObserver = ReviewQueueService().getModelPublisher().sink { (updatedReviewQueue: ReviewQueue?) in
-            if updatedReviewQueue != nil {
-                self.reviewQueue = updatedReviewQueue!
-            } else {
-                self.reviewQueue = ReviewQueueService().makeReviewQueue(deckIds: deckIds, reviewType: reviewType)
+        self.reviewQueueObserver = ReviewQueueService().getModelPublisher().sink { (reviewQueues: [UUID:ReviewTypes]) in
+            // neue laden oder neue machen wenn gelöscht
+            guard let reviewQueue = reviewQueues[self.deckId]?.getQueue(type: reviewType) else {
+                self.reviewQueue = ReviewQueueService().makeReviewQueue(deckId: deckId, reviewType: reviewType)
+                return
             }
+            self.reviewQueue = reviewQueue
         }
     }
-
     
     func reviewCard(reviewAction: ReviewAction) {
         do {
-            self.reviewQueue = try ReviewQueueService().reviewCard(cardId: reviewQueue.currentCard!.id, reviewAction: reviewAction)
+            self.reviewQueue = try ReviewQueueService().reviewCard(deckId: deckId, cardId: reviewQueue.currentCard!.id, reviewType: reviewType, reviewAction: reviewAction)
         } catch {
-            self.reviewQueue = ReviewQueueService().makeReviewQueue(deckIds: reviewQueue.decks.map {deck in deck.id}, reviewType: reviewType)
+            self.reviewQueue = ReviewQueueService().makeReviewQueue(deckId: deckId, reviewType: reviewType)
         }
     }
 }

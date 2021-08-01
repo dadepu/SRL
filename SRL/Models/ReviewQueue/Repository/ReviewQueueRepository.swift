@@ -11,7 +11,7 @@ import Combine
 class ReviewQueueRepository {
     private static var instance: ReviewQueueRepository?
     
-    @Published private (set) var reviewQueue: ReviewQueue?
+    @Published private (set) var reviewQueue: [UUID:ReviewTypes] = [:]
     
     
     static func getInstance() -> ReviewQueueRepository {
@@ -26,15 +26,25 @@ class ReviewQueueRepository {
     
     
     
-    func getReviewQueue() -> ReviewQueue? {
-        reviewQueue
+    func getReviewQueue(deckId: UUID, reviewType: ReviewType) -> ReviewQueue? {
+        reviewQueue[deckId]?.getQueue(type: reviewType)
     }
     
-    func saveReviewQueue(_ reviewQueue: ReviewQueue) {
-        self.reviewQueue = reviewQueue
+    func saveReviewQueue(deckId: UUID, reviewType: ReviewType, queue: ReviewQueue) {
+        guard let currentReviewTypes = reviewQueue[deckId] else {
+            let newReviewTypes = ReviewTypes().hasSetQueue(type: reviewType, queue: queue)
+            reviewQueue[deckId] = newReviewTypes
+            return
+        }
+        let updatedReviewTypes = currentReviewTypes.hasSetQueue(type: reviewType, queue: queue)
+        reviewQueue[deckId] = updatedReviewTypes
     }
     
-    func deleteReviewQueue() {
-        reviewQueue = nil
+    func delete(forDeckId id: UUID) {
+        reviewQueue.removeValue(forKey: id)
+    }
+    
+    func deleteAll() {
+        reviewQueue = [:]
     }
 }

@@ -13,7 +13,6 @@ struct DeckView: View {
     
     @State private var isShowingBottomSheet: Bool = false
     @State private var bottomSheetRemovePosition: BottomSheetPosition = .hidden
-    @State private var navLinkDueCards: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -28,12 +27,9 @@ struct DeckView: View {
         List {
             Section(header: Text("Study")){
                 NavigationLink(
-                    destination: ReviewView(deckIds: [deckViewModel.deck.id], reviewType: .REGULAR),
-                    isActive: $navLinkDueCards,
+                    destination: ReviewView(reviewViewModel: ReviewViewModel(deckId: deckViewModel.deck.id, reviewType: .REGULAR)),
                     label: {
                         ListRowHorizontalSeparated(textLeft: {"Review"}, textRight: {"\(deckViewModel.reviewQueue.getReviewableCardCount())"})
-                    }).simultaneousGesture(TapGesture().onEnded {
-                        openReviewQueue()
                     }).disabled(!validateDeckHasReviewableCards())
                 NavigationLink(
                     destination: CustomStudyView(deckViewModel: deckViewModel),
@@ -44,7 +40,6 @@ struct DeckView: View {
             Section(header: Text("Actions")) {
                 NavigationLink(
                     destination: NewCard(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
-                        // CreateCardView(deckViewModel: deckViewModel, presetViewModel: presetViewModel),
                     label: {
                         Text("Add Cards")
                     })
@@ -76,11 +71,6 @@ struct DeckView: View {
         .navigationBarTitle(deckViewModel.deck.name, displayMode: .inline)
     }
     
-    
-    private func openReviewQueue() {
-        ReviewQueueService().makeReviewQueue(deckIds: [deckViewModel.deck.id], reviewType: .REGULAR)
-        navLinkDueCards = true
-    }
     
     private func validateDeckHasCards() -> Bool {
         deckViewModel.orderedCards.count > 0

@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct ReviewView: View {
-    @ObservedObject private var reviewViewModel: ReviewViewModel
+    @ObservedObject var reviewViewModel: ReviewViewModel
     
     @State private var displayMode: DisplayMode = .question
     
-    
-    init(deckIds: [UUID], reviewType: ReviewType) {
-        self.reviewViewModel = ReviewViewModel(deckIds: deckIds, reviewType: reviewType)
-    }
     
 
     var body: some View {

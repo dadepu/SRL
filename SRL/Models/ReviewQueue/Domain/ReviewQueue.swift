@@ -119,10 +119,10 @@ struct ReviewQueue: Identifiable, Codable {
             scheduler.isDueForReview
         }
         case .LEARNING: return { (scheduler: Scheduler) in
-            scheduler.learningState == .LEARNING
+            scheduler.isDueForReview && scheduler.learningState == .LEARNING
         }
         case .LAPSING: return { (scheduler: Scheduler) in
-            scheduler.learningState == .LAPSE
+            scheduler.isDueForReview && scheduler.learningState == .LAPSE
         }
         case .LOCKAHEAD(let days): return { (scheduler: Scheduler) in
             (scheduler.remainingReviewInterval - Double(days * 24 * 60 * 60)) < 0

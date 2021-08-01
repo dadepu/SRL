@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8701854526AF10CA00781CCF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701854426AF10CA00781CCF /* ImagePicker.swift */; };
 		8701854826AF1F3E00781CCF /* ImageEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8701854726AF1F3E00781CCF /* ImageEncoder.swift */; };
+		8703B9B726B64B83007572B6 /* ReviewTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8703B9B626B64B83007572B6 /* ReviewTypes.swift */; };
 		870F473626B512DC00BCEEC9 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870F473526B512DC00BCEEC9 /* NotificationService.swift */; };
 		870F473B26B51A0900BCEEC9 /* ManageNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870F473A26B51A0900BCEEC9 /* ManageNotifications.swift */; };
 		870F473D26B51B1700BCEEC9 /* NotificationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870F473C26B51B1700BCEEC9 /* NotificationForm.swift */; };
@@ -167,6 +168,7 @@
 /* Begin PBXFileReference section */
 		8701854426AF10CA00781CCF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8701854726AF1F3E00781CCF /* ImageEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEncoder.swift; sourceTree = "<group>"; };
+		8703B9B626B64B83007572B6 /* ReviewTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTypes.swift; sourceTree = "<group>"; };
 		870F473526B512DC00BCEEC9 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		870F473A26B51A0900BCEEC9 /* ManageNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageNotifications.swift; sourceTree = "<group>"; };
 		870F473C26B51B1700BCEEC9 /* NotificationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationForm.swift; sourceTree = "<group>"; };
@@ -937,6 +939,7 @@
 				871F1191268ED10E00BF9A51 /* ReviewQueue.swift */,
 				87541C94265CF1E4009E805D /* ReviewAction.swift */,
 				87BAFEB7269D8F9D003B3C71 /* ReviewType.swift */,
+				8703B9B626B64B83007572B6 /* ReviewTypes.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1194,6 +1197,7 @@
 				870F473D26B51B1700BCEEC9 /* NotificationForm.swift in Sources */,
 				87A110CA265ED23A00F0D4B6 /* LearningState.swift in Sources */,
 				877B156426B156B2009FF1CC /* LapseSteps.swift in Sources */,
+				8703B9B726B64B83007572B6 /* ReviewTypes.swift in Sources */,
 				87C4971826AC791D0015823E /* CardException.swift in Sources */,
 				873B914326B4517900456D0E /* ExtensionEaseFactor.swift in Sources */,
 				87E3BB1C26B1AA6E000901FF /* LapseStep.swift in Sources */,

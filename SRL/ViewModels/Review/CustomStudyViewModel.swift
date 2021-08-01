@@ -9,26 +9,25 @@ import Foundation
 import Combine
 
 class CustomStudyViewModel: ObservableObject {
-    @Published private (set) var currentReviewQueue: ReviewQueue?
-    
     @Published private (set) var regularReviewQueue: ReviewQueue
     @Published private (set) var learningReviewQueue: ReviewQueue
     @Published private (set) var forgottenReviewQueue: ReviewQueue
     @Published private (set) var allReviewQueue: ReviewQueue
     
+    private var deckId: UUID
+    
     private var deckObserver: AnyCancellable?
-    private var reviewQueueObserver: AnyCancellable?
     
     
-    init(deckIds: [UUID]) {
-        self.currentReviewQueue = try? ReviewQueueService().getReviewQueue()
-        self.regularReviewQueue = ReviewQueueService().makeTransientQueue(deckIds: deckIds, reviewType: .REGULAR)
-        self.learningReviewQueue = ReviewQueueService().makeTransientQueue(deckIds: deckIds, reviewType: .LEARNING)
-        self.forgottenReviewQueue = ReviewQueueService().makeTransientQueue(deckIds: deckIds, reviewType: .LAPSING)
-        self.allReviewQueue = ReviewQueueService().makeTransientQueue(deckIds: deckIds, reviewType: .ALLCARDS)
+    init(deckId: UUID) {
+        self.deckId = deckId
+        self.regularReviewQueue = ReviewQueueService().makeTransientQueue(deckId: deckId, reviewType: .REGULAR)
+        self.learningReviewQueue = ReviewQueueService().makeTransientQueue(deckId: deckId, reviewType: .LEARNING)
+        self.forgottenReviewQueue = ReviewQueueService().makeTransientQueue(deckId: deckId, reviewType: .LAPSING)
+        self.allReviewQueue = ReviewQueueService().makeTransientQueue(deckId: deckId, reviewType: .ALLCARDS)
         
-        self.reviewQueueObserver = ReviewQueueService().getModelPublisher().sink { (reviewQueue: ReviewQueue?) in
-            self.currentReviewQueue = reviewQueue
+        deckObserver = DeckService().getModelPublisher().sink { (decks: [UUID:Deck]) in
+            // rebuild queues
         }
     }
 }

@@ -63,6 +63,6 @@ class StoreViewModel: ObservableObject {
     }
     
     private static func getDefaultReviewQueue(deck: Deck) -> ReviewQueue {
-        ReviewQueueService().makeTransientQueue(deckIds: [deck.id], reviewType: .REGULAR)
+        ReviewQueueService().makeTransientQueue(deckId: deck.id, reviewType: .REGULAR)
     }
 }
