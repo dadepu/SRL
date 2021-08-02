@@ -82,7 +82,6 @@
 		877B156226B152BB009FF1CC /* InputValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B156126B152BB009FF1CC /* InputValidation.swift */; };
 		877B156426B156B2009FF1CC /* LapseSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B156326B156B2009FF1CC /* LapseSteps.swift */; };
 		877B156626B15C1F009FF1CC /* EasyIntervalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B156526B15C1F009FF1CC /* EasyIntervalModifier.swift */; };
-		877B156826B1617D009FF1CC /* OutputRangeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B156726B1617D009FF1CC /* OutputRangeBuilder.swift */; };
 		877B156A26B1636A009FF1CC /* EaseFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B156926B1636A009FF1CC /* EaseFactor.swift */; };
 		877B156C26B1684C009FF1CC /* EasyFactorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B156B26B1684C009FF1CC /* EasyFactorModifier.swift */; };
 		877B156E26B168CA009FF1CC /* NormalFactorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877B156D26B168CA009FF1CC /* NormalFactorModifier.swift */; };
@@ -247,7 +246,6 @@
 		877B156126B152BB009FF1CC /* InputValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidation.swift; sourceTree = "<group>"; };
 		877B156326B156B2009FF1CC /* LapseSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LapseSteps.swift; sourceTree = "<group>"; };
 		877B156526B15C1F009FF1CC /* EasyIntervalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyIntervalModifier.swift; sourceTree = "<group>"; };
-		877B156726B1617D009FF1CC /* OutputRangeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputRangeBuilder.swift; sourceTree = "<group>"; };
 		877B156926B1636A009FF1CC /* EaseFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EaseFactor.swift; sourceTree = "<group>"; };
 		877B156B26B1684C009FF1CC /* EasyFactorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyFactorModifier.swift; sourceTree = "<group>"; };
 		877B156D26B168CA009FF1CC /* NormalFactorModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalFactorModifier.swift; sourceTree = "<group>"; };
@@ -342,7 +340,6 @@
 			isa = PBXGroup;
 			children = (
 				8701854726AF1F3E00781CCF /* ImageEncoder.swift */,
-				877B156726B1617D009FF1CC /* OutputRangeBuilder.swift */,
 				877B156126B152BB009FF1CC /* InputValidation.swift */,
 			);
 			path = DomainPrimitives;
@@ -1108,7 +1105,6 @@
 				87946B69268F996600CEAA98 /* SchedulePresetRepository.swift in Sources */,
 				877BF8CD26921CC300710AD2 /* NewPreset.swift in Sources */,
 				877B156C26B1684C009FF1CC /* EasyFactorModifier.swift in Sources */,
-				877B156826B1617D009FF1CC /* OutputRangeBuilder.swift in Sources */,
 				8783F50726AEAD480079BA07 /* ReviewQueueRepository.swift in Sources */,
 				873B913B26B4374200456D0E /* CardSchedulePresetPicker.swift in Sources */,
 				8750A3CB2691B92800837E24 /* PresetViewModel.swift in Sources */,

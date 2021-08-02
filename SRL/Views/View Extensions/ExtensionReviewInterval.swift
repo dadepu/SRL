@@ -30,3 +30,4 @@ extension ReviewInterval {
         return "\(days)d"
     }
 }
+

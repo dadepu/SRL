@@ -21,7 +21,8 @@ struct LearningSteps: InputValidation, Codable{
         guard feedback == .OK else {
             throw feedback
         }
-        let stepsSeconds: [TimeInterval] = stepsMinutes.split(separator: " ").map { subStr in Double(String(subStr))! * 60 }
+        let stepsSeconds: [TimeInterval] = stepsMinutes.split(separator: " ")
+            .map { subStr in Double(String(subStr))! * 60 }
         return LearningSteps(stepsSeconds: stepsSeconds)
     }
     

@@ -13,8 +13,8 @@ struct CardContentForm<ActionButton: View>: View {
     @State var formImage: Image? = nil
 
     @State private var inputImage: UIImage?
-    @State private var imagePickerSourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var isShowingImagePicker: Bool = false
+    @State private var isShowingImagePickerCamera: Bool = false
     
     
     var allowedContentTypes: [ContentTypeMapper]
@@ -33,7 +33,7 @@ struct CardContentForm<ActionButton: View>: View {
                 case .Text:
                     TextContentView(formTextContent: $formTextContent)
                 case .Image:
-                    ImageContentView(inputImage: $inputImage, formImage: $formImage, imagePickerSourceType: $imagePickerSourceType, isShowingImagePicker: $isShowingImagePicker)
+                    ImageContentView(inputImage: $inputImage, formImage: $formImage, isShowingImagePicker: $isShowingImagePicker, isShowingImagePickerCamera: $isShowingImagePickerCamera)
                 }
                 
             }
@@ -47,7 +47,8 @@ struct CardContentForm<ActionButton: View>: View {
             }
         }
         .listStyle(GroupedListStyle())
-        .sheet(isPresented: $isShowingImagePicker, content: { ImagePicker(image: self.$inputImage, sourceType: imagePickerSourceType) })
+        .sheet(isPresented: $isShowingImagePicker, content: { ImagePicker(image: self.$inputImage, sourceType: .photoLibrary) })
+        .sheet(isPresented: $isShowingImagePickerCamera, content: { ImagePicker(image: self.$inputImage, sourceType: .camera) })
     }
 
     
@@ -81,8 +82,8 @@ struct CardContentForm<ActionButton: View>: View {
     private struct ImageContentView: View {
         @Binding var inputImage: UIImage?
         @Binding var formImage: Image?
-        @Binding var imagePickerSourceType: UIImagePickerController.SourceType
         @Binding var isShowingImagePicker: Bool
+        @Binding var isShowingImagePickerCamera: Bool
         @State private var pasteboard = UIPasteboard.general
         @State private var alertShowing: Bool = false
         
@@ -96,7 +97,6 @@ struct CardContentForm<ActionButton: View>: View {
                     }
             }
             Button(action: {
-                imagePickerSourceType = .photoLibrary
                 isShowingImagePicker = true
             }, label: {
                 Text("From Gallery")
@@ -105,8 +105,7 @@ struct CardContentForm<ActionButton: View>: View {
                 Text("From Pasteboard")
             })
             Button(action: {
-                imagePickerSourceType = .camera
-                isShowingImagePicker = true
+                isShowingImagePickerCamera = true
             }, label: {
                 Text("From Camera")
             })
